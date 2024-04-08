@@ -12,7 +12,8 @@
     "cvat-core",
     "cvat-canvas",
     "cvat-canvas3d",
-    "cvat-ui"
+    "cvat-ui",
+    "cvat-inject-i18n"
   ],
   "devDependencies": {
     "@babel/cli": "^7.13.16",

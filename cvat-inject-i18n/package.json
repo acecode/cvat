@@ -1,0 +1,32 @@
+{
+  "name": "cvat-inject-i18n",
+  "version": "0.1.0",
+  "description": "wrap string to i18n calls",
+  "main": "lib/index.js",
+  "author": "Ace Code<acecode.tk@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "bin": {
+    "inject-i18n": "./bin/cli.js",
+    "inject-i18n-server": "./bin/server.js"
+  },
+
+  "scripts": {
+    "build": "rm -r lib && tsc",
+    "dev": "ts-node src/index.ts",
+    "lint": "eslint '**/*.{js,ts}' --fix"
+  },
+  "dependencies": {
+    "@babel/core": "^7.24.4",
+    "commander": "^12.0.0",
+    "debug": "^4.3.4",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.3.12"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "@types/node": "^20.12.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
+  }
+}
