@@ -10,9 +10,8 @@
     "inject-i18n": "./bin/cli.js",
     "inject-i18n-server": "./bin/server.js"
   },
-
   "scripts": {
-    "build": "rm -r lib && tsc",
+    "build": "tsc",
     "dev": "ts-node src/index.ts",
     "lint": "eslint '**/*.{js,ts}' --fix"
   },
@@ -24,7 +23,10 @@
     "glob": "^10.3.12"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.24.1",
+    "@babel/plugin-syntax-typescript": "^7.24.1",
     "@types/debug": "^4.1.12",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.12.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3"

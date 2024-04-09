@@ -13,7 +13,6 @@ module.exports = {
     },
     ignorePatterns: [
         '.eslintrc.cjs',
-        'webpack.config.js',
         'demo/*',
         'node_modules/**',
         'demo-dist/**',
