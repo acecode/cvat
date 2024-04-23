@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: MIT
 
 import React from 'react';
+import { Translation } from 'react-i18next';
 
 const NO_BREAK_SPACE = '\u00a0';
 const UNDEFINED_ATTRIBUTE_VALUE = '__undefined__';
@@ -53,20 +54,29 @@ const DEFAULT_AWS_S3_REGIONS: string[][] = [
 ];
 
 const SERVER_UNAVAILABLE_COMPONENT = (
-    <>
-        Make sure the CVAT backend and all necessary services
-        (Database, Redis and Open Policy Agent) are running and available.
-        If you upgraded from version 2.2.0 or earlier, manual actions may be needed,
-        see the&nbsp;
-        <a
-            target='_blank'
-            rel='noopener noreferrer'
-            href={UPGRADE_GUIDE_URL}
-        >
-            Upgrade Guide
-        </a>
-        .
-    </>
+    <Translation>
+        {
+            (t) => (
+                <>
+                    {
+                        t(`Make sure the CVAT backend and all necessary services
+                        (Database, Redis and Open Policy Agent) are running and available.
+                        If you upgraded from version 2.2.0 or earlier, manual actions may be needed,
+                        see the`)
+                    }
+                    &nbsp;
+                    <a
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        href={UPGRADE_GUIDE_URL}
+                    >
+                        {t('Upgrade Guide', 'Upgrade Guide')}
+                    </a>
+                    .
+                </>
+            )
+        }
+    </Translation>
 );
 
 const DEFAULT_GOOGLE_CLOUD_STORAGE_LOCATIONS: string[][] = [
@@ -108,7 +118,7 @@ const DEFAULT_GOOGLE_CLOUD_STORAGE_LOCATIONS: string[][] = [
     ['NAM4', 'US-CENTRAL1 and US-EAST1'],
 ];
 
-const HEALTH_CHECK_RETRIES = 10;
+const HEALTH_CHECK_RETRIES = 1;
 const HEALTH_CHECK_PERIOD = 3000; // ms
 const HEALTH_CHECK_REQUEST_TIMEOUT = 5000; // ms
 

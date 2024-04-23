@@ -15,6 +15,7 @@ import { DisconnectOutlined } from '@ant-design/icons';
 import Space from 'antd/lib/space';
 import Text from 'antd/lib/typography/Text';
 import ReactMarkdown from 'react-markdown';
+import { Translation } from 'react-i18next';
 import 'antd/dist/antd.css';
 
 import LogoutComponent from 'components/logout-component';
@@ -603,7 +604,11 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
             );
         }
 
-        return <Spin size='large' className='cvat-spinner' tip='Connecting...' />;
+        return (
+            <Translation>
+                { (t) => <Spin size='large' className='cvat-spinner' tip={t('app.connecting', 'Connecting...')} />}
+            </Translation>
+        );
     }
 }
 

@@ -26,6 +26,8 @@ import { getInvitationsAsync } from 'actions/invitations-actions';
 import { getServerAPISchemaAsync } from 'actions/server-actions';
 import { CombinedState, NotificationsState, PluginsState } from './reducers';
 
+import './i18n';
+
 createCVATStore(createRootReducer);
 
 const cvatStore = getCVATStore();
