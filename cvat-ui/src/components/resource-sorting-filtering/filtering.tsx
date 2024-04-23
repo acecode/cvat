@@ -19,6 +19,7 @@ import Menu from 'antd/lib/menu';
 import { useSelector } from 'react-redux';
 import { CombinedState } from 'reducers';
 import { User } from 'cvat-core-wrapper';
+import { useTranslation, getI18n } from 'react-i18next';
 
 interface ResourceFilterProps {
     predefinedVisible?: boolean;
@@ -37,8 +38,36 @@ export default function ResourceFilterHOC(
     localStorageRecentKeyword: string,
     localStorageRecentCapacity: number,
     predefinedFilterValues?: Record<string, string>,
+    argT = (txt: string) => txt,
 ): React.FunctionComponent<ResourceFilterProps> {
     const config: Config = { ...AntdConfig, ...filtrationCfg };
+
+    const i18n = getI18n();
+    if (i18n && i18n.isInitialized) {
+        // TODO listen to load event, then patch QbUtils inner Config;
+        const res = i18n.getResourceBundle(i18n.language, 'translation');
+        if (res?.QbUtils) {
+            const qb = res.QbUtils;
+            Object.entries(qb.labels).forEach(([k, v]) => {
+                // @ts-ignore
+                config.settings[k] = v;
+            });
+            Object.entries(qb.conjunctions)
+                .forEach(([k, v]) => {
+                    if (config.conjunctions[k] && config.conjunctions[k].label) {
+                        // @ts-ignore
+                        config.conjunctions[k].label = v;
+                    }
+                });
+            Object.entries(qb.operators)
+                .forEach(([k, v]) => {
+                    if (config.operators[k] && config.operators[k].label) {
+                        // @ts-ignore
+                        config.operators[k].label = v;
+                    }
+                });
+        }
+    }
     const defaultTree = QbUtils.checkTree(
         QbUtils.loadTree({ id: QbUtils.uuid(), type: 'group' }), config,
     ) as ImmutableTree;
@@ -125,6 +154,8 @@ export default function ResourceFilterHOC(
         const [recentFilters, setRecentFilters] = useState<Record<string, string>>({});
         const [appliedFilter, setAppliedFilter] = useState(defaultAppliedFilter);
         const [state, setState] = useState<ImmutableTree>(defaultTree);
+
+        const { t } = useTranslation('translation', { keyPrefix: 'resource-sorting-filter' });
 
         useEffect(() => {
             setRecentFilters(receiveRecentFilters());
@@ -233,7 +264,7 @@ export default function ResourceFilterHOC(
                                             }}
                                             key={key}
                                         >
-                                            {key}
+                                            {argT(key)}
                                         </Checkbox>
                                     )) }
                                 </div>
@@ -244,7 +275,7 @@ export default function ResourceFilterHOC(
                                 type='default'
                                 onClick={() => onPredefinedVisibleChange(!predefinedVisible)}
                             >
-                                Quick filters
+                                {t('quick-filters')}
                                 { appliedFilter.predefined ?
                                     <FilterFilled /> :
                                     <FilterOutlined />}
@@ -304,7 +335,7 @@ export default function ResourceFilterHOC(
                                             () => onRecentVisibleChange(!recentVisible)
                                         }
                                     >
-                                        Recent
+                                        {t('Resent')}
                                         <DownOutlined />
                                     </Button>
                                 </Dropdown>
@@ -332,7 +363,7 @@ export default function ResourceFilterHOC(
                                         });
                                     }}
                                 >
-                                    Reset
+                                    {t('Reset')}
                                 </Button>
                                 <Button
                                     className='cvat-apply-filters-button'
@@ -351,14 +382,14 @@ export default function ResourceFilterHOC(
                                         });
                                     }}
                                 >
-                                    Apply
+                                    {t('Apply')}
                                 </Button>
                             </Space>
                         </div>
                     )}
                 >
                     <Button className='cvat-switch-filters-constructor-button' type='default' onClick={() => onBuilderVisibleChange(!builderVisible)}>
-                        Filter
+                        {t('Filter')}
                         { appliedFilter.built || appliedFilter.recent ?
                             <FilterFilled /> :
                             <FilterOutlined />}
@@ -371,7 +402,7 @@ export default function ResourceFilterHOC(
                     type='link'
                     onClick={() => { setAppliedFilter({ ...defaultAppliedFilter }); }}
                 >
-                    Clear filters
+                    {t('clear-filters')}
                 </Button>
             </div>
         );

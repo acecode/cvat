@@ -14,6 +14,7 @@ import Dropdown from 'antd/lib/dropdown';
 import Button from 'antd/lib/button';
 import Badge from 'antd/lib/badge';
 import { MoreOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { CombinedState, Project } from 'reducers';
 import { useCardHeightHOC, usePlugins } from 'utils/hooks';
@@ -44,6 +45,7 @@ export default function ProjectItemComponent(props: Props): JSX.Element {
     const updated = moment(instance.updatedDate).fromNow();
     const deletes = useSelector((state: CombinedState) => state.projects.activities.deletes);
     const deleted = instance.id in deletes ? deletes[instance.id] : false;
+    const { t } = useTranslation('projects', { keyPrefix: 'item' });
 
     const onOpenProject = (): void => {
         history.push(`/projects/${instance.id}`);
@@ -95,11 +97,13 @@ export default function ProjectItemComponent(props: Props): JSX.Element {
                             <div>
                                 {ownerName && (
                                     <>
-                                        <Text type='secondary'>{`Created ${ownerName ? `by ${ownerName}` : ''}`}</Text>
+                                        <Text type='secondary'>
+                                            {ownerName ? t('created_by', { ownerName }) : t('created')}
+                                        </Text>
                                         <br />
                                     </>
                                 )}
-                                <Text type='secondary'>{`Last updated ${updated}`}</Text>
+                                <Text type='secondary'>{t('last-updated', { updated })}</Text>
                             </div>
                             <div>
                                 <Dropdown

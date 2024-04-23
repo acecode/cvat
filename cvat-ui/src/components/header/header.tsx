@@ -40,11 +40,13 @@ import CVATTooltip from 'components/common/cvat-tooltip';
 import { switchSettingsModalVisible as switchSettingsModalVisibleAction } from 'actions/settings-actions';
 import { logoutAsync, authActions } from 'actions/auth-actions';
 import { shortcutsActions } from 'actions/shortcuts-actions';
+import { useTranslation } from 'react-i18next';
 import { AboutState, CombinedState } from 'reducers';
 import { useIsMounted, usePlugins } from 'utils/hooks';
 import GlobalHotKeys, { KeyMap } from 'utils/mousetrap-react';
 import SettingsModal from './settings-modal/settings-modal';
 import OrganizationsSearch from './organizations-search';
+import { SwitchLocaleButton } from '../change-locale/change-locale';
 
 interface StateToProps {
     user: any;
@@ -154,6 +156,7 @@ function HeaderComponent(props: Props): JSX.Element {
     const isMounted = useIsMounted();
     const [listFetching, setListFetching] = useState(false);
     const [organizationsList, setOrganizationList] = useState<Organization[] | null>(null);
+    const { t } = useTranslation();
 
     const searchCallback = useCallback((search?: string): Promise<Organization[]> => new Promise((resolve, reject) => {
         const promise = core.organizations.get(search ? { search } : {});
@@ -178,7 +181,7 @@ function HeaderComponent(props: Props): JSX.Element {
         }).catch((error: unknown) => {
             setOrganizationList([]);
             notification.error({
-                message: 'Could not receive a list of organizations',
+                message: t('header.error-search-organizations'),
                 description: error instanceof Error ? error.message : '',
             });
         });
@@ -212,21 +215,21 @@ function HeaderComponent(props: Props): JSX.Element {
     aboutLinks.push([(
         <Col>
             <a href={CHANGELOG_URL} target='_blank' rel='noopener noreferrer'>
-                What&apos;s new?
+                {t('header.about.changelog')}
             </a>
         </Col>
     ), 0]);
     aboutLinks.push([(
         <Col>
             <a href={LICENSE_URL} target='_blank' rel='noopener noreferrer'>
-                MIT License
+                {t('header.about.license')}
             </a>
         </Col>
     ), 10]);
     aboutLinks.push([(
         <Col>
             <a href={DISCORD_URL} target='_blank' rel='noopener noreferrer'>
-                Find us on Discord
+                {t('header.about.discord')}
             </a>
         </Col>
     ), 20]);
@@ -241,19 +244,27 @@ function HeaderComponent(props: Props): JSX.Element {
                 <div>
                     <p>{`${about.server.description}`}</p>
                     <p>
-                        <Text strong>Server version:</Text>
+                        <Text strong>
+                            {t('header.about.version.server')}
+                        </Text>
                         <Text type='secondary'>{` ${about.server.version}`}</Text>
                     </p>
                     <p>
-                        <Text strong>Core version:</Text>
+                        <Text strong>
+                            {t('header.about.version.core')}
+                        </Text>
                         <Text type='secondary'>{` ${about.packageVersion.core}`}</Text>
                     </p>
                     <p>
-                        <Text strong>Canvas version:</Text>
+                        <Text strong>
+                            {t('header.about.version.canvas')}
+                        </Text>
                         <Text type='secondary'>{` ${about.packageVersion.canvas}`}</Text>
                     </p>
                     <p>
-                        <Text strong>UI version:</Text>
+                        <Text strong>
+                            {t('header.about.version.ui')}
+                        </Text>
                         <Text type='secondary'>{` ${about.packageVersion.ui}`}</Text>
                     </p>
                     <Row justify='space-around'>
@@ -308,7 +319,7 @@ function HeaderComponent(props: Props): JSX.Element {
                     window.open('/admin', '_blank');
                 }}
             >
-                Admin page
+                {t('header.menu.admin')}
             </Menu.Item>
         ), 0]);
     }
@@ -318,12 +329,12 @@ function HeaderComponent(props: Props): JSX.Element {
         <Menu.SubMenu
             disabled={organizationFetching || listFetching}
             key='organization'
-            title='Organization'
+            title={t('header.menu.organization')}
             icon={organizationFetching || listFetching ? <LoadingOutlined /> : <TeamOutlined />}
         >
             {currentOrganization ? (
                 <Menu.Item icon={<SettingOutlined />} key='open_organization' onClick={() => history.push('/organization')} className='cvat-header-menu-open-organization'>
-                    Settings
+                    {t('header.menu.settings')}
                 </Menu.Item>
             ) : null}
             <Menu.Item
@@ -334,7 +345,7 @@ function HeaderComponent(props: Props): JSX.Element {
                     history.push('/invitations');
                 }}
             >
-                Invitations
+                {t('header.menu.invitations')}
             </Menu.Item>
             <Menu.Item icon={<PlusOutlined />} key='create_organization' onClick={() => history.push('/organizations/create')} className='cvat-header-menu-create-organization'>Create</Menu.Item>
             { !!organizationsList && viewType === 'list' && (
@@ -343,7 +354,7 @@ function HeaderComponent(props: Props): JSX.Element {
                     onClick={() => {
                         Modal.confirm({
                             icon: undefined,
-                            title: 'Select an organization',
+                            title: t('header.menu.switch-organization-title'),
                             okButtonProps: {
                                 style: { display: 'none' },
                             },
@@ -358,7 +369,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         });
                     }}
                 >
-                    Switch organization
+                    {t('header.menu.switch-organization')}
                 </Menu.Item>
             )}
             { !!organizationsList && viewType === 'menu' && (
@@ -396,13 +407,13 @@ function HeaderComponent(props: Props): JSX.Element {
             title={`Press ${switchSettingsShortcut} to switch`}
             onClick={() => switchSettingsModalVisible(true)}
         >
-            Settings
+            {t('header.menu.settings')}
         </Menu.Item>
     ), 20]);
 
     menuItems.push([(
         <Menu.Item icon={<InfoCircleOutlined />} key='about' onClick={() => showAboutModal()}>
-            About
+            {t('header.menu.about')}
         </Menu.Item>
     ), 30]);
 
@@ -415,7 +426,7 @@ function HeaderComponent(props: Props): JSX.Element {
                 onClick={(): void => switchChangePasswordModalVisible(true)}
                 disabled={changePasswordFetching}
             >
-                Change password
+                {t('header.menu.change-password')}
             </Menu.Item>
         ), 40]);
     }
@@ -429,7 +440,7 @@ function HeaderComponent(props: Props): JSX.Element {
             }}
             disabled={logoutFetching}
         >
-            Logout
+            {t('header.menu.logout')}
         </Menu.Item>
     ), 50]);
 
@@ -469,7 +480,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         history.push('/projects');
                     }}
                 >
-                    Projects
+                    {t('header.menu.projects')}
                 </Button>
                 <Button
                     className={getButtonClassName('tasks')}
@@ -481,7 +492,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         history.push('/tasks');
                     }}
                 >
-                    Tasks
+                    {t('header.menu.tasks')}
                 </Button>
                 <Button
                     className={getButtonClassName('jobs')}
@@ -493,7 +504,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         history.push('/jobs');
                     }}
                 >
-                    Jobs
+                    {t('header.menu.jobs')}
                 </Button>
                 <Button
                     className={getButtonClassName('cloudstorages')}
@@ -505,7 +516,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         history.push('/cloudstorages');
                     }}
                 >
-                    Cloud Storages
+                    {t('header.menu.cloud-storages')}
                 </Button>
                 {isModelsPluginActive ? (
                     <Button
@@ -518,7 +529,7 @@ function HeaderComponent(props: Props): JSX.Element {
                             history.push('/models');
                         }}
                     >
-                        Models
+                        {t('header.menu.models')}
                     </Button>
                 ) : null}
                 {isAnalyticsPluginActive && user.isSuperuser ? (
@@ -531,12 +542,12 @@ function HeaderComponent(props: Props): JSX.Element {
                             window.open('/analytics', '_blank');
                         }}
                     >
-                        Analytics
+                        {t('header.menu.analytics')}
                     </Button>
                 ) : null}
             </div>
             <div className='cvat-right-header'>
-                <CVATTooltip overlay='Click to open repository'>
+                <CVATTooltip overlay={t('header.tooltip.github')}>
                     <Button
                         icon={<GithubOutlined />}
                         size='large'
@@ -549,7 +560,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         }}
                     />
                 </CVATTooltip>
-                <CVATTooltip overlay='Click to open guide'>
+                <CVATTooltip overlay={t('header.tooltip.guide')}>
                     <Button
                         icon={<QuestionCircleOutlined />}
                         size='large'
@@ -561,6 +572,9 @@ function HeaderComponent(props: Props): JSX.Element {
                             window.open(GUIDE_URL, '_blank');
                         }}
                     />
+                </CVATTooltip>
+                <CVATTooltip overlay={t('header.tooltip.locales')}>
+                    <SwitchLocaleButton />
                 </CVATTooltip>
                 <Dropdown
                     trigger={['click']}

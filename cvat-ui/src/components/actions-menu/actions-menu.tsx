@@ -11,6 +11,7 @@ import { DimensionType, CVATCore } from 'cvat-core-wrapper';
 import Menu, { MenuInfo } from 'components/dropdown-menu';
 import { usePlugins } from 'utils/hooks';
 import { CombinedState } from 'reducers';
+import { useTranslation } from 'react-i18next';
 
 type AnnotationFormats = Awaited<ReturnType<CVATCore['server']['formats']>>;
 
@@ -47,7 +48,11 @@ function ActionsMenuComponent(props: Props): JSX.Element {
         backupIsActive,
         onClickMenu,
     } = props;
-
+    const { t: tTaskActions } = useTranslation('task', { keyPrefix: 'actions' });
+    const { t: tConfirmDelete } = useTranslation(
+        'task',
+        { keyPrefix: 'modal-confirm-delete' },
+    );
     const plugins = usePlugins((state: CombinedState) => state.plugins.components.taskActions.items, props);
 
     const onClickMenuWrapper = useCallback(
@@ -58,8 +63,8 @@ function ActionsMenuComponent(props: Props): JSX.Element {
 
             if (params.key === Actions.DELETE_TASK) {
                 Modal.confirm({
-                    title: `The task ${taskID} will be deleted`,
-                    content: 'All related data (images, annotations) will be lost. Continue?',
+                    title: tConfirmDelete('title', { taskID }),
+                    content: tConfirmDelete('content'),
                     className: 'cvat-modal-confirm-delete-task',
                     onOk: () => {
                         onClickMenu(params);
@@ -68,7 +73,7 @@ function ActionsMenuComponent(props: Props): JSX.Element {
                         type: 'primary',
                         danger: true,
                     },
-                    okText: 'Delete',
+                    okText: tConfirmDelete('okText'),
                 });
             } else {
                 onClickMenu(params);
@@ -79,22 +84,22 @@ function ActionsMenuComponent(props: Props): JSX.Element {
 
     const menuItems: [JSX.Element, number][] = [];
     menuItems.push([(
-        <Menu.Item key={Actions.LOAD_TASK_ANNO}>Upload annotations</Menu.Item>
+        <Menu.Item key={Actions.LOAD_TASK_ANNO}>{tTaskActions('upload-annotations')}</Menu.Item>
     ), 0]);
 
     menuItems.push([(
-        <Menu.Item key={Actions.EXPORT_TASK_DATASET}>Export task dataset</Menu.Item>
+        <Menu.Item key={Actions.EXPORT_TASK_DATASET}>{tTaskActions('export-task-dataset')}</Menu.Item>
     ), 10]);
 
     if (bugTracker) {
         menuItems.push([(
-            <Menu.Item key={Actions.OPEN_BUG_TRACKER}>Open bug tracker</Menu.Item>
+            <Menu.Item key={Actions.OPEN_BUG_TRACKER}>{tTaskActions('open-bug-tracker')}</Menu.Item>
         ), 20]);
     }
 
     menuItems.push([(
         <Menu.Item disabled={inferenceIsActive} key={Actions.RUN_AUTO_ANNOTATION}>
-            Automatic annotation
+            {tTaskActions('automatic-annotation')}
         </Menu.Item>
     ), 30]);
 
@@ -104,7 +109,7 @@ function ActionsMenuComponent(props: Props): JSX.Element {
             disabled={backupIsActive}
             icon={backupIsActive && <LoadingOutlined id='cvat-backup-task-loading' />}
         >
-            Backup Task
+            {tTaskActions('backup-task')}
         </Menu.Item>
     ), 40]);
 
@@ -112,20 +117,20 @@ function ActionsMenuComponent(props: Props): JSX.Element {
         <Menu.Item
             key={Actions.VIEW_ANALYTICS}
         >
-            View analytics
+            {tTaskActions('view-analytics')}
         </Menu.Item>
     ), 50]);
 
     if (projectID === null) {
         menuItems.push([(
-            <Menu.Item key={Actions.MOVE_TASK_TO_PROJECT}>Move to project</Menu.Item>
+            <Menu.Item key={Actions.MOVE_TASK_TO_PROJECT}>{tTaskActions('move-to-project')}</Menu.Item>
         ), 60]);
     }
 
     menuItems.push([(
         <React.Fragment key={Actions.DELETE_TASK}>
             <Menu.Divider />
-            <Menu.Item key={Actions.DELETE_TASK}>Delete</Menu.Item>
+            <Menu.Item key={Actions.DELETE_TASK}>{tTaskActions('delete')}</Menu.Item>
         </React.Fragment>
     ), 70]);
 

@@ -19,6 +19,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import Empty from 'antd/lib/empty';
 import Input from 'antd/lib/input';
 import notification from 'antd/lib/notification';
+import { useTranslation } from 'react-i18next';
 
 import { getCore, Project, Task } from 'cvat-core-wrapper';
 import { CombinedState, Indexable } from 'reducers';
@@ -42,10 +43,6 @@ import {
 
 const core = getCore();
 
-const FilteringComponent = ResourceFilterHOC(
-    config, localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues,
-);
-
 interface ParamType {
     id: string;
 }
@@ -54,6 +51,10 @@ export default function ProjectPageComponent(): JSX.Element {
     const id = +useParams<ParamType>().id;
     const dispatch = useDispatch();
     const history = useHistory();
+    const { t } = useTranslation();
+    const { t: tTopBar } = useTranslation('projects', { keyPrefix: 'project.top-bar' });
+    const { t: tProject } = useTranslation('projects', { keyPrefix: 'project' });
+    const { t: tFilterConfig } = useTranslation('projects', { keyPrefix: 'filter-config' });
 
     const [projectInstance, setProjectInstance] = useState<Project | null>(null);
     const [fechingProject, setFetchingProject] = useState(true);
@@ -90,7 +91,7 @@ export default function ProjectPageComponent(): JSX.Element {
                 }).catch((error: Error) => {
                     if (mounted.current) {
                         notification.error({
-                            message: 'Could not receive the requested project from the server',
+                            message: tProject('error-msg-not-receive'),
                             description: error.toString(),
                         });
                     }
@@ -101,8 +102,8 @@ export default function ProjectPageComponent(): JSX.Element {
                 });
         } else {
             notification.error({
-                message: 'Could not receive the requested project from the server',
-                description: `Requested project id "${id}" is not valid`,
+                message: tProject('error-msg-not-receive'),
+                description: tProject('error-msg-desc-not-valid-id', { id }),
             });
             setFetchingProject(false);
         }
@@ -134,12 +135,14 @@ export default function ProjectPageComponent(): JSX.Element {
             <Result
                 className='cvat-not-found'
                 status='404'
-                title='There was something wrong during getting the project'
-                subTitle='Please, be sure, that information you tried to get exist and you are eligible to access it'
+                title={tProject('not-found.title')}
+                subTitle={tProject('not-found.subTitle')}
             />
         );
     }
-
+    const FilteringComponent = ResourceFilterHOC(
+        config, localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues, tFilterConfig,
+    );
     const subsets = Array.from(
         new Set<string>(tasks.map((task: Task) => task.subset)),
     );
@@ -186,7 +189,7 @@ export default function ProjectPageComponent(): JSX.Element {
             </Row>
         </>
     ) : (
-        <Empty description='No tasks found' />
+        <Empty description={tProject('no-tasks')} />
     );
 
     return (
@@ -214,7 +217,7 @@ export default function ProjectPageComponent(): JSX.Element {
                         }).catch((error: Error) => {
                             if (mounted.current) {
                                 notification.error({
-                                    message: 'Could not update the project',
+                                    message: tProject('error-msg-update'),
                                     description: error.toString(),
                                 });
                             }
@@ -241,7 +244,7 @@ export default function ProjectPageComponent(): JSX.Element {
                                 }}
                                 defaultValue={tasksQuery.search || ''}
                                 className='cvat-project-page-tasks-search-bar'
-                                placeholder='Search ...'
+                                placeholder={t('searching')}
                             />
                             <div>
                                 <SortingComponent
@@ -299,7 +302,7 @@ export default function ProjectPageComponent(): JSX.Element {
                                             className='cvat-create-task-button'
                                             onClick={() => history.push(`/tasks/create?projectId=${id}`)}
                                         >
-                                            Create a new task
+                                            {tTopBar('create-task')}
                                         </Button>
                                         <Button
                                             type='primary'
@@ -307,7 +310,7 @@ export default function ProjectPageComponent(): JSX.Element {
                                             className='cvat-create-multi-tasks-button'
                                             onClick={() => history.push(`/tasks/create?projectId=${id}&many=true`)}
                                         >
-                                            Create multi tasks
+                                            {tTopBar('create-tasks')}
                                         </Button>
                                     </CvatDropdownMenuPaper>
                                 )}

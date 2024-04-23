@@ -15,6 +15,7 @@ import { DisconnectOutlined } from '@ant-design/icons';
 import Space from 'antd/lib/space';
 import Text from 'antd/lib/typography/Text';
 import ReactMarkdown from 'react-markdown';
+import { Translation, getI18n } from 'react-i18next';
 import 'antd/dist/antd.css';
 
 import LogoutComponent from 'components/logout-component';
@@ -137,8 +138,8 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         const core = getCore();
         const { history, location } = this.props;
         const {
-            HEALTH_CHECK_RETRIES, HEALTH_CHECK_PERIOD, HEALTH_CHECK_REQUEST_TIMEOUT, SERVER_UNAVAILABLE_COMPONENT,
-            RESET_NOTIFICATIONS_PATHS,
+            HEALTH_CHECK_RETRIES, HEALTH_CHECK_PERIOD, HEALTH_CHECK_REQUEST_TIMEOUT,
+            UPGRADE_GUIDE_URL, RESET_NOTIFICATIONS_PATHS,
         } = appConfig;
 
         // Logger configuration
@@ -197,15 +198,42 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                     healthIinitialized: true,
                     backendIsHealthy: false,
                 });
-
                 Modal.error({
-                    title: 'Cannot connect to the server',
+                    title: (
+                        <Translation>
+                            {
+                                (t) => t('modal-cannot-connect-server.title')
+                            }
+                        </Translation>
+                    ),
                     className: 'cvat-modal-cannot-connect-server',
                     closable: false,
-                    content:
-    <Text>
-        {SERVER_UNAVAILABLE_COMPONENT}
-    </Text>,
+                    content: (
+                        <Translation>
+                            {
+                                (t) => (
+                                    <>
+                                        {t('modal-cannot-connect-server.content0')}
+                                        <br />
+                                        {t('modal-cannot-connect-server.content1')}
+                                        <br />
+                                        {t('modal-cannot-connect-server.content2')}
+                                        <br />
+                                        {t('modal-cannot-connect-server.content3')}
+                                        &nbsp;
+                                        <a
+                                            target='_blank'
+                                            rel='noopener noreferrer'
+                                            href={UPGRADE_GUIDE_URL}
+                                        >
+                                            {t('modal-cannot-connect-server.upgrade-guide')}
+                                        </a>
+                                        .
+                                    </>
+                                )
+                            }
+                        </Translation>
+                    ),
                 });
             });
 
@@ -216,22 +244,50 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         if (showPlatformNotification()) {
             stopNotifications(false);
             Modal.warning({
-                title: 'Unsupported platform detected',
+                title: (
+                    <Translation>
+                        {
+                            (t) => t(
+                                'modal-unsupported-platform-warning.title',
+                                'Unsupported platform detected',
+                            )
+                        }
+                    </Translation>),
                 className: 'cvat-modal-unsupported-platform-warning',
                 content: (
                     <>
                         <Row>
                             <Col>
-                                <Text>
-                                    {`The browser you are using is ${name} ${version} based on ${engine}.` +
-                                        ' CVAT was tested in the latest versions of Chrome and Firefox.' +
-                                        ' We recommend to use Chrome (or another Chromium based browser)'}
-                                </Text>
+                                <Translation>
+                                    {
+                                        (t) => (
+                                            <>
+                                                {t(
+                                                    'modal-unsupported-platform-warning.content0',
+                                                    { name, version, engine },
+                                                )}
+                                                <br />
+                                                {t('modal-unsupported-platform-warning.content1')}
+                                                <br />
+                                                {t('modal-unsupported-platform-warning.content2')}
+                                            </>
+                                        )
+                                    }
+                                </Translation>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <Text type='secondary'>{`The operating system is ${os}`}</Text>
+                                <Text type='secondary'>
+                                    <Translation>
+                                        {
+                                            (t) => t(
+                                                'modal-unsupported-platform-warning.os',
+                                                { os },
+                                            )
+                                        }
+                                    </Translation>
+                                </Text>
                             </Col>
                         </Row>
                     </>
@@ -241,13 +297,24 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         } else if (showUnsupportedNotification()) {
             stopNotifications(false);
             Modal.warning({
-                title: 'Unsupported features detected',
+                title: (
+                    <Translation>
+                        {
+                            (t) => t('modal-unsupported-features-warning.title')
+                        }
+                    </Translation>
+                ),
                 className: 'cvat-modal-unsupported-features-warning',
                 content: (
-                    <Text>
-                        {`${name} v${version} does not support API, which is used by CVAT. `}
-                        It is strongly recommended to update your browser.
-                    </Text>
+                    <Translation>
+                        { (t) => (
+                            <>
+                                <Text>{t('modal-unsupported-features-warning.content0', { name, version })}</Text>
+                                <br />
+                                <Text>{t('modal-unsupported-features-warning.content1')}</Text>
+                            </>
+                        )}
+                    </Translation>
                 ),
                 onOk: () => stopNotifications(true),
             });
@@ -447,7 +514,8 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                 pluginsInitialized &&
                 aboutInitialized &&
                 organizationInitialized &&
-                (!isModelPluginActive || modelsInitialized)
+                (!isModelPluginActive || modelsInitialized) &&
+                getI18n()?.isInitialized
             )
         );
 
@@ -591,12 +659,18 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
             return (
                 <Space align='center' direction='vertical' className='cvat-spinner'>
                     <DisconnectOutlined className='cvat-disconnected' />
-                    Cannot connect to the server.
+                    <Translation>
+                        { (t) => t('modal-cannot-connect-server.title')}
+                    </Translation>
                 </Space>
             );
         }
 
-        return <Spin size='large' className='cvat-spinner' tip='Connecting...' />;
+        return (
+            <Translation>
+                { (t) => <Spin size='large' className='cvat-spinner' tip={t('connecting')} />}
+            </Translation>
+        );
     }
 }
 

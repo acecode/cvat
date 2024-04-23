@@ -10,6 +10,7 @@ import { LeftOutlined, MoreOutlined } from '@ant-design/icons';
 import Button from 'antd/lib/button';
 import Dropdown from 'antd/lib/dropdown';
 import Text from 'antd/lib/typography/Text';
+import { useTranslation } from 'react-i18next';
 
 import { Project } from 'reducers';
 import ActionsMenu from 'components/projects-page/actions-menu';
@@ -22,6 +23,7 @@ export default function ProjectTopBar(props: DetailsComponentProps): JSX.Element
     const { projectInstance } = props;
 
     const history = useHistory();
+    const { t: tTopBar } = useTranslation('projects', { keyPrefix: 'project.top-bar' });
 
     return (
         <Row className='cvat-task-top-bar' justify='space-between' align='middle'>
@@ -33,7 +35,7 @@ export default function ProjectTopBar(props: DetailsComponentProps): JSX.Element
                     size='large'
                 >
                     <LeftOutlined />
-                    Back to projects
+                    {tTopBar('back-to-projects')}
                 </Button>
             </Col>
             <Col className='cvat-project-top-bar-actions'>
@@ -43,7 +45,7 @@ export default function ProjectTopBar(props: DetailsComponentProps): JSX.Element
                     overlay={<ActionsMenu projectInstance={projectInstance} />}
                 >
                     <Button size='middle' className='cvat-project-page-actions-button'>
-                        <Text className='cvat-text-color'>Actions</Text>
+                        <Text className='cvat-text-color'>{tTopBar('Actions')}</Text>
                         <MoreOutlined className='cvat-menu-icon' />
                     </Button>
                 </Dropdown>

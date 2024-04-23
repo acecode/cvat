@@ -15,15 +15,12 @@ import { importActions } from 'actions/import-actions';
 import { usePrevious } from 'utils/hooks';
 import { ProjectsQuery } from 'reducers';
 import { SortingComponent, ResourceFilterHOC, defaultVisibility } from 'components/resource-sorting-filtering';
+import { useTranslation } from 'react-i18next';
 
 import dimensions from './dimensions';
 import {
-    localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues, config,
+    localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues, genConfig,
 } from './projects-filter-configuration';
-
-const FilteringComponent = ResourceFilterHOC(
-    config, localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues,
-);
 
 interface Props {
     onApplyFilter(filter: string | null): void;
@@ -40,14 +37,23 @@ function TopBarComponent(props: Props): JSX.Element {
     } = props;
     const [visibility, setVisibility] = useState(defaultVisibility);
     const prevImporting = usePrevious(importing);
-
+    const { t } = useTranslation('projects', { keyPrefix: 'top-bar' });
+    const { t: filterT } = useTranslation('projects', { keyPrefix: 'filter-config' });
     useEffect(() => {
         if (prevImporting && !importing) {
             onApplyFilter(query.filter);
         }
     }, [importing]);
     const history = useHistory();
+    const config = genConfig(filterT);
 
+    const FilteringComponent = ResourceFilterHOC(
+        config,
+        localStorageRecentKeyword,
+        localStorageRecentCapacity,
+        predefinedFilterValues,
+        filterT,
+    );
     return (
         <Row className='cvat-projects-page-top-bar' justify='center' align='middle'>
             <Col {...dimensions}>
@@ -59,7 +65,7 @@ function TopBarComponent(props: Props): JSX.Element {
                         }}
                         defaultValue={query.search || ''}
                         className='cvat-projects-page-search-bar'
-                        placeholder='Search ...'
+                        placeholder={t('search')}
                     />
                     <div>
                         <SortingComponent
@@ -102,7 +108,7 @@ function TopBarComponent(props: Props): JSX.Element {
                                     onClick={(): void => history.push('/projects/create')}
                                     icon={<PlusOutlined />}
                                 >
-                                    Create a new project
+                                    {t('create-project')}
                                 </Button>
                                 <Button
                                     className='cvat-import-project-button'
@@ -111,7 +117,7 @@ function TopBarComponent(props: Props): JSX.Element {
                                     icon={<UploadOutlined />}
                                     onClick={() => dispatch(importActions.openImportBackupModal('project'))}
                                 >
-                                    Create from backup
+                                    {t('create-from-backup')}
                                     {importing && <LoadingOutlined className='cvat-import-project-button-loading' />}
                                 </Button>
                             </div>
