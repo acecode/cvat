@@ -3,9 +3,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-import React from 'react';
-import { Translation } from 'react-i18next';
-
 const NO_BREAK_SPACE = '\u00a0';
 const UNDEFINED_ATTRIBUTE_VALUE = '__undefined__';
 const CHANGELOG_URL = 'https://github.com/opencv/cvat/blob/develop/CHANGELOG.md';
@@ -52,32 +49,6 @@ const DEFAULT_AWS_S3_REGIONS: string[][] = [
     ['eu-north-1', 'Europe (Stockholm)'],
     ['sa-east-1', 'South America (São Paulo)'],
 ];
-
-const SERVER_UNAVAILABLE_COMPONENT = (
-    <Translation>
-        {
-            (t) => (
-                <>
-                    {
-                        t(`Make sure the CVAT backend and all necessary services
-                        (Database, Redis and Open Policy Agent) are running and available.
-                        If you upgraded from version 2.2.0 or earlier, manual actions may be needed,
-                        see the`)
-                    }
-                    &nbsp;
-                    <a
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        href={UPGRADE_GUIDE_URL}
-                    >
-                        {t('Upgrade Guide', 'Upgrade Guide')}
-                    </a>
-                    .
-                </>
-            )
-        }
-    </Translation>
-);
 
 const DEFAULT_GOOGLE_CLOUD_STORAGE_LOCATIONS: string[][] = [
     ['NORTHAMERICA-NORTHEAST1', 'Montréal'],
@@ -168,7 +139,6 @@ export default {
     HEALTH_CHECK_RETRIES,
     HEALTH_CHECK_PERIOD,
     HEALTH_CHECK_REQUEST_TIMEOUT,
-    SERVER_UNAVAILABLE_COMPONENT,
     CANVAS_WORKSPACE_ROWS,
     CANVAS_WORKSPACE_COLS,
     CANVAS_WORKSPACE_MARGIN,
