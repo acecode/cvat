@@ -8,7 +8,7 @@ export default {
         'upgrade-guide': 'Upgrade Guide',
     },
     'modal-unsupported-platform-warning': {
-        title: '不支持平台',
+        title: 'Unsupported platform detected',
         content0: 'The browser you are using is {{name}} v{{version}} based on {{engine}}.',
         content1: 'CVAT was tested in the latest versions of Chrome and Firefox.',
         content2: 'We recommend to use Chrome (or another Chromium based browser)',
@@ -18,6 +18,9 @@ export default {
         title: 'Unsupported features detected',
         content0: '{{name}} v{{version}} does not support API, which is used by CVAT. ',
         content1: 'It is strongly recommended to update your browser.',
+    },
+    'modal-change-locale': {
+        title: 'Change locale',
     },
     connecting: 'Connecting...',
     header: {
@@ -64,6 +67,7 @@ export default {
         menu: {
             admin: 'Admin Page',
             settings: 'Settings',
+            organization: '组织',
             invitations: 'Invitations',
             'switch-organization': 'Switch organization',
             'switch-organization-title': 'Switch an organization',
@@ -80,6 +84,7 @@ export default {
         tooltip: {
             github: 'Click to open repository',
             guide: 'Click to open guide',
+            locales: 'Click to switch locale',
         },
     },
 };

@@ -46,6 +46,7 @@ import { useIsMounted, usePlugins } from 'utils/hooks';
 import GlobalHotKeys, { KeyMap } from 'utils/mousetrap-react';
 import SettingsModal from './settings-modal/settings-modal';
 import OrganizationsSearch from './organizations-search';
+import { SwitchLocaleButton } from '../change-locale/change-locale';
 
 interface StateToProps {
     user: any;
@@ -318,7 +319,7 @@ function HeaderComponent(props: Props): JSX.Element {
                     window.open('/admin', '_blank');
                 }}
             >
-                {t('header.about.menu.admin')}
+                {t('header.menu.admin')}
             </Menu.Item>
         ), 0]);
     }
@@ -328,12 +329,12 @@ function HeaderComponent(props: Props): JSX.Element {
         <Menu.SubMenu
             disabled={organizationFetching || listFetching}
             key='organization'
-            title='Organization'
+            title={t('header.menu.organization')}
             icon={organizationFetching || listFetching ? <LoadingOutlined /> : <TeamOutlined />}
         >
             {currentOrganization ? (
                 <Menu.Item icon={<SettingOutlined />} key='open_organization' onClick={() => history.push('/organization')} className='cvat-header-menu-open-organization'>
-                    {t('header.about.menu.settings')}
+                    {t('header.menu.settings')}
                 </Menu.Item>
             ) : null}
             <Menu.Item
@@ -344,7 +345,7 @@ function HeaderComponent(props: Props): JSX.Element {
                     history.push('/invitations');
                 }}
             >
-                {t('header.about.menu.invitations')}
+                {t('header.menu.invitations')}
             </Menu.Item>
             <Menu.Item icon={<PlusOutlined />} key='create_organization' onClick={() => history.push('/organizations/create')} className='cvat-header-menu-create-organization'>Create</Menu.Item>
             { !!organizationsList && viewType === 'list' && (
@@ -353,7 +354,7 @@ function HeaderComponent(props: Props): JSX.Element {
                     onClick={() => {
                         Modal.confirm({
                             icon: undefined,
-                            title: t('header.about.menu.switch-organization-title'),
+                            title: t('header.menu.switch-organization-title'),
                             okButtonProps: {
                                 style: { display: 'none' },
                             },
@@ -368,7 +369,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         });
                     }}
                 >
-                    {t('header.about.menu.switch-organization')}
+                    {t('header.menu.switch-organization')}
                 </Menu.Item>
             )}
             { !!organizationsList && viewType === 'menu' && (
@@ -406,13 +407,13 @@ function HeaderComponent(props: Props): JSX.Element {
             title={`Press ${switchSettingsShortcut} to switch`}
             onClick={() => switchSettingsModalVisible(true)}
         >
-            {t('header.about.menu.settings')}
+            {t('header.menu.settings')}
         </Menu.Item>
     ), 20]);
 
     menuItems.push([(
         <Menu.Item icon={<InfoCircleOutlined />} key='about' onClick={() => showAboutModal()}>
-            {t('header.about.menu.about')}
+            {t('header.menu.about')}
         </Menu.Item>
     ), 30]);
 
@@ -425,7 +426,7 @@ function HeaderComponent(props: Props): JSX.Element {
                 onClick={(): void => switchChangePasswordModalVisible(true)}
                 disabled={changePasswordFetching}
             >
-                {t('header.about.menu.change-password')}
+                {t('header.menu.change-password')}
             </Menu.Item>
         ), 40]);
     }
@@ -439,7 +440,7 @@ function HeaderComponent(props: Props): JSX.Element {
             }}
             disabled={logoutFetching}
         >
-            {t('header.about.menu.logout')}
+            {t('header.menu.logout')}
         </Menu.Item>
     ), 50]);
 
@@ -479,7 +480,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         history.push('/projects');
                     }}
                 >
-                    {t('header.about.menu.projects')}
+                    {t('header.menu.projects')}
                 </Button>
                 <Button
                     className={getButtonClassName('tasks')}
@@ -491,7 +492,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         history.push('/tasks');
                     }}
                 >
-                    {t('header.about.menu.tasks')}
+                    {t('header.menu.tasks')}
                 </Button>
                 <Button
                     className={getButtonClassName('jobs')}
@@ -503,7 +504,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         history.push('/jobs');
                     }}
                 >
-                    {t('header.about.menu.jobs')}
+                    {t('header.menu.jobs')}
                 </Button>
                 <Button
                     className={getButtonClassName('cloudstorages')}
@@ -515,7 +516,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         history.push('/cloudstorages');
                     }}
                 >
-                    {t('header.about.menu.cloud-storages')}
+                    {t('header.menu.cloud-storages')}
                 </Button>
                 {isModelsPluginActive ? (
                     <Button
@@ -528,7 +529,7 @@ function HeaderComponent(props: Props): JSX.Element {
                             history.push('/models');
                         }}
                     >
-                        {t('header.about.menu.models')}
+                        {t('header.menu.models')}
                     </Button>
                 ) : null}
                 {isAnalyticsPluginActive && user.isSuperuser ? (
@@ -541,12 +542,12 @@ function HeaderComponent(props: Props): JSX.Element {
                             window.open('/analytics', '_blank');
                         }}
                     >
-                        {t('header.about.menu.analytics')}
+                        {t('header.menu.analytics')}
                     </Button>
                 ) : null}
             </div>
             <div className='cvat-right-header'>
-                <CVATTooltip overlay={t('header.about.tooltip.github')}>
+                <CVATTooltip overlay={t('header.tooltip.github')}>
                     <Button
                         icon={<GithubOutlined />}
                         size='large'
@@ -559,7 +560,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         }}
                     />
                 </CVATTooltip>
-                <CVATTooltip overlay={t('header.about.tooltip.guide')}>
+                <CVATTooltip overlay={t('header.tooltip.guide')}>
                     <Button
                         icon={<QuestionCircleOutlined />}
                         size='large'
@@ -571,6 +572,9 @@ function HeaderComponent(props: Props): JSX.Element {
                             window.open(GUIDE_URL, '_blank');
                         }}
                     />
+                </CVATTooltip>
+                <CVATTooltip overlay={t('header.tooltip.locales')}>
+                    <SwitchLocaleButton />
                 </CVATTooltip>
                 <Dropdown
                     trigger={['click']}

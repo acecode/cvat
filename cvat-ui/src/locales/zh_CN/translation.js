@@ -19,6 +19,9 @@ export default {
         content0: '{{name}} v{{version}} 未支持 CVAT 需要的 API',
         content1: '强烈建议你升级浏览器',
     },
+    'modal-change-locale': {
+        title: '更改语言',
+    },
     connecting: '连接中...',
     header: {
         'player-settings': {
@@ -62,6 +65,7 @@ export default {
         menu: {
             admin: '管理员',
             settings: '设置',
+            organization: '组织',
             invitations: '邀请表',
             'switch-organization': '切换组织',
             'switch-organization-title': '切换组织',
@@ -78,6 +82,7 @@ export default {
         tooltip: {
             github: '点击查看代码仓库',
             guide: '点击打开指南',
+            locales: '点击切换语言',
         },
     },
 };

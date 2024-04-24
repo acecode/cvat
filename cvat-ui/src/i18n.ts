@@ -38,7 +38,6 @@ i18next.init({
     resources: {},
     // @see https://github.com/i18next/i18next-browser-languageDetector?tab=readme-ov-file#detector-options
     detection: {
-        order: ['navigator', 'querystring'],
     },
     react: {
         useSuspense: false,
