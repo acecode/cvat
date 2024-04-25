@@ -11,11 +11,9 @@ import Layout from 'antd/lib/layout';
 import Modal from 'antd/lib/modal';
 import notification from 'antd/lib/notification';
 import Spin from 'antd/lib/spin';
-import { DisconnectOutlined } from '@ant-design/icons';
-import Space from 'antd/lib/space';
 import Text from 'antd/lib/typography/Text';
 import ReactMarkdown from 'react-markdown';
-import { Translation } from 'react-i18next';
+import { Translation, getI18n } from 'react-i18next';
 import 'antd/dist/antd.css';
 
 import LogoutComponent from 'components/logout-component';
@@ -80,6 +78,7 @@ import IncorrectEmailConfirmationPage from './email-confirmation-pages/incorrect
 import CreateJobPage from './create-job-page/create-job-page';
 import AnalyticsPage from './analytics-page/analytics-page';
 import InvitationWatcher from './invitation-watcher/invitation-watcher';
+import I18nDemo from './i18n-demo';
 
 interface CVATAppProps {
     loadFormats: () => void;
@@ -197,44 +196,44 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                     healthIinitialized: true,
                     backendIsHealthy: false,
                 });
-
-                Modal.error({
-                    title: (
-                        <Translation>
-                            {
-                                (t) => t('modal-cannot-connect-server.title')
-                            }
-                        </Translation>
-                    ),
-                    className: 'cvat-modal-cannot-connect-server',
-                    closable: false,
-                    content: (
-                        <Translation>
-                            {
-                                (t) => (
-                                    <>
-                                        {t('modal-cannot-connect-server.content0')}
-                                        <br />
-                                        {t('modal-cannot-connect-server.content1')}
-                                        <br />
-                                        {t('modal-cannot-connect-server.content2')}
-                                        <br />
-                                        {t('modal-cannot-connect-server.content3')}
-                                        &nbsp;
-                                        <a
-                                            target='_blank'
-                                            rel='noopener noreferrer'
-                                            href={UPGRADE_GUIDE_URL}
-                                        >
-                                            {t('modal-cannot-connect-server.upgrade-guide')}
-                                        </a>
-                                        .
-                                    </>
-                                )
-                            }
-                        </Translation>
-                    ),
-                });
+                console.log(UPGRADE_GUIDE_URL);
+                // Modal.error({
+                //     title: (
+                //         <Translation>
+                //             {
+                //                 (t) => t('modal-cannot-connect-server.title')
+                //             }
+                //         </Translation>
+                //     ),
+                //     className: 'cvat-modal-cannot-connect-server',
+                //     closable: false,
+                //     content: (
+                //         <Translation>
+                //             {
+                //                 (t) => (
+                //                     <>
+                //                         {t('modal-cannot-connect-server.content0')}
+                //                         <br />
+                //                         {t('modal-cannot-connect-server.content1')}
+                //                         <br />
+                //                         {t('modal-cannot-connect-server.content2')}
+                //                         <br />
+                //                         {t('modal-cannot-connect-server.content3')}
+                //                         &nbsp;
+                //                         <a
+                //                             target='_blank'
+                //                             rel='noopener noreferrer'
+                //                             href={UPGRADE_GUIDE_URL}
+                //                         >
+                //                             {t('modal-cannot-connect-server.upgrade-guide')}
+                //                         </a>
+                //                         .
+                //                     </>
+                //                 )
+                //             }
+                //         </Translation>
+                //     ),
+                // });
             });
 
         const {
@@ -278,20 +277,16 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                         </Row>
                         <Row>
                             <Col>
-                                <Translation>
-                                    {
-                                        (t) => (
-                                            <Text type='secondary'>
-                                                { t(
-                                                    'modal-unsupported-platform-warning.os',
-                                                    {
-                                                        os,
-                                                    },
-                                                )}
-                                            </Text>
-                                        )
-                                    }
-                                </Translation>
+                                <Text type='secondary'>
+                                    <Translation>
+                                        {
+                                            (t) => t(
+                                                'modal-unsupported-platform-warning.os',
+                                                { os },
+                                            )
+                                        }
+                                    </Translation>
+                                </Text>
                             </Col>
                         </Row>
                     </>
@@ -526,7 +521,8 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                 pluginsInitialized &&
                 aboutInitialized &&
                 organizationInitialized &&
-                (!isModelPluginActive || modelsInitialized)
+                (!isModelPluginActive || modelsInitialized) &&
+                getI18n().isInitialized
             )
         );
 
@@ -667,14 +663,15 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         }
 
         if (healthIinitialized && !backendIsHealthy) {
-            return (
-                <Space align='center' direction='vertical' className='cvat-spinner'>
-                    <DisconnectOutlined className='cvat-disconnected' />
-                    <Translation>
-                        { (t) => t('modal-cannot-connect-server.title')}
-                    </Translation>
-                </Space>
-            );
+            return <I18nDemo />;
+            // return (
+            //     <Space align='center' direction='vertical' className='cvat-spinner'>
+            //         <DisconnectOutlined className='cvat-disconnected' />
+            //         <Translation>
+            //             { (t) => t('modal-cannot-connect-server.title')}
+            //         </Translation>
+            //     </Space>
+            // );
         }
 
         return (

@@ -11,6 +11,7 @@ import {
 import Button from 'antd/lib/button';
 import Dropdown from 'antd/lib/dropdown';
 import Radio from 'antd/lib/radio';
+import { useTranslation } from 'react-i18next';
 
 import CVATTooltip from 'components/common/cvat-tooltip';
 
@@ -118,6 +119,7 @@ function SortingModalComponent(props: Props): JSX.Element {
         Array.from(new Set([...Object.keys(appliedSorting), ANCHOR_KEYWORD, ...sortingFieldsProp])),
     );
     const [appliedOrder, setAppliedOrder] = useState<string[]>([...defaultFields]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setIsMounted(true);
@@ -197,7 +199,7 @@ function SortingModalComponent(props: Props): JSX.Element {
             )}
         >
             <Button className='cvat-switch-sort-constructor-button' type='default' onClick={() => onVisibleChange(!visible)}>
-                Sort by
+                {t('sort-by')}
                 <OrderedListOutlined />
             </Button>
         </Dropdown>

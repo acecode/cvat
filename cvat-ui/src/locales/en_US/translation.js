@@ -1,4 +1,5 @@
 export default {
+    connecting: 'Connecting...',
     'modal-cannot-connect-server': {
         title: 'Cannot connect to the server',
         content0: 'Make sure the CVAT backend and all necessary services',
@@ -22,7 +23,6 @@ export default {
     'modal-change-locale': {
         title: 'Change locale',
     },
-    connecting: 'Connecting...',
     header: {
         'player-settings': {
             'number-of-skip-frames': 'Number of frames skipped when selecting',
@@ -85,6 +85,51 @@ export default {
             github: 'Click to open repository',
             guide: 'Click to open guide',
             locales: 'Click to switch locale',
+        },
+    },
+    'resource-sorting-filter': {
+        Filter: 'Filter',
+        'clear-filters': 'Clear filters',
+        Apply: 'Apply',
+        Reset: 'Reset',
+        Resent: 'Resent',
+        'quick-filters': 'Quick filters',
+    },
+    'sort-by': 'Sort By',
+    QbUtils: {
+        labels: {
+            valueLabel: 'Value',
+            valuePlaceholder: 'Value',
+            fieldLabel: 'Field',
+            operatorLabel: 'Operator',
+            funcLabel: 'Function',
+            fieldPlaceholder: 'Select field',
+            funcPlaceholder: 'Select function',
+            operatorPlaceholder: 'Select operator',
+            lockLabel: 'Lock',
+            lockedLabel: 'Locked',
+            deleteLabel: 'Delete',
+            addGroupLabel: 'Add group',
+            addCaseLabel: 'Add condition',
+            addDefaultCaseLabel: 'Add default condition',
+            defaultCaseLabel: 'Default:',
+            addRuleLabel: 'Add rule',
+            addSubRuleLabel: 'Add sub rule',
+            delGroupLabel: 'Delete',
+            notLabel: 'Not',
+            fieldSourcesPopupTitle: 'Select source',
+            valueSourcesPopupTitle: 'Select value source',
+        },
+        conjunctions: {
+            ADD: 'And',
+            OR: 'Or',
+        },
+        operators: {
+            like: 'Contains',
+            not_like: 'Not contains',
+            starts_with: 'Start with',
+            ends_with: 'End with',
+            between: 'Between',
         },
     },
 };

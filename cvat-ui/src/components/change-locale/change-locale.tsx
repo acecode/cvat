@@ -1,41 +1,59 @@
 import React, { useState } from 'react';
-import Modal from 'antd/lib/modal';
 import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
+import Space from 'antd/lib/space';
+import Radio from 'antd/lib/radio';
+import type { RadioChangeEvent } from 'antd';
 import {
     TranslationOutlined,
 } from '@ant-design/icons';
+
 import { useTranslation } from 'react-i18next';
 
 export function SwitchLocaleButton(): React.JSX.Element {
     const { t, i18n } = useTranslation();
     const [locale, setLocale] = useState(i18n.language);
+    const [open, setOpen] = useState(false);
     const list = (i18n.options.supportedLngs || []).filter((lang) => lang !== 'cimode');
     return (
-        <Button
-            icon={<TranslationOutlined />}
-            size='large'
-            className='cvat-open-i18n-button cvat-header-button'
-            type='link'
-            onClick={() => Modal.confirm({
-                title: t('modal-change-locale.title'),
-                content: (
-                    list.map(
-                        (language) => (
-                            <Button
-                                key={language}
-                                type={language === locale ? 'primary' : 'default'}
-                                onClick={() => setLocale(language)}
-                            >
-                                {language}
-                            </Button>
-                        ),
-                    )
-                ),
-                onOk() {
-                    console.log('set locale', locale);
+        <>
+            <Button
+                icon={<TranslationOutlined />}
+                size='large'
+                className='cvat-open-i18n-button cvat-header-button'
+                type='link'
+                onClick={(): void => setOpen(true)}
+            />
+            <Modal
+                title={t('modal-change-locale.title')}
+                visible={open}
+                onOk={() => {
+                    setOpen(false);
                     i18n.changeLanguage(locale);
-                },
-            })}
-        />
+                }}
+            >
+                <Radio.Group
+                    defaultValue={locale}
+                    onChange={(e: RadioChangeEvent) => {
+                        console.log('change', e.target.value);
+                        setLocale(e.target.value);
+                    }}
+                >
+                    <Space direction='vertical'>
+                        {list.map(
+                            (language) => (
+                                <Radio
+                                    key={language}
+                                    type={language === locale ? 'primary' : 'default'}
+                                    value={language}
+                                >
+                                    {language}
+                                </Radio>
+                            ),
+                        )}
+                    </Space>
+                </Radio.Group>
+            </Modal>
+        </>
     );
 }

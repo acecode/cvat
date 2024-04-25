@@ -1,4 +1,5 @@
 export default {
+    connecting: '连接中...',
     'modal-cannot-connect-server': {
         title: '服务器未连接',
         content0: '请确认 CVAT 后端及所有必要服务',
@@ -22,7 +23,6 @@ export default {
     'modal-change-locale': {
         title: '更改语言',
     },
-    connecting: '连接中...',
     header: {
         'player-settings': {
             'number-of-skip-frames': '选中时跳过帧数',
@@ -83,6 +83,51 @@ export default {
             github: '点击查看代码仓库',
             guide: '点击打开指南',
             locales: '点击切换语言',
+        },
+    },
+    'resource-sorting-filter': {
+        Filter: '过滤',
+        'clear-filters': '清除过滤',
+        Apply: '应用',
+        Reset: '重置',
+        Resent: '最近使用',
+        'quick-filters': '快速过滤',
+    },
+    'sort-by': '排序',
+    QbUtils: {
+        labels: {
+            valueLabel: '值',
+            valuePlaceholder: '值',
+            fieldLabel: '字段',
+            operatorLabel: '运算',
+            funcLabel: '函数',
+            fieldPlaceholder: '选字段',
+            funcPlaceholder: '选函数',
+            operatorPlaceholder: '选运算',
+            lockLabel: '未锁定',
+            lockedLabel: '锁定',
+            deleteLabel: '删除',
+            addGroupLabel: '添加组',
+            addCaseLabel: '加条件',
+            addDefaultCaseLabel: '加默认条件',
+            defaultCaseLabel: '默认:',
+            addRuleLabel: '加条规则',
+            addSubRuleLabel: '加子规则',
+            delGroupLabel: '删除组',
+            notLabel: '非',
+            fieldSourcesPopupTitle: '选来源',
+            valueSourcesPopupTitle: '选值来源',
+        },
+        conjunctions: {
+            ADD: '且',
+            OR: '或',
+        },
+        operators: {
+            like: '包含',
+            not_like: '不包含',
+            starts_with: '开头为',
+            ends_with: '结尾为',
+            between: '范围',
         },
     },
 };
