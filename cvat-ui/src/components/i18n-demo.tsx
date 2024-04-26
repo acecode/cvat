@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { User } from 'cvat-core-wrapper';
 import { useDispatch } from 'react-redux';
 import { SwitchLocaleButton } from './change-locale/change-locale';
-import TopBarComponent from './projects-page/top-bar';
+import ProjectTopBar from './project-page/top-bar';
 
 export default function I18nDemo(): React.JSX.Element {
     const { t } = useTranslation();
@@ -39,19 +39,7 @@ export default function I18nDemo(): React.JSX.Element {
             <div>
                 <button type='button' onClick={() => login()}>Login</button>
             </div>
-            <TopBarComponent
-                importing={false}
-                query={{
-                    id: 1,
-                    page: 0,
-                    search: '',
-                    sort: 'created_by',
-                    filter: 'x',
-                }}
-                onApplyFilter={() => {}}
-                onApplySearch={() => {}}
-                onApplySorting={() => {}}
-            />
+            <ProjectTopBar />
         </>
     );
 }

@@ -36,4 +36,25 @@ export default {
         'create-project': 'Create a new project',
         'create-from-backup': 'Create from backup',
     },
+    // src/components/project-page/details.tsx
+    details: {
+        'project-created': 'Project #{{id}} created',
+        'by-owner': ' by {{username}}',
+        time: ' on {{time}}',
+    },
+    // src/components/project-page/project-page.tsx
+    project: {
+        'error-msg-not-receive': 'Could not receive the requested project from the server',
+        'error-msg-desc-not-valid-id': 'Requested project id "{{id}}" is not valid',
+        'not-found': {
+            title: 'There was something wrong during getting the project',
+            subTitle: 'Please, be sure, that information you tried to get exist and you are eligible to access it',
+        },
+        'no-tasks': 'No tasks found',
+        'error-msg-update': 'Could not update the project',
+        'top-bar': {
+            'back-to-projects': 'Back to projects',
+            Actions: 'Actions',
+        },
+    },
 };

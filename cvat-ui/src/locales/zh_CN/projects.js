@@ -36,4 +36,25 @@ export default {
         'create-project': '创建新项目',
         'create-from-backup': '由备份创建',
     },
+    // src/components/project-page/details.tsx
+    details: {
+        'project-created': '项目 #{{id}} 已创建',
+        'by-owner': '由 {{username}} 管理',
+        time: '于 {{time}}',
+    },
+    // src/components/project-page/project-page.tsx
+    project: {
+        'error-msg-not-receive': '无法从服务器获取项目信息',
+        'error-msg-desc-not-valid-id': '获取项目 id "{{id}}" 不合法',
+        'not-found': {
+            title: '获取项目信息中出现问题',
+            subTittle: '请确认你要获取的信息存在并有权限访问',
+        },
+        'no-tasks': '未发现任务',
+        'error-msg-update': '无法更新项目',
+        'top-bar': {
+            'back-to-projects': '返回项目列表',
+            Actions: '操作',
+        },
+    },
 };
