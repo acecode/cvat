@@ -14,6 +14,8 @@ import Dropdown from 'antd/lib/dropdown';
 import Progress from 'antd/lib/progress';
 import Badge from 'antd/lib/badge';
 import moment from 'moment';
+import { Translation } from 'react-i18next';
+
 import { Task, RQStatus } from 'cvat-core-wrapper';
 import ActionsMenuContainer from 'containers/actions-menu/actions-menu';
 import Preview from 'components/common/preview';
@@ -124,13 +126,24 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
                     </Text>
                 </Text>
                 <br />
-                {owner && (
-                    <>
-                        <Text type='secondary'>{`Created ${owner ? `by ${owner}` : ''} on ${created}`}</Text>
-                        <br />
-                    </>
-                )}
-                <Text type='secondary'>{`Last updated ${updated}`}</Text>
+                <Translation>
+                    {(t) => (
+                        <>
+                            {owner && (
+                                <>
+                                    <Text type='secondary'>
+                                        {owner ? t('projects:item.created_by', { ownerName: owner }) : t('created')}
+                                        {`${t('on')} ${created}`}
+                                    </Text>
+                                    <br />
+                                </>
+                            )}
+                            <Text type='secondary'>
+                                {t('projects:item.last-updated', { updated })}
+                            </Text>
+                        </>
+                    )}
+                </Translation>
             </Col>
         );
     }
@@ -183,28 +196,32 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
             <Col span={7}>
                 <Row>
                     <Col span={24} className='cvat-task-item-progress-wrapper'>
-                        <div>
-                            { numOfCompleted > 0 && (
-                                <Text strong className='cvat-task-completed-progress'>
-                                    {`\u2022 ${numOfCompleted} done `}
-                                </Text>
-                            )}
+                        <Translation>
+                            {(t) => (
+                                <div>
+                                    {numOfCompleted > 0 && (
+                                        <Text strong className='cvat-task-completed-progress'>
+                                            {`\u2022 ${numOfCompleted} ${t('done')}`}
+                                        </Text>
+                                    )}
 
-                            { numOfValidation > 0 && (
-                                <Text strong className='cvat-task-validation-progress'>
-                                    {`\u2022 ${numOfValidation} on review `}
-                                </Text>
-                            )}
+                                    {numOfValidation > 0 && (
+                                        <Text strong className='cvat-task-validation-progress'>
+                                            {`\u2022 ${numOfValidation} ${t('on-review')}`}
+                                        </Text>
+                                    )}
 
-                            { numOfAnnotation > 0 && (
-                                <Text strong className='cvat-task-annotation-progress'>
-                                    {`\u2022 ${numOfAnnotation} annotating `}
-                                </Text>
+                                    {numOfAnnotation > 0 && (
+                                        <Text strong className='cvat-task-annotation-progress'>
+                                            {`\u2022 ${numOfAnnotation} ${t('annotating')}`}
+                                        </Text>
+                                    )}
+                                    <Text strong type='secondary'>
+                                        {`\u2022 ${numOfJobs} ${t('total')}`}
+                                    </Text>
+                                </div>
                             )}
-                            <Text strong type='secondary'>
-                                {`\u2022 ${numOfJobs} total`}
-                            </Text>
-                        </div>
+                        </Translation>
                         <Progress
                             percent={jobsProgress}
                             success={{
@@ -250,7 +267,7 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
                                 history.push(`/tasks/${id}`);
                             }}
                         >
-                            Open
+                            <Translation>{(t) => t('Open')}</Translation>
                         </Button>
                     </Col>
                 </Row>
@@ -266,7 +283,13 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
                         )}
                     >
                         <Col className='cvat-item-open-task-actions'>
-                            <Text className='cvat-text-color'>Actions</Text>
+                            <Translation>
+                                {(t) => (
+                                    <Text className='cvat-text-color'>
+                                        {t('Actions')}
+                                    </Text>
+                                )}
+                            </Translation>
                             <MoreOutlined className='cvat-menu-icon' />
                         </Col>
                     </Dropdown>

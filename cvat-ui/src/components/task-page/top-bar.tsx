@@ -10,6 +10,7 @@ import { LeftOutlined, MoreOutlined } from '@ant-design/icons';
 import Button from 'antd/lib/button';
 import Dropdown from 'antd/lib/dropdown';
 import Text from 'antd/lib/typography/Text';
+import { useTranslation } from 'react-i18next';
 
 import ActionsMenuContainer from 'containers/actions-menu/actions-menu';
 
@@ -21,7 +22,7 @@ export default function DetailsComponent(props: DetailsComponentProps): JSX.Elem
     const { taskInstance } = props;
 
     const history = useHistory();
-
+    const { t } = useTranslation();
     const onViewAnalytics = useCallback(() => {
         history.push(`/tasks/${taskInstance.id}/analytics`);
     }, [history]);
@@ -37,7 +38,7 @@ export default function DetailsComponent(props: DetailsComponentProps): JSX.Elem
                         size='large'
                     >
                         <LeftOutlined />
-                        Back to project
+                        {t('back-to-type', { type: t('type.project') })}
                     </Button>
                 ) : (
                     <Button
@@ -47,7 +48,7 @@ export default function DetailsComponent(props: DetailsComponentProps): JSX.Elem
                         size='large'
                     >
                         <LeftOutlined />
-                        Back to tasks
+                        {t('back-to-type', { type: t('type.tasks') })}
                     </Button>
                 )}
             </Col>
@@ -63,7 +64,7 @@ export default function DetailsComponent(props: DetailsComponentProps): JSX.Elem
                     )}
                 >
                     <Button size='middle' className='cvat-task-page-actions-button'>
-                        <Text className='cvat-text-color'>Actions</Text>
+                        <Text className='cvat-text-color'>{t('Actions')}</Text>
                         <MoreOutlined className='cvat-menu-icon' />
                     </Button>
                 </Dropdown>

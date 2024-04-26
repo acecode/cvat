@@ -33,6 +33,8 @@ export default {
     },
     'top-bar': {
         search: 'Search ...',
+        'create-task': 'Create a new task',
+        'create-tasks': 'Create multi tasks',
         'create-project': 'Create a new project',
         'create-from-backup': 'Create from backup',
     },

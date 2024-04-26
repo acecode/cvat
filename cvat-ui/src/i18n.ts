@@ -39,6 +39,7 @@ if (!i18next.isInitialized) {
         ns: [
             'translation',
             'projects',
+            'task',
         ],
         resources: {},
         // @see https://github.com/i18next/i18next-browser-languageDetector?tab=readme-ov-file#detector-options

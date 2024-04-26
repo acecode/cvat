@@ -46,25 +46,27 @@ export default function ResourceFilterHOC(
     if (i18n && i18n.isInitialized) {
         // TODO listen to load event, then patch QbUtils inner Config;
         const res = i18n.getResourceBundle(i18n.language, 'translation');
-        const qb = res.QbUtils;
-        Object.entries(qb.labels).forEach(([k, v]) => {
-            // @ts-ignore
-            config.settings[k] = v;
-        });
-        Object.entries(qb.conjunctions)
-            .forEach(([k, v]) => {
-                if (config.conjunctions[k] && config.conjunctions[k].label) {
-                    // @ts-ignore
-                    config.conjunctions[k].label = v;
-                }
+        if (res?.QbUtils) {
+            const qb = res.QbUtils;
+            Object.entries(qb.labels).forEach(([k, v]) => {
+                // @ts-ignore
+                config.settings[k] = v;
             });
-        Object.entries(qb.operators)
-            .forEach(([k, v]) => {
-                if (config.operators[k] && config.operators[k].label) {
-                    // @ts-ignore
-                    config.operators[k].label = v;
-                }
-            });
+            Object.entries(qb.conjunctions)
+                .forEach(([k, v]) => {
+                    if (config.conjunctions[k] && config.conjunctions[k].label) {
+                        // @ts-ignore
+                        config.conjunctions[k].label = v;
+                    }
+                });
+            Object.entries(qb.operators)
+                .forEach(([k, v]) => {
+                    if (config.operators[k] && config.operators[k].label) {
+                        // @ts-ignore
+                        config.operators[k].label = v;
+                    }
+                });
+        }
     }
     const defaultTree = QbUtils.checkTree(
         QbUtils.loadTree({ id: QbUtils.uuid(), type: 'group' }), config,

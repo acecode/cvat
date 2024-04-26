@@ -11,6 +11,7 @@ import { Row, Col } from 'antd/lib/grid';
 import Spin from 'antd/lib/spin';
 import Result from 'antd/lib/result';
 import notification from 'antd/lib/notification';
+import { useTranslation } from 'react-i18next';
 
 import { getInferenceStatusAsync } from 'actions/models-actions';
 import { getCore, Task, Job } from 'cvat-core-wrapper';
@@ -32,6 +33,7 @@ function TaskPageComponent(): JSX.Element {
     const [fetchingTask, setFetchingTask] = useState(true);
     const [updatingTask, setUpdatingTask] = useState(false);
     const mounted = useRef(false);
+    const { t: tError } = useTranslation('error');
 
     const deletes = useSelector((state: CombinedState) => state.tasks.activities.deletes);
 
@@ -45,7 +47,7 @@ function TaskPageComponent(): JSX.Element {
                 }).catch((error: Error) => {
                     if (mounted.current) {
                         notification.error({
-                            message: 'Could not receive the requested task from the server',
+                            message: tError('api-no-info', { type: 'task' }),
                             description: error.toString(),
                         });
                     }
@@ -56,8 +58,8 @@ function TaskPageComponent(): JSX.Element {
                 });
         } else {
             notification.error({
-                message: 'Could not receive the requested task from the server',
-                description: `Requested task id "${id}" is not valid`,
+                message: tError('api-no-info', { type: 'task' }),
+                description: tError('api-not-valid-id', { type: 'task', id }),
             });
             setFetchingTask(false);
         }
@@ -87,8 +89,8 @@ function TaskPageComponent(): JSX.Element {
             <Result
                 className='cvat-not-found'
                 status='404'
-                title='There was something wrong during getting the task'
-                subTitle='Please, be sure, that information you tried to get exist and you are eligible to access it'
+                title={tError('api-err-unknown', { type: 'task' })}
+                subTitle={tError('api-ensure-exist-and-access')}
             />
         );
     }
@@ -103,7 +105,7 @@ function TaskPageComponent(): JSX.Element {
                 resolve();
             }).catch((error: Error) => {
                 notification.error({
-                    message: 'Could not update the task',
+                    message: tError('can-not-update', { type: 'task' }),
                     className: 'cvat-notification-notice-update-task-failed',
                     description: error.toString(),
                 });
@@ -124,7 +126,7 @@ function TaskPageComponent(): JSX.Element {
             }
         }).catch((error: Error) => {
             notification.error({
-                message: 'Could not update the job',
+                message: tError('can-not-update', { type: 'job' }),
                 description: error.toString(),
             });
         }).finally(() => {

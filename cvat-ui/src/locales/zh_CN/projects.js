@@ -1,6 +1,6 @@
 export default {
     item: {
-        'last-updated': '最近更新与{{updated}}',
+        'last-updated': '最近更新于 {{updated}}',
         created_by: '由 {{ownerName}} 创建',
         created: '已创建',
     },
@@ -32,7 +32,9 @@ export default {
         'Not completed': '未完成',
     },
     'top-bar': {
-        search: '搜索 ...',
+        search: '搜索...',
+        'create-task': '创建任务',
+        'create-tasks': '创建多个任务',
         'create-project': '创建新项目',
         'create-from-backup': '由备份创建',
     },
@@ -48,7 +50,7 @@ export default {
         'error-msg-desc-not-valid-id': '获取项目 id "{{id}}" 不合法',
         'not-found': {
             title: '获取项目信息中出现问题',
-            subTittle: '请确认你要获取的信息存在并有权限访问',
+            subTitle: '请确认你要获取的信息存在并有权限访问',
         },
         'no-tasks': '未发现任务',
         'error-msg-update': '无法更新项目',

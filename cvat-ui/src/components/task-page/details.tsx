@@ -10,6 +10,7 @@ import { Row, Col } from 'antd/lib/grid';
 import Text from 'antd/lib/typography/Text';
 import Title from 'antd/lib/typography/Title';
 import moment from 'moment';
+import { Translation } from 'react-i18next';
 
 import { getCore, Task, User } from 'cvat-core-wrapper';
 import AutomaticAnnotationProgress from 'components/tasks-page/automatic-annotation-progress';
@@ -136,11 +137,30 @@ class DetailsComponent extends React.PureComponent<Props, State> {
             <Row className='cvat-task-details-user-block' justify='space-between' align='middle'>
                 <Col span={12}>
                     {owner && (
-                        <Text type='secondary'>{`Task #${taskInstance.id} Created by ${owner} on ${created}`}</Text>
+                        <Text type='secondary'>
+                            <Translation>
+                                {
+                                    (t) => t(
+                                        'type-id-owner-created',
+                                        {
+                                            id: taskInstance.id,
+                                            owner,
+                                            created,
+                                        },
+                                    )
+                                }
+                            </Translation>
+                        </Text>
                     )}
                 </Col>
                 <Col>
-                    <Text type='secondary'>Assigned to</Text>
+                    <Text type='secondary'>
+                        <Translation>
+                            {
+                                (t) => t('assigned-to')
+                            }
+                        </Translation>
+                    </Text>
                     {assigneeSelect}
                 </Col>
             </Row>

@@ -51,6 +51,8 @@ export default function ProjectPageComponent(): JSX.Element {
     const id = +useParams<ParamType>().id;
     const dispatch = useDispatch();
     const history = useHistory();
+    const { t } = useTranslation();
+    const { t: tTopBar } = useTranslation('projects', { keyPrefix: 'project.top-bar' });
     const { t: tProject } = useTranslation('projects', { keyPrefix: 'project' });
     const { t: tFilterConfig } = useTranslation('projects', { keyPrefix: 'filter-config' });
 
@@ -242,7 +244,7 @@ export default function ProjectPageComponent(): JSX.Element {
                                 }}
                                 defaultValue={tasksQuery.search || ''}
                                 className='cvat-project-page-tasks-search-bar'
-                                placeholder='Search ...'
+                                placeholder={t('searching')}
                             />
                             <div>
                                 <SortingComponent
@@ -300,7 +302,7 @@ export default function ProjectPageComponent(): JSX.Element {
                                             className='cvat-create-task-button'
                                             onClick={() => history.push(`/tasks/create?projectId=${id}`)}
                                         >
-                                            Create a new task
+                                            {tTopBar('create-task')}
                                         </Button>
                                         <Button
                                             type='primary'
@@ -308,7 +310,7 @@ export default function ProjectPageComponent(): JSX.Element {
                                             className='cvat-create-multi-tasks-button'
                                             onClick={() => history.push(`/tasks/create?projectId=${id}&many=true`)}
                                         >
-                                            Create multi tasks
+                                            {tTopBar('create-tasks')}
                                         </Button>
                                     </CvatDropdownMenuPaper>
                                 )}

@@ -1,5 +1,23 @@
 export default {
     connecting: 'Connecting...',
+    searching: 'Search...',
+    Actions: 'Actions',
+    Open: 'Open',
+    done: 'done',
+    'on-review': 'on-review',
+    annotating: 'annotating',
+    total: 'total',
+    on: 'on',
+    type: {
+        project: 'project',
+        task: 'task',
+        tasks: 'tasks',
+    },
+
+    'back-to-type': 'Back to {{type}}',
+    'type-id-owner-created': '{{type}} #{{id}} by {{owner}} on {{created}}',
+    'assigned-to': 'Assigned to',
+
     'modal-cannot-connect-server': {
         title: 'Cannot connect to the server',
         content0: 'Make sure the CVAT backend and all necessary services',

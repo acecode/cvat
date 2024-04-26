@@ -1,5 +1,23 @@
 export default {
     connecting: '连接中...',
+    searching: '搜索...',
+    Actions: '操作',
+    Open: '打开',
+    done: '完成',
+    'on-review': '验看中',
+    annotating: '标注中',
+    total: '全部',
+    on: '在',
+    type: {
+        project: '项目',
+        task: '任务',
+        tasks: '任务列表',
+    },
+
+    'back-to-type': '返回{{type}}',
+    'type-id-owner-created': '{{type}} #{{id}} 由 {{owner}} 创建于 {{created}}',
+    'assigned-to': '分配给',
+
     'modal-cannot-connect-server': {
         title: '服务器未连接',
         content0: '请确认 CVAT 后端及所有必要服务',
