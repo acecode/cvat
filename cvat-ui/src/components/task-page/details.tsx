@@ -143,6 +143,7 @@ class DetailsComponent extends React.PureComponent<Props, State> {
                                     (t) => t(
                                         'type-id-owner-created',
                                         {
+                                            type: 'Task',
                                             id: taskInstance.id,
                                             owner,
                                             created,
@@ -196,7 +197,13 @@ class DetailsComponent extends React.PureComponent<Props, State> {
         return (
             <Row>
                 <Col span={24}>
-                    <Text className='cvat-text-color'>Subset:</Text>
+                    <Text className='cvat-text-color'>
+                        <Translation>
+                            {
+                                (t) => `${t('Subset')}:`
+                            }
+                        </Translation>
+                    </Text>
                 </Col>
                 <Col span={24}>
                     <ProjectSubsetField

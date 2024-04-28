@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Col } from 'antd/lib/grid';
 import Icon from '@ant-design/icons';
 import Select from 'antd/lib/select';
@@ -44,7 +44,7 @@ function RightGroup(props: Props): JSX.Element {
     } = props;
 
     const filters = annotationFilters.length;
-
+    const [fullScreen, setFullScreen] = useState(false);
     const openGuide = useCallback(() => {
         const PADDING = Math.min(window.screen.availHeight, window.screen.availWidth) * 0.4;
         jobInstance.guide().then((guide) => {
@@ -110,11 +110,14 @@ function RightGroup(props: Props): JSX.Element {
             <Button
                 type='link'
                 className='cvat-annotation-header-fullscreen-button cvat-annotation-header-button'
+                style={fullScreen ? { opacity: '50%' } : {}}
                 onClick={(): void => {
                     if (window.document.fullscreenEnabled) {
                         if (window.document.fullscreenElement) {
+                            setFullScreen(false);
                             window.document.exitFullscreen();
                         } else {
+                            setFullScreen(true);
                             window.document.documentElement.requestFullscreen();
                         }
                     }

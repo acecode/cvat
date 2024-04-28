@@ -3,6 +3,7 @@ export default {
     searching: '搜索...',
     Actions: '操作',
     Open: '打开',
+    Subset: '子集',
     done: '完成',
     'on-review': '验看中',
     annotating: '标注中',
@@ -147,5 +148,25 @@ export default {
             ends_with: '结尾为',
             between: '范围',
         },
+    },
+
+    // cvat-ui/src/utils/validation-patterns.ts
+    validation: {
+        // DON'T CHANGE THESE KEY
+        // keep these keys same with
+        // src/utils/validation-patterns.ts validationPatterns
+        validatePasswordLength: '密码至少八位',
+        passwordContainsNumericCharacters: '密码至少有一位数字',
+        passwordContainsUpperCaseCharacter: '密码至少有一位大写字母A-Z',
+        passwordContainsLowerCaseCharacter: '密码至少有一位小写字母a-z',
+        validateUsernameLength: '用户名至少5位',
+        validateUsernameCharacters: '只有这些(a-z), (A-Z), (0-9), -, _, . 字符是可用的',
+        validateName: '不合适的名字',
+        validateAttributeName: '不合适的名字',
+        validateLabelName: '不合适的名字',
+        validateAttributeValue: '不合适的属性值',
+        validateURL: 'URL不合法',
+        validateOrganizationSlug: '只能使用拉丁字母和数字',
+        validatePhoneNumber: '输入的手机号不合法',
     },
 };

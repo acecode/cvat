@@ -3,6 +3,7 @@ export default {
     searching: 'Search...',
     Actions: 'Actions',
     Open: 'Open',
+    Subset: 'Subset',
     done: 'done',
     'on-review': 'on-review',
     annotating: 'annotating',
@@ -149,5 +150,22 @@ export default {
             ends_with: 'End with',
             between: 'Between',
         },
+    },
+
+    // cvat-ui/src/utils/validation-patterns.ts
+    validation: {
+        validatePasswordLength: 'Password must have at least 8 characters',
+        passwordContainsNumericCharacters: 'Password must have at least 1 numeric characters',
+        passwordContainsUpperCaseCharacter: 'Password must have at least 1 uppercase alphabetical character',
+        passwordContainsLowerCaseCharacter: 'Password must have at least 1 lowercase alphabetical character',
+        validateUsernameLength: 'Username must have at least 5 characters',
+        validateUsernameCharacters: 'Only characters (a-z), (A-Z), (0-9), -, _, . are available',
+        validateName: 'Invalid name',
+        validateAttributeName: 'Invalid name',
+        validateLabelName: 'Invalid name',
+        validateAttributeValue: 'Invalid attribute value',
+        validateURL: 'URL is not valid',
+        validateOrganizationSlug: 'Only Latin characters and numbers are allowed',
+        validatePhoneNumber: 'Input phone number is not correct',
     },
 };

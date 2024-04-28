@@ -10,7 +10,11 @@ import {
 
 import { useTranslation } from 'react-i18next';
 
-export function SwitchLocaleButton(): React.JSX.Element {
+interface SwitchLocaleButtonProps {
+    style?: { color: string };
+}
+
+export function SwitchLocaleButton({ style }: SwitchLocaleButtonProps): React.JSX.Element {
     const { t, i18n } = useTranslation();
     const [locale, setLocale] = useState(i18n.language);
     const [open, setOpen] = useState(false);
@@ -23,6 +27,7 @@ export function SwitchLocaleButton(): React.JSX.Element {
                 className='cvat-open-i18n-button cvat-header-button'
                 type='link'
                 onClick={(): void => setOpen(true)}
+                style={style}
             />
             <Modal
                 title={t('modal-change-locale.title')}
@@ -31,6 +36,7 @@ export function SwitchLocaleButton(): React.JSX.Element {
                     setOpen(false);
                     i18n.changeLanguage(locale);
                 }}
+                onCancel={(): void => setOpen(false)}
             >
                 <Radio.Group
                     defaultValue={locale}

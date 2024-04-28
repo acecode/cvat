@@ -17,6 +17,7 @@ import { UserAgreement } from 'reducers';
 import { Row, Col } from 'antd/lib/grid';
 import CVATSigningInput, { CVATInputType } from 'components/signing-common/cvat-signing-input';
 import { useAuthQuery } from 'utils/hooks';
+import { useTranslation } from 'react-i18next';
 
 export interface UserConfirmation {
     name: string;
@@ -105,6 +106,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
     const {
         fetching, onSubmit, userAgreements, hideLoginLink,
     } = props;
+    const { t: tAuthRegister } = useTranslation('auth', { keyPrefix: 'register' });
 
     const authQuery = useAuthQuery();
     const predefinedEmail = authQuery?.email;
@@ -157,14 +159,14 @@ function RegisterFormComponent(props: Props): JSX.Element {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please specify a first name',
+                                    message: tAuthRegister('err-msg-need-type', { type: tAuthRegister('first-name') }),
                                     pattern: patterns.validateName.pattern,
                                 },
                             ]}
                         >
                             <CVATSigningInput
                                 id='firstName'
-                                placeholder='First name'
+                                placeholder={tAuthRegister('first-name')}
                                 autoComplete='given-name'
                                 onReset={() => form.setFieldsValue({ firstName: '' })}
                             />
@@ -177,14 +179,14 @@ function RegisterFormComponent(props: Props): JSX.Element {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please specify a last name',
+                                    message: tAuthRegister('err-msg-need-type', { type: tAuthRegister('last-name') }),
                                     pattern: patterns.validateName.pattern,
                                 },
                             ]}
                         >
                             <CVATSigningInput
                                 id='lastName'
-                                placeholder='Last name'
+                                placeholder={tAuthRegister('last-name')}
                                 autoComplete='family-name'
                                 onReset={() => form.setFieldsValue({ lastName: '' })}
                             />
@@ -197,18 +199,18 @@ function RegisterFormComponent(props: Props): JSX.Element {
                     rules={[
                         {
                             type: 'email',
-                            message: 'The input is not valid E-mail!',
+                            message: tAuthRegister('err-msg-not-valid-email'),
                         },
                         {
                             required: true,
-                            message: 'Please specify an email address',
+                            message: tAuthRegister('err-msg-need-type', { type: tAuthRegister('email-address') }),
                         },
                     ]}
                 >
                     <CVATSigningInput
                         id='email'
                         autoComplete='email'
-                        placeholder='Email'
+                        placeholder={tAuthRegister('Email')}
                         disabled={!!predefinedEmail}
                         value={predefinedEmail}
                         onReset={() => form.setFieldsValue({ email: '', username: '' })}
@@ -227,7 +229,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                     rules={[
                         {
                             required: true,
-                            message: 'Please specify a username',
+                            message: tAuthRegister('err-msg-need-type', { type: tAuthRegister('user-name') }),
                         },
                         {
                             validator: validateUsername,
@@ -236,7 +238,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                 >
                     <CVATSigningInput
                         id='username'
-                        placeholder='Username'
+                        placeholder={tAuthRegister('user-name')}
                         autoComplete='username'
                         onReset={() => form.setFieldsValue({ username: '' })}
                         onChange={() => setUsernameEdited(true)}
@@ -248,14 +250,14 @@ function RegisterFormComponent(props: Props): JSX.Element {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your password!',
+                            message: tAuthRegister('err-msg-need-type', { type: tAuthRegister('Password') }),
                         }, validatePassword,
                     ]}
                 >
                     <CVATSigningInput
                         type={CVATInputType.PASSWORD}
                         id='password1'
-                        placeholder='Password'
+                        placeholder={tAuthRegister('Password')}
                         autoComplete='new-password'
                     />
                 </Form.Item>
@@ -269,7 +271,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         rules={[
                             {
                                 required: true,
-                                message: 'You must accept to continue!',
+                                message: tAuthRegister('err-msg-need-user-agreement'),
                             }, validateAgreement(userAgreements),
                         ]}
                     >
@@ -292,7 +294,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         loading={fetching}
                         disabled={fetching}
                     >
-                        Create account
+                        {tAuthRegister('create-account')}
                     </Button>
                 </Form.Item>
             </Form>

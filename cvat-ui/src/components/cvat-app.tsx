@@ -139,7 +139,7 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         const { history, location } = this.props;
         const {
             HEALTH_CHECK_RETRIES, HEALTH_CHECK_PERIOD, HEALTH_CHECK_REQUEST_TIMEOUT,
-            RESET_NOTIFICATIONS_PATHS,
+            UPGRADE_GUIDE_URL, RESET_NOTIFICATIONS_PATHS,
         } = appConfig;
 
         // Logger configuration
