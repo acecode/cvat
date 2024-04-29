@@ -6,7 +6,7 @@ export default {
     'resolved-issues': '已解决问题',
 
     job: '作业',
-    'ground-truth': 'Ground truth',
+    'ground-truth': '基准真相',
 
     'created-on': '创建于',
     'last-updated': '最近更新',
