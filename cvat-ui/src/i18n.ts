@@ -37,10 +37,12 @@ if (!i18next.isInitialized) {
         },
         partialBundledLanguages: true,
         ns: [
-            'translation',
+            'auth',
+            'error',
+            'job',
             'projects',
             'task',
-            'auth',
+            'translation',
         ],
         resources: {},
         // @see https://github.com/i18next/i18next-browser-languageDetector?tab=readme-ov-file#detector-options
