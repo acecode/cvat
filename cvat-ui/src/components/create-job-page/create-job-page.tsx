@@ -13,6 +13,8 @@ import notification from 'antd/lib/notification';
 import { Task } from 'reducers';
 import { useIsMounted } from 'utils/hooks';
 import { getCore } from 'cvat-core-wrapper';
+import { useTranslation } from 'react-i18next';
+
 import JobForm from './job-form';
 
 const core = getCore();
@@ -21,6 +23,8 @@ function CreateJobPage(): JSX.Element {
     const [fetchingTask, setFetchingTask] = useState(true);
     const [taskInstance, setTaskInstance] = useState<Task | null>(null);
     const isMounted = useIsMounted();
+    const { t: tError } = useTranslation('error');
+    const { t: tJobCreate } = useTranslation('job', { keyPrefix: 'create' });
 
     const id = +useParams<{ id: string }>().id;
     useEffect((): void => {
@@ -33,7 +37,7 @@ function CreateJobPage(): JSX.Element {
                 }).catch((error: Error) => {
                     if (isMounted()) {
                         notification.error({
-                            message: 'Could not fetch requested task from the server',
+                            message: tError('api-no-info', { type: 'task' }),
                             description: error.toString(),
                         });
                     }
@@ -44,8 +48,8 @@ function CreateJobPage(): JSX.Element {
                 });
         } else {
             notification.error({
-                message: 'Could not receive the requested task from the server',
-                description: `Requested task id "${id}" is not valid`,
+                message: tError('api-no-info', { type: 'task' }),
+                description: tError('api-not-valid-id', { type: 'task', id }),
             });
             setFetchingTask(false);
         }
@@ -54,7 +58,7 @@ function CreateJobPage(): JSX.Element {
         <div className='cvat-create-job-page'>
             <Row justify='center' align='middle'>
                 <Col>
-                    <Text className='cvat-title'>Add a new job</Text>
+                    <Text className='cvat-title'>{tJobCreate('title')}</Text>
                 </Col>
             </Row>
             {

@@ -15,6 +15,7 @@ import InputNumber from 'antd/lib/input-number';
 import Space from 'antd/lib/space';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import CVATTooltip from 'components/common/cvat-tooltip';
+import { useTranslation } from 'react-i18next';
 
 import { JobType } from 'cvat-core/src/enums';
 import { Task } from 'cvat-core-wrapper';
@@ -53,6 +54,8 @@ function JobForm(props: Props): JSX.Element {
     const dispatch = useDispatch();
     const history = useHistory();
     const [fetching, setFetching] = useState(false);
+    const { t: tJobCreate } = useTranslation('job', { keyPrefix: 'create' });
+    const { t: tJob } = useTranslation('job');
 
     const submit = useCallback(async (): Promise<any> => {
         try {
@@ -120,29 +123,41 @@ function JobForm(props: Props): JSX.Element {
                     <Col>
                         <Form.Item
                             name='type'
-                            label='Job type'
-                            rules={[{ required: true, message: 'Please, specify Job type' }]}
+                            label={tJobCreate('job-type')}
+                            rules={[{
+                                required: true,
+                                message: tJobCreate(
+                                    'err-need-type',
+                                    { type: tJobCreate('job-type') },
+                                ),
+                            }]}
                         >
                             <Select
                                 virtual={false}
                                 className='cvat-select-job-type'
                             >
                                 <Select.Option value={JobType.GROUND_TRUTH}>
-                                    Ground truth
+                                    {tJob('ground-truth')}
                                 </Select.Option>
                             </Select>
                         </Form.Item>
                         <Form.Item
                             name='frame_selection_method'
-                            label='Frame selection method'
-                            rules={[{ required: true, message: 'Please, specify frame selection method' }]}
+                            label={tJobCreate('frame-selection-method')}
+                            rules={[{
+                                required: true,
+                                message: tJobCreate(
+                                    'err-need-type',
+                                    { type: tJobCreate('frame-selection-method') },
+                                ),
+                            }]}
                         >
                             <Select
                                 virtual={false}
                                 className='cvat-select-frame-selection-method'
                             >
                                 <Select.Option value={FrameSelectionMethod.RANDOM}>
-                                    Random
+                                    {tJobCreate('Random')}
                                 </Select.Option>
                             </Select>
                         </Form.Item>
@@ -154,7 +169,8 @@ function JobForm(props: Props): JSX.Element {
                                     name='quantity'
                                     label={(
                                         <Space>
-                                            Quantity %
+                                            {tJobCreate('Quantity')}
+                                            {' %'}
                                             <CVATTooltip title={frameCountDescription}>
                                                 <QuestionCircleOutlined
                                                     style={{ opacity: 0.5 }}
@@ -162,7 +178,13 @@ function JobForm(props: Props): JSX.Element {
                                             </CVATTooltip>
                                         </Space>
                                     )}
-                                    rules={[{ required: true, message: 'Please, specify quantity' }]}
+                                    rules={[{
+                                        required: true,
+                                        message: tJobCreate(
+                                            'err-need-type',
+                                            { type: tJobCreate('Quantity') },
+                                        ),
+                                    }]}
                                 >
                                     <InputNumber
                                         className='cvat-input-frame-quantity'
@@ -181,7 +203,7 @@ function JobForm(props: Props): JSX.Element {
                                             name='frame_count'
                                             label={(
                                                 <Space>
-                                                    Frame count
+                                                    {tJobCreate('frame-count')}
                                                     <CVATTooltip title={frameCountDescription}>
                                                         <QuestionCircleOutlined
                                                             style={{ opacity: 0.5 }}
@@ -205,7 +227,7 @@ function JobForm(props: Props): JSX.Element {
                             <Col>
                                 <Form.Item
                                     name='seed'
-                                    label='Seed'
+                                    label={tJobCreate('Seed')}
                                 >
                                     <InputNumber
                                         className='cvat-input-seed'
@@ -227,7 +249,7 @@ function JobForm(props: Props): JSX.Element {
                             loading={fetching}
                             disabled={fetching}
                         >
-                            Submit
+                            {tJobCreate('Submit')}
                         </Button>
                     </Col>
                 </Row>

@@ -21,4 +21,18 @@ export default {
         VALIDATION: '确认中',
         ACCEPTANCE: '已接收',
     },
+    create: {
+        title: '新建作业',
+
+        'job-type': '作业类型',
+        'frame-selection-method': '抽帧方法',
+        Quantity: '比例',
+        'frame-count': '帧数',
+        Seed: '随机种子',
+
+        Random: '随机抽取',
+
+        'err-need-type': '请填写 {{type}}',
+        Submit: '提交',
+    },
 };

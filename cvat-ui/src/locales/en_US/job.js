@@ -21,4 +21,18 @@ export default {
         VALIDATION: 'validation',
         ACCEPTANCE: 'acceptance',
     },
+    create: {
+        title: 'Add a new job',
+
+        'job-type': 'Job type',
+        'frame-selection-method': 'Frame selection method',
+        Quantity: 'Quantity',
+        'frame-count': 'Frame count',
+        Seed: 'Seed',
+
+        Random: 'Random',
+
+        'err-need-type': 'Please, specify {{type}}',
+        Submit: 'Submit',
+    },
 };
