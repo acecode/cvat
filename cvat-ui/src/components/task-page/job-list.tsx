@@ -16,6 +16,8 @@ import Empty from 'antd/lib/empty';
 import Button from 'antd/lib/button';
 import { CopyOutlined, PlusOutlined } from '@ant-design/icons';
 import { Task, Job } from 'cvat-core-wrapper';
+import { useTranslation } from 'react-i18next';
+
 import JobItem from 'components/job-item/job-item';
 import CVATTooltip from 'components/common/cvat-tooltip';
 import {
@@ -66,6 +68,7 @@ function JobListComponent(props: Props): JSX.Element {
     const history = useHistory();
     const { id: taskId } = taskInstance;
     const { jobs } = taskInstance;
+    const { t: tTaskJobs } = useTranslation('tasks', { keyPrefix: 'jobs' });
 
     const queryParams = new URLSearchParams(history.location.search);
     const updatedQuery: JobsQuery = {
@@ -205,7 +208,7 @@ function JobListComponent(props: Props): JSX.Element {
                         </Row>
                     </>
                 ) : (
-                    <Empty description='No jobs found' />
+                    <Empty description={tTaskJobs('not-found')} />
                 )
             }
         </>
