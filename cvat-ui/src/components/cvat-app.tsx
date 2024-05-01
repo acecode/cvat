@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: MIT
 
 import React from 'react';
+import { compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Col, Row } from 'antd/lib/grid';
@@ -16,6 +17,10 @@ import Space from 'antd/lib/space';
 import Text from 'antd/lib/typography/Text';
 import ReactMarkdown from 'react-markdown';
 import 'antd/dist/antd.css';
+
+import {
+    withTranslation, WithTranslation, Trans, Translation,
+} from 'react-i18next';
 
 import LogoutComponent from 'components/logout-component';
 import LoginPageContainer from 'containers/login-page/login-page';
@@ -73,6 +78,7 @@ import '../styles.scss';
 import appConfig from 'config';
 import EventRecorder from 'utils/event-recorder';
 import { authQuery } from 'utils/auth-query';
+import i18n from '../i18n';
 import EmailConfirmationPage from './email-confirmation-pages/email-confirmed';
 import EmailVerificationSentPage from './email-confirmation-pages/email-verification-sent';
 import IncorrectEmailConfirmationPage from './email-confirmation-pages/incorrect-email-confirmation';
@@ -123,8 +129,8 @@ interface CVATAppState {
     backendIsHealthy: boolean;
 }
 
-class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentProps, CVATAppState> {
-    constructor(props: CVATAppProps & RouteComponentProps) {
+class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentProps & WithTranslation, CVATAppState> {
+    constructor(props: CVATAppProps & RouteComponentProps & WithTranslation) {
         super(props);
 
         this.state = {
@@ -135,9 +141,9 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
 
     public componentDidMount(): void {
         const core = getCore();
-        const { history, location } = this.props;
+        const { history, location, t } = this.props;
         const {
-            HEALTH_CHECK_RETRIES, HEALTH_CHECK_PERIOD, HEALTH_CHECK_REQUEST_TIMEOUT, SERVER_UNAVAILABLE_COMPONENT,
+            HEALTH_CHECK_RETRIES, HEALTH_CHECK_PERIOD, HEALTH_CHECK_REQUEST_TIMEOUT, UPGRADE_GUIDE_URL,
             RESET_NOTIFICATIONS_PATHS,
         } = appConfig;
 
@@ -198,13 +204,30 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                 });
 
                 Modal.error({
-                    title: 'Cannot connect to the server',
+                    title: <Trans i18nKey='app.modal-cannot-connect-server.title'>Cannot connect to the server</Trans>,
                     className: 'cvat-modal-cannot-connect-server',
                     closable: false,
-                    content:
-    <Text>
-        {SERVER_UNAVAILABLE_COMPONENT}
-    </Text>,
+                    content: (
+                        <Text>
+                            <Trans i18nKey='app.modal-cannot-connect-server.content'>
+                                Make sure the CVAT backend and all necessary services
+                                <br />
+                                (Database, Redis and Open Policy Agent) are running and available.
+                                <br />
+                                If you upgraded from version 2.2.0 or earlier, manual actions may be needed,
+                                <br />
+                                see the&nbsp;
+                            </Trans>
+                            <a
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                href={UPGRADE_GUIDE_URL}
+                            >
+                                {t('Upgrade Guide')}
+                            </a>
+                            .
+                        </Text>
+                    ),
                 });
             });
 
@@ -215,22 +238,48 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         if (showPlatformNotification()) {
             stopNotifications(false);
             Modal.warning({
-                title: 'Unsupported platform detected',
+                title: <Translation>{() => t('app.modal-unsupported-platform-warning.title')}</Translation>,
                 className: 'cvat-modal-unsupported-platform-warning',
                 content: (
                     <>
                         <Row>
                             <Col>
                                 <Text>
-                                    {`The browser you are using is ${name} ${version} based on ${engine}.` +
-                                        ' CVAT was tested in the latest versions of Chrome and Firefox.' +
-                                        ' We recommend to use Chrome (or another Chromium based browser)'}
+                                    <Translation>
+                                        {() => (
+                                            <Trans i18nKey='app.modal-unsupported-platform-warning.content'>
+                                                The browser you are using is
+                                                {' '}
+                                                {{ name }}
+                                                {' '}
+                                                {{ version }}
+                                                based on
+                                                {' '}
+                                                {{ engine }}
+.
+                                                <wbr />
+                                                CVAT was tested in the latest versions of Chrome and Firefox.
+                                                <wbr />
+                                                We recommend to use Chrome (or another Chromium based browser)
+                                            </Trans>
+                                        )}
+                                    </Translation>
                                 </Text>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <Text type='secondary'>{`The operating system is ${os}`}</Text>
+                                <Text type='secondary'>
+                                    <Translation>
+                                        {() => t(
+                                            'app.modal-unsupported-platform-warning.secondary',
+                                            {
+                                                defaultValue: 'The operating system is {{os}}',
+                                                os,
+                                            },
+                                        )}
+                                    </Translation>
+                                </Text>
                             </Col>
                         </Row>
                     </>
@@ -240,12 +289,24 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         } else if (showUnsupportedNotification()) {
             stopNotifications(false);
             Modal.warning({
-                title: 'Unsupported features detected',
+                title: <Translation>{() => t('modal-unsupported-features-warning.title')}</Translation>,
                 className: 'cvat-modal-unsupported-features-warning',
                 content: (
                     <Text>
-                        {`${name} v${version} does not support API, which is used by CVAT. `}
-                        It is strongly recommended to update your browser.
+                        <Translation>
+                            {() => (
+                                <Trans i18nKey='app.modal-unsupported-features-warning.content'>
+                                    {{ name }}
+                                    {' '}
+v
+                                    {{ version }}
+                                    {' '}
+does not support API, which is used by CVAT.
+                                    <wbr />
+                                    It is strongly recommended to update your browser.
+                                </Trans>
+                            )}
+                        </Translation>
                     </Text>
                 ),
                 onOk: () => stopNotifications(true),
@@ -441,6 +502,7 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
             isModelPluginActive,
             isPasswordResetEnabled,
             isRegistrationEnabled,
+            t,
         } = this.props;
 
         const { healthIinitialized, backendIsHealthy } = this.state;
@@ -454,7 +516,8 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                 pluginsInitialized &&
                 aboutInitialized &&
                 organizationInitialized &&
-                (!isModelPluginActive || modelsInitialized)
+                (!isModelPluginActive || modelsInitialized) &&
+                i18n.isInitialized
             )
         );
 
@@ -598,13 +661,21 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
             return (
                 <Space align='center' direction='vertical' className='cvat-spinner'>
                     <DisconnectOutlined className='cvat-disconnected' />
-                    Cannot connect to the server.
+                    {t('Cannot connect to the server.')}
                 </Space>
             );
         }
 
-        return <Spin size='large' className='cvat-spinner' tip='Connecting...' />;
+        return (
+            <Spin
+                size='large'
+                className='cvat-spinner'
+                tip={`${t(
+                    'Connecting',
+                )}...`}
+            />
+        );
     }
 }
 
-export default withRouter(CVATApplication);
+export default compose(withRouter, withTranslation(['base', 'translate']))(CVATApplication);

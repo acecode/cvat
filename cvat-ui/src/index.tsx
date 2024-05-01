@@ -7,6 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import './i18n';
 
 import { getAboutAsync } from 'actions/about-actions';
 import { authenticatedAsync } from 'actions/auth-actions';
