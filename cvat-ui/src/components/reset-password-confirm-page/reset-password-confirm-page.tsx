@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import Title from 'antd/lib/typography/Title';
 import { Row, Col } from 'antd/lib/grid';
 import Layout from 'antd/lib/layout';
+import { useTranslation } from 'react-i18next';
 
 import { CombinedState } from 'reducers';
 import { resetPasswordAsync } from 'actions/auth-actions';
@@ -37,6 +38,7 @@ const mapDispatchToProps: DispatchToProps = {
 };
 
 function ResetPasswordPagePageComponent(props: ResetPasswordConfirmPageComponentProps): JSX.Element {
+    const { t: tAuth } = useTranslation('auth');
     const sizes = {
         xs: { span: 14 },
         sm: { span: 14 },
@@ -54,7 +56,7 @@ function ResetPasswordPagePageComponent(props: ResetPasswordConfirmPageComponent
             <Content>
                 <Row justify='center' align='middle' style={{ height: '100%' }}>
                     <Col {...sizes}>
-                        <Title level={2}> Change password </Title>
+                        <Title level={2}>{tAuth('Change password')}</Title>
                         <ResetPasswordConfirmForm
                             fetching={fetching}
                             onSubmit={(resetPasswordConfirmData: ResetPasswordConfirmData): void => {

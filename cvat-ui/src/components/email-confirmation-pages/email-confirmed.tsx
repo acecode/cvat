@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { Col, Row } from 'antd/lib/grid';
 import Layout from 'antd/lib/layout';
 import Statistic from 'antd/lib/statistic';
+import { useTranslation } from 'react-i18next';
 import './styles.scss';
 
 const { Content } = Layout;
@@ -18,6 +19,7 @@ const { Countdown } = Statistic;
  */
 
 function EmailConfirmationPage(): JSX.Element {
+    const { t: tAuth } = useTranslation('auth');
     const linkRef = useRef<HTMLAnchorElement>(null);
     const onFinish = (): void => {
         linkRef.current?.click();
@@ -27,9 +29,9 @@ function EmailConfirmationPage(): JSX.Element {
             <Content>
                 <Row justify='center' align='middle' id='email-confirmation-page-container'>
                     <Col>
-                        <h1>Your email is confirmed</h1>
-                        <Countdown format='ss' title='Redirecting to login page after...' value={Date.now() + 1000 * 6} onFinish={onFinish} />
-                        <Link to='/auth/login' ref={linkRef}>Or click this link</Link>
+                        <h1>{tAuth('Your email is confirmed')}</h1>
+                        <Countdown format='ss' title={tAuth('Redirecting to login page after...')} value={Date.now() + 1000 * 6} onFinish={onFinish} />
+                        <Link to='/auth/login' ref={linkRef}>{tAuth('Or click this link')}</Link>
                     </Col>
                 </Row>
             </Content>

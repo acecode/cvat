@@ -9,6 +9,7 @@ import { Col, Row } from 'antd/lib/grid';
 import { CVATLogo } from 'icons';
 import Icon from '@ant-design/icons';
 import Title from 'antd/lib/typography/Title';
+import { Trans } from 'react-i18next';
 import SVGSigningBackground from '../../assets/signing-background.svg';
 
 interface SignInLayoutComponentProps {
@@ -81,8 +82,13 @@ function SignInLayout(props: SignInLayoutComponentProps): JSX.Element {
                 <Content>
                     <Row justify='center' align='middle' style={{ height: '100%' }}>
                         <Col {...titleSizes} className='cvat-signing-title'>
-                            <Title>Open Data</Title>
-                            <Title>Annotation Platform</Title>
+                            <Title>
+                                <Trans i18nKey='Open Data Annotation Platform'>
+                                    Open Data
+                                    <br />
+                                    Annotation Platform
+                                </Trans>
+                            </Title>
                         </Col>
                         {children}
                     </Row>

@@ -10,6 +10,7 @@ import Button from 'antd/lib/button';
 import Checkbox from 'antd/lib/checkbox';
 import { Link } from 'react-router-dom';
 import { BackArrowIcon } from 'icons';
+import { useTranslation } from 'react-i18next';
 
 import patterns from 'utils/validation-patterns';
 
@@ -114,6 +115,10 @@ function RegisterFormComponent(props: Props): JSX.Element {
         form.setFieldsValue({ email: predefinedEmail });
     }
     const [usernameEdited, setUsernameEdited] = useState(false);
+    const { t: tError } = useTranslation('error');
+    const { t: tType } = useTranslation(undefined, { keyPrefix: 'type' });
+    const { t: tAuth } = useTranslation('auth');
+
     return (
         <div className={`cvat-register-form-wrapper ${userAgreements.length ? 'cvat-register-form-wrapper-extended' : ''}`}>
             {
@@ -156,15 +161,18 @@ function RegisterFormComponent(props: Props): JSX.Element {
                             name='firstName'
                             rules={[
                                 {
-                                    required: true,
-                                    message: 'Please specify a first name',
                                     pattern: patterns.validateName.pattern,
+                                    message: tError('The input is not valid!', { type: tType('First name') }),
+                                },
+                                {
+                                    required: true,
+                                    message: tError('Please specify a', { type: tType('First name') }),
                                 },
                             ]}
                         >
                             <CVATSigningInput
                                 id='firstName'
-                                placeholder='First name'
+                                placeholder={tType('First name')}
                                 autoComplete='given-name'
                                 onReset={() => form.setFieldsValue({ firstName: '' })}
                             />
@@ -176,15 +184,18 @@ function RegisterFormComponent(props: Props): JSX.Element {
                             name='lastName'
                             rules={[
                                 {
-                                    required: true,
-                                    message: 'Please specify a last name',
                                     pattern: patterns.validateName.pattern,
+                                    message: tError('The input is not valid!', { type: tType('Last name') }),
+                                },
+                                {
+                                    required: true,
+                                    message: tError('Please specify a', { type: tType('Last name') }),
                                 },
                             ]}
                         >
                             <CVATSigningInput
                                 id='lastName'
-                                placeholder='Last name'
+                                placeholder={tType('Last name')}
                                 autoComplete='family-name'
                                 onReset={() => form.setFieldsValue({ lastName: '' })}
                             />
@@ -197,18 +208,18 @@ function RegisterFormComponent(props: Props): JSX.Element {
                     rules={[
                         {
                             type: 'email',
-                            message: 'The input is not valid E-mail!',
+                            message: tError('The input is not valid!', { type: tType('Email') }),
                         },
                         {
                             required: true,
-                            message: 'Please specify an email address',
+                            message: tError('Please specify a', { type: tType('Email'), a: 'an' }),
                         },
                     ]}
                 >
                     <CVATSigningInput
                         id='email'
                         autoComplete='email'
-                        placeholder='Email'
+                        placeholder={tType('Email')}
                         disabled={!!predefinedEmail}
                         value={predefinedEmail}
                         onReset={() => form.setFieldsValue({ email: '', username: '' })}
@@ -227,7 +238,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                     rules={[
                         {
                             required: true,
-                            message: 'Please specify a username',
+                            message: tError('Please specify a', { type: tType('Username'), a: 'an' }),
                         },
                         {
                             validator: validateUsername,
@@ -236,7 +247,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                 >
                     <CVATSigningInput
                         id='username'
-                        placeholder='Username'
+                        placeholder={tType('Username')}
                         autoComplete='username'
                         onReset={() => form.setFieldsValue({ username: '' })}
                         onChange={() => setUsernameEdited(true)}
@@ -248,14 +259,14 @@ function RegisterFormComponent(props: Props): JSX.Element {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your password!',
+                            message: tError('Please specify a', { type: tType('Password'), a: 'your' }),
                         }, validatePassword,
                     ]}
                 >
                     <CVATSigningInput
                         type={CVATInputType.PASSWORD}
                         id='password1'
-                        placeholder='Password'
+                        placeholder={tType('Password')}
                         autoComplete='new-password'
                     />
                 </Form.Item>
@@ -269,7 +280,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         rules={[
                             {
                                 required: true,
-                                message: 'You must accept to continue!',
+                                message: tError('You must accept to continue!'),
                             }, validateAgreement(userAgreements),
                         ]}
                     >
@@ -292,7 +303,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         loading={fetching}
                         disabled={fetching}
                     >
-                        Create account
+                        {tAuth('Create account')}
                     </Button>
                 </Form.Item>
             </Form>

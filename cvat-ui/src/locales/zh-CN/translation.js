@@ -1,4 +1,5 @@
 export default {
+    'Open Data Annotation Platform': '开放数据<br/>标记平台',
     'sign-in': '登录',
 
     app: {
@@ -24,5 +25,33 @@ export default {
         },
         'Upgrade Guide': '升级指导',
         'Cannot connect to the server.': '无法连接服务器',
+    },
+
+    type: {
+        Password: '密码',
+        Email: '邮箱',
+        'First name': '名',
+        'Last name': '姓',
+        Username: '用户名',
+    },
+
+    // cvat-ui/src/utils/validation-patterns.ts
+    'validation-patterns': {
+        // DON'T CHANGE THESE KEY
+        // keep these keys same with
+        // src/utils/validation-patterns.ts validationPatterns
+        validatePasswordLength: '密码至少八位',
+        passwordContainsNumericCharacters: '密码至少有一位数字',
+        passwordContainsUpperCaseCharacter: '密码至少有一位大写字母A-Z',
+        passwordContainsLowerCaseCharacter: '密码至少有一位小写字母a-z',
+        validateUsernameLength: '用户名至少5位',
+        validateUsernameCharacters: '只有这些(a-z), (A-Z), (0-9), -, _, . 字符是可用的',
+        validateName: '不合适的名字',
+        validateAttributeName: '不合适的名字',
+        validateLabelName: '不合适的名字',
+        validateAttributeValue: '不合适的属性值',
+        validateURL: 'URL不合法',
+        validateOrganizationSlug: '只能使用拉丁字母和数字',
+        validatePhoneNumber: '输入的手机号不合法',
     },
 };

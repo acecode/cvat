@@ -618,7 +618,6 @@ does not support API, which is used by CVAT.
                     </GlobalErrorBoundary>
                 );
             }
-
             return (
                 <GlobalErrorBoundary>
                     <>
@@ -626,8 +625,16 @@ does not support API, which is used by CVAT.
                             {isRegistrationEnabled && (
                                 <Route exact path='/auth/register' component={RegisterPageContainer} />
                             )}
-                            <Route exact path='/auth/email-verification-sent' component={EmailVerificationSentPage} />
-                            <Route exact path='/auth/incorrect-email-confirmation' component={IncorrectEmailConfirmationPage} />
+                            <Route
+                                exact
+                                path='/auth/email-verification-sent'
+                                component={EmailVerificationSentPage}
+                            />
+                            <Route
+                                exact
+                                path='/auth/incorrect-email-confirmation'
+                                component={IncorrectEmailConfirmationPage}
+                            />
                             <Route exact path='/auth/login' component={LoginPageContainer} />
                             <Route
                                 exact
@@ -670,9 +677,7 @@ does not support API, which is used by CVAT.
             <Spin
                 size='large'
                 className='cvat-spinner'
-                tip={`${t(
-                    'Connecting',
-                )}...`}
+                tip='Connecting'
             />
         );
     }

@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import Title from 'antd/lib/typography/Title';
 import CVATSigningInput from 'components/signing-common/cvat-signing-input';
 import { useAuthQuery } from 'utils/hooks';
+import { useTranslation } from 'react-i18next';
 
 export interface ResetPasswordData {
     email: string;
@@ -28,6 +29,9 @@ function ResetPasswordFormComponent({ fetching, onSubmit }: Props): JSX.Element 
     const [form] = Form.useForm();
     const authQuery = useAuthQuery();
     const defaultCredential = authQuery?.email;
+    const { t: tAuth } = useTranslation('auth');
+    const { t: tType } = useTranslation(undefined, { keyPrefix: 'type' });
+
     return (
         <div className='cvat-password-reset-form-wrapper'>
             <Row justify='space-between' className='cvat-credentials-navigation'>
@@ -45,12 +49,12 @@ function ResetPasswordFormComponent({ fetching, onSubmit }: Props): JSX.Element 
             </Row>
             <Row>
                 <Col>
-                    <Title level={2}> Forgot password? </Title>
+                    <Title level={2}>{tAuth('Forgot password?')}</Title>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <Title level={2}> Let&apos;s create a new one </Title>
+                    <Title level={2}>{tAuth('Let\'s create a new one')}</Title>
                 </Col>
             </Row>
             <Form
@@ -79,13 +83,13 @@ function ResetPasswordFormComponent({ fetching, onSubmit }: Props): JSX.Element 
                 >
                     <CVATSigningInput
                         autoComplete='email'
-                        placeholder='Email'
+                        placeholder={tType('Email')}
                         onReset={() => form.setFieldsValue({ email: '' })}
                     />
                 </Form.Item>
                 <Row>
                     <Col className='cvat-password-reset-tip'>
-                        <Text> We will send link to your email </Text>
+                        <Text>{tAuth('We will send link to your email')}</Text>
                     </Col>
                 </Row>
                 <Form.Item>
@@ -94,7 +98,7 @@ function ResetPasswordFormComponent({ fetching, onSubmit }: Props): JSX.Element 
                         loading={fetching}
                         htmlType='submit'
                     >
-                        Send
+                        {tAuth('Send')}
                     </Button>
                 </Form.Item>
             </Form>

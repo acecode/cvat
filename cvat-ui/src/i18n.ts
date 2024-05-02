@@ -55,25 +55,17 @@ if (firstRun) {
             partialBundledLanguages: true,
             ns: [
                 'translation',
+                'error',
+                'auth',
             ],
-            resources: {
-                en: {
-                    base: {
-                        Connecting: 'connecting',
-                    },
-                },
-                'zh-CN': {
-                    base: {
-                        Connecting: '连接中',
-                    },
-                },
-            },
+            resources: {},
             // @see https://github.com/i18next/i18next-browser-languageDetector?tab=readme-ov-file#detector-options
             detection: {
                 order: ['querystring', 'cookie', 'localStorage'],
             },
             react: {
                 useSuspense: false,
+                transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p', 'wbr'],
             },
         });
     }
