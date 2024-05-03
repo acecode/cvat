@@ -33,6 +33,14 @@ export default {
         'First name': '名',
         'Last name': '姓',
         Username: '用户名',
+
+        // header
+        Projects: '项目',
+        Tasks: '任务',
+        Jobs: '作业',
+        Models: '模型',
+        'Cloud Storages': '云存储',
+        Analytics: '分析',
     },
 
     // cvat-ui/src/utils/validation-patterns.ts
@@ -53,5 +61,10 @@ export default {
         validateURL: 'URL不合法',
         validateOrganizationSlug: '只能使用拉丁字母和数字',
         validatePhoneNumber: '输入的手机号不合法',
+    },
+
+    // components/switch-locale-button/switch-locale-button.tsx
+    'modal-switch-locale-button': {
+        title: '切换语言',
     },
 };

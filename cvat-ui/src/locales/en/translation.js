@@ -12,6 +12,17 @@ export default {
     type: {
         Password: 'Password',
         Email: 'Email',
+
+        'First name': 'First name',
+        'Last name': 'Last name',
+        Username: 'Username',
+
+        // header
+        Projects: 'Projects',
+        Tasks: 'Tasks',
+        Jobs: 'Jobs',
+        'Cloud Storages': 'Cloud Storages',
+        Analytics: 'Analytics',
     },
 
     // cvat-ui/src/utils/validation-patterns.ts
@@ -29,5 +40,10 @@ export default {
         validateURL: 'URL is not valid',
         validateOrganizationSlug: 'Only Latin characters and numbers are allowed',
         validatePhoneNumber: 'Input phone number is not correct',
+    },
+
+    // components/switch-locale-button/switch-locale-button.tsx
+    'modal-switch-locale-button': {
+        title: 'Switch locale',
     },
 };

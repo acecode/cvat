@@ -39,7 +39,7 @@ if (firstRun) {
     if (!i18next.isInitialized) {
         i18next.init({
             // @see https://www.i18next.com/overview/configuration-options
-            debug: isDev(),
+            debug: true,
             supportedLngs: [
                 'en',
                 'zh',
@@ -57,6 +57,7 @@ if (firstRun) {
                 'translation',
                 'error',
                 'auth',
+                'header',
             ],
             resources: {},
             // @see https://github.com/i18next/i18next-browser-languageDetector?tab=readme-ov-file#detector-options
