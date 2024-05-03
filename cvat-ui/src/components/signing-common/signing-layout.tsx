@@ -10,6 +10,7 @@ import { CVATLogo } from 'icons';
 import Icon from '@ant-design/icons';
 import Title from 'antd/lib/typography/Title';
 import { Trans } from 'react-i18next';
+import { SwitchLocaleButton } from 'components/switch-locale-button/switch-locale-button';
 import SVGSigningBackground from '../../assets/signing-background.svg';
 
 interface SignInLayoutComponentProps {
@@ -75,6 +76,9 @@ function SignInLayout(props: SignInLayoutComponentProps): JSX.Element {
                 <Row justify='center' align='middle'>
                     <Col {...logoSizes}>
                         <Icon className='cvat-logo-icon' component={CVATLogo} />
+                    </Col>
+                    <Col>
+                        <SwitchLocaleButton style={{ color: 'white' }} />
                     </Col>
                 </Row>
             </Header>
