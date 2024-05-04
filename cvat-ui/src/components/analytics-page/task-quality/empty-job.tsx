@@ -10,6 +10,7 @@ import { Col, Row } from 'antd/lib/grid';
 import Card from 'antd/lib/card';
 import Button from 'antd/lib/button';
 import Title from 'antd/lib/typography/Title';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     taskID: number,
@@ -17,13 +18,13 @@ interface Props {
 
 function EmptyJobComponent(props: Props): JSX.Element {
     const { taskID } = props;
-
+    const { t: tError } = useTranslation('error');
     return (
         <Col span={24}>
             <Card className='cvat-job-empty-ground-truth-item'>
                 <Row justify='space-between' align='middle'>
                     <Col>
-                        <Title level={5}>No Ground Truth job created yet...</Title>
+                        <Title level={5}>{tError('Not created yet', { type: 'Ground Truth job' })}</Title>
                     </Col>
                     <Col>
                         <Button type='primary'>

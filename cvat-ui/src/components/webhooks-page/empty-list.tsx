@@ -5,6 +5,7 @@
 import React from 'react';
 import Text from 'antd/lib/typography/Text';
 import { Row, Col } from 'antd/lib/grid';
+import { useTranslation } from 'react-i18next';
 
 import Empty from 'antd/lib/empty';
 import { WebhooksQuery } from 'reducers';
@@ -15,16 +16,19 @@ interface Props {
 
 function EmptyWebhooksListComponent(props: Props): JSX.Element {
     const { query } = props;
+    const { t: tError } = useTranslation('error');
 
     return (
         <div className='cvat-empty-webhooks-list'>
             <Empty description={!query.filter && !query.search ? (
                 <Row justify='center' align='middle'>
                     <Col>
-                        <Text strong>No webhooks created yet ...</Text>
+                        <Text strong>
+                            {tError('Not created yet', { type: 'webhooks' })}
+                        </Text>
                     </Col>
                 </Row>
-            ) : (<Text>No results matched your search</Text>)}
+            ) : (<Text>{tError('No results matched your search')}</Text>)}
             />
         </div>
     );
