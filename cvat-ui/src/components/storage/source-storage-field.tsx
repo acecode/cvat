@@ -6,6 +6,7 @@ import './styles.scss';
 import React from 'react';
 import { StorageData } from 'cvat-core-wrapper';
 import { StorageLocation } from 'reducers';
+import { useTranslation } from 'react-i18next';
 import StorageWithSwitchField from './storage-with-switch-field';
 
 export interface Props {
@@ -32,10 +33,10 @@ export default function SourceStorageField(props: Props): JSX.Element {
         onChangeStorage,
         onChangeLocationValue,
     } = props;
-
+    const { t: tProject } = useTranslation('project');
     return (
         <StorageWithSwitchField
-            storageLabel='Source storage'
+            storageLabel={tProject('create.SourceStorage.label')}
             storageName='sourceStorage'
             switchName='useProjectSourceStorage'
             instanceId={instanceId}

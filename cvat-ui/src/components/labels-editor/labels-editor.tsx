@@ -11,6 +11,7 @@ import ModalConfirm from 'antd/lib/modal/confirm';
 import {
     EditOutlined, BuildOutlined, ExclamationCircleOutlined,
 } from '@ant-design/icons';
+import { Translation } from 'react-i18next';
 
 import { SerializedLabel, SerializedAttribute } from 'cvat-core-wrapper';
 import RawViewer from './raw-viewer';
@@ -226,7 +227,7 @@ export default class LabelsEditor extends React.PureComponent<LabelsEditorProps,
                     tab={(
                         <span>
                             <EditOutlined />
-                            <Text>Raw</Text>
+                            <Text><Translation>{(t) => t('LabelEditor.Raw')}</Translation></Text>
                         </span>
                     )}
                     key='1'
@@ -238,7 +239,7 @@ export default class LabelsEditor extends React.PureComponent<LabelsEditorProps,
                     tab={(
                         <span>
                             <BuildOutlined />
-                            <Text>Constructor</Text>
+                            <Text><Translation>{(t) => t('LabelEditor.Constructor')}</Translation></Text>
                         </span>
                     )}
                     key='2'

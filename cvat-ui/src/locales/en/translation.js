@@ -1,6 +1,7 @@
 export default {
     'Open Data Annotation Platform': 'Open Data Annotation Platform',
     'sign-in': 'Sign in',
+    '_type has been created': 'The {{type}} has been created',
     'modal-cannot-connect-server': {
         title: 'Cannot connect to the server',
         content: `Make sure the CVAT backend and all necessary services<br />
@@ -45,5 +46,22 @@ export default {
     // components/switch-locale-button/switch-locale-button.tsx
     'modal-switch-locale-button': {
         title: 'Switch locale',
+    },
+
+    SourceStorage: {
+        label: 'Source Storage',
+        describe: 'Specify source storage for import resources like annotation, backups',
+        backDescribe: '',
+    },
+    LabelEditor: {
+        Raw: 'Raw',
+        Constructor: 'Constructor',
+
+        'Add label': 'Add label',
+        'Setup skeleton': 'Setup skeleton',
+        'From model': 'From model',
+
+        'Update attributes': 'Update attributes',
+        'Delete label': 'Delete label',
     },
 };

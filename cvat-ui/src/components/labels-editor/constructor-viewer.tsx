@@ -6,6 +6,7 @@
 import React from 'react';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import Button from 'antd/lib/button';
+import { useTranslation } from 'react-i18next';
 
 import ConstructorViewerItem from './constructor-viewer-item';
 import { LabelOptColor } from './common';
@@ -21,17 +22,19 @@ function ConstructorViewer(props: ConstructorViewerProps): JSX.Element {
     const {
         onCreate, onUpdate, onDelete, labels,
     } = props;
+    const { t: tLabelEditor } = useTranslation(undefined, { keyPrefix: 'LabelEditor' });
+
     const list = [
         <Button key='create' type='ghost' onClick={() => onCreate('basic')} className='cvat-constructor-viewer-new-item'>
-            Add label
+            {tLabelEditor('Add label')}
             <PlusCircleOutlined />
         </Button>,
         <Button key='create_skeleton' type='ghost' onClick={() => onCreate('skeleton')} className='cvat-constructor-viewer-new-skeleton-item'>
-            Setup skeleton
+            {tLabelEditor('Setup skeleton')}
             <PlusCircleOutlined />
         </Button>,
         <Button key='from_model' type='ghost' onClick={() => onCreate('model')} className='cvat-constructor-viewer-new-from-model-item'>
-            From model
+            {tLabelEditor('From model')}
             <PlusCircleOutlined />
         </Button>,
     ];

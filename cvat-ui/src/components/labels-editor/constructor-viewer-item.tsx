@@ -6,6 +6,7 @@
 import React from 'react';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import Text from 'antd/lib/typography/Text';
+import { useTranslation } from 'react-i18next';
 
 import CVATTooltip from 'components/common/cvat-tooltip';
 import { computeTextColor } from 'utils/compute-text-color';
@@ -26,11 +27,12 @@ export default function ConstructorViewerItem(props: ConstructorViewerItemProps)
 
     const backgroundColor = color || config.NEW_LABEL_COLOR;
     const textColor = computeTextColor(backgroundColor);
+    const { t: tLabelEditor } = useTranslation(undefined, { keyPrefix: 'LabelEditor' });
 
     return (
         <div style={{ background: backgroundColor }} className='cvat-constructor-viewer-item'>
             <Text style={{ color: textColor }}>{label.name}</Text>
-            <CVATTooltip title='Update attributes'>
+            <CVATTooltip title={tLabelEditor('Update attributes')}>
                 <span
                     style={{ color: textColor }}
                     role='button'
@@ -41,7 +43,7 @@ export default function ConstructorViewerItem(props: ConstructorViewerItemProps)
                     <EditOutlined />
                 </span>
             </CVATTooltip>
-            <CVATTooltip title='Delete label'>
+            <CVATTooltip title={tLabelEditor('Delete label')}>
                 <span
                     style={{ color: textColor }}
                     role='button'

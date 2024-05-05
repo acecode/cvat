@@ -5,7 +5,7 @@ import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
-import type { Config, BaseSimpleField } from '@react-awesome-query-builder/antd';
+import type { Config, BaseSimpleField, SelectFieldSettings } from '@react-awesome-query-builder/antd';
 import { isDev } from './utils/environment';
 
 let firstRun = true;
@@ -100,7 +100,7 @@ export function onLngChangePatchConfig(ns: string, key: string, config: Partial<
                     }
                     const { listValues } = res;
                     if (k in listValues) {
-                        const field = fields[k] as BaseSimpleField<Array<Record<'value' | 'title', string>>>;
+                        const field = fields[k] as BaseSimpleField<SelectFieldSettings>;
                         if (field.fieldSettings?.listValues) {
                             field.fieldSettings.listValues = listValues[k];
                         }

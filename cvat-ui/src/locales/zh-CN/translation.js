@@ -1,7 +1,7 @@
 export default {
     'Open Data Annotation Platform': '开放数据<br/>标记平台',
     'sign-in': '登录',
-
+    '_type has been created': '创建{{type}}成功',
     app: {
         'modal-cannot-connect-server': {
             title: '无法连接到服务器',
@@ -66,5 +66,20 @@ export default {
     // components/switch-locale-button/switch-locale-button.tsx
     'modal-switch-locale-button': {
         title: '切换语言',
+    },
+    StorageFields: {
+        Local: '本地',
+        'Cloud storage': '云存储',
+    },
+    LabelEditor: {
+        Raw: '原文',
+        Constructor: '构造器',
+
+        'Add label': '添加标签',
+        'Setup skeleton': '设置脚手架',
+        'From model': '从模型文件',
+
+        'Update attributes': '更新属性',
+        'Delete label': '删除标签',
     },
 };
