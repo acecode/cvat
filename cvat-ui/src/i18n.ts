@@ -5,6 +5,7 @@ import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
+import type { Config, BaseSimpleField } from '@react-awesome-query-builder/antd';
 import { isDev } from './utils/environment';
 
 let firstRun = true;
@@ -58,6 +59,9 @@ if (firstRun) {
                 'error',
                 'auth',
                 'header',
+                'project',
+                'filter',
+                'cloud-storage',
             ],
             resources: {},
             // @see https://github.com/i18next/i18next-browser-languageDetector?tab=readme-ov-file#detector-options
@@ -73,3 +77,36 @@ if (firstRun) {
 }
 
 export default i18next;
+
+/**
+ * patch { config } fields when lng change
+ * data is load from i18n {ns} and {key}
+ * @param ns filter
+ * @param key
+ * @param config
+ */
+export function onLngChangePatchConfig(ns: string, key: string, config: Partial<Config>): void {
+    if (!config.fields) {
+        return;
+    }
+    i18next.on('languageChanged', (lng) => {
+        const res = i18next.getResource(lng, ns, key);
+        const { fields = {} } = config;
+        if (res) {
+            if (res.labels) {
+                Object.keys(res.labels).forEach((k: string) => {
+                    if (k in fields) {
+                        fields[k].label = res.labels[k];
+                    }
+                    const { listValues } = res;
+                    if (k in listValues) {
+                        const field = fields[k] as BaseSimpleField<Array<Record<'value' | 'title', string>>>;
+                        if (field.fieldSettings?.listValues) {
+                            field.fieldSettings.listValues = listValues[k];
+                        }
+                    }
+                });
+            }
+        }
+    });
+}
