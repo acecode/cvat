@@ -1,4 +1,5 @@
 export default {
+    'Create a new project': 'Create a new project',
     create: {
         title: 'Create a new project',
         Name: 'Name',
@@ -19,5 +20,17 @@ export default {
         },
         'Submit & Open': 'Submit & Open',
         'Submit & Continue': 'Submit & Continue',
+    },
+    'top-bar': {
+        'Create a new project': 'Create a new project',
+        'Create from backup': 'Create from backup',
+    },
+    item: {
+        'Export dataset': 'Export dataset',
+        'Import dataset': 'Import dataset',
+        'Backup Project': 'Backup Project',
+        'View analytics': 'View analytics',
+        'Setup webhooks': 'Setup webhooks',
+        Delete: 'Delete',
     },
 };

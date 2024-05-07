@@ -18,6 +18,7 @@ import { TasksQuery } from 'reducers';
 import { usePrevious } from 'utils/hooks';
 import { MultiPlusIcon } from 'icons';
 import dimensions from 'utils/dimensions';
+import { useTranslation } from 'react-i18next';
 import CvatDropdownMenuPaper from 'components/common/cvat-dropdown-menu-paper';
 import {
     localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues, config,
@@ -43,7 +44,8 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
     const [visibility, setVisibility] = useState(defaultVisibility);
     const history = useHistory();
     const prevImporting = usePrevious(importing);
-
+    const { t } = useTranslation();
+    const { t: tTaskTopBar } = useTranslation('task', { keyPrefix: 'top-bar' });
     useEffect(() => {
         if (prevImporting && !importing) {
             onApplyFilter(query.filter);
@@ -61,7 +63,7 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
                         }}
                         defaultValue={query.search || ''}
                         className='cvat-tasks-page-search-bar'
-                        placeholder='Search ...'
+                        placeholder={t('$t(Search)...')}
                     />
                     <div>
                         <SortingComponent
@@ -103,7 +105,7 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
                                     onClick={(): void => history.push('/tasks/create')}
                                     icon={<PlusOutlined />}
                                 >
-                                    Create a new task
+                                    {tTaskTopBar('Create a new task')}
                                 </Button>
                                 <Button
                                     className='cvat-create-multi-tasks-button'
@@ -111,7 +113,7 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
                                     onClick={(): void => history.push('/tasks/create?many=true')}
                                     icon={<span className='anticon'><MultiPlusIcon /></span>}
                                 >
-                                    Create multi tasks
+                                    {tTaskTopBar('Create multi tasks')}
                                 </Button>
                                 <Button
                                     className='cvat-import-task-button'
@@ -120,7 +122,7 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
                                     icon={<UploadOutlined />}
                                     onClick={() => dispatch(importActions.openImportBackupModal('task'))}
                                 >
-                                    Create from backup
+                                    {tTaskTopBar('Create from backup')}
                                     {importing && <LoadingOutlined />}
                                 </Button>
                             </CvatDropdownMenuPaper>

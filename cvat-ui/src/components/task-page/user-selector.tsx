@@ -8,6 +8,7 @@ import { SelectValue, RefSelectProps } from 'antd/lib/select';
 import Autocomplete from 'antd/lib/auto-complete';
 import Input from 'antd/lib/input';
 import debounce from 'lodash/debounce';
+import { useTranslation } from 'react-i18next';
 
 import { User, getCore } from 'cvat-core-wrapper';
 import { getCVATStore } from 'cvat-store';
@@ -77,6 +78,7 @@ export default function UserSelector(props: Props): JSX.Element {
     const {
         value, className, username, onSelect,
     } = props;
+    const { t } = useTranslation();
     const [searchPhrase, setSearchPhrase] = useState(username || '');
     const [initialUsers, setInitialUsers] = useState<User[]>([]);
     const [users, setUsers] = useState<User[]>([]);
@@ -148,7 +150,7 @@ export default function UserSelector(props: Props): JSX.Element {
         <Autocomplete
             ref={autocompleteRef}
             value={searchPhrase}
-            placeholder='Select a user'
+            placeholder={t('Select a user')}
             onSearch={setSearchPhrase}
             onSelect={handleSelect}
             onBlur={onBlur}

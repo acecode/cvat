@@ -4,6 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Autocomplete from 'antd/lib/auto-complete';
+import { useTranslation } from 'react-i18next';
 
 import config from 'config';
 import { getCore } from 'cvat-core-wrapper';
@@ -26,6 +27,7 @@ export default function ProjectSubsetField(props: Props): JSX.Element {
     const {
         projectId, projectSubsets, value, onChange,
     } = props;
+    const { t: tTask } = useTranslation('task');
 
     const [internalValue, setInternalValue] = useState('');
     const [internalSubsets, setInternalSubsets] = useState<Set<string>>(new Set());
@@ -62,7 +64,7 @@ export default function ProjectSubsetField(props: Props): JSX.Element {
     return (
         <Autocomplete
             value={internalValue}
-            placeholder='Input subset'
+            placeholder={tTask('Input subset')}
             className='cvat-project-search-field cvat-project-subset-field'
             onSearch={setInternalValue}
             onSelect={(_value) => {

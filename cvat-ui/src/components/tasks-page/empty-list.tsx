@@ -37,13 +37,13 @@ function EmptyListComponent(props: Props): JSX.Element {
                         </Row>
                         <Row justify='center' align='middle'>
                             <Col>
-                                <Link to='/tasks/create'>{tError('create a new', { type: tType('Tasks') })}</Link>
+                                <Link to='/tasks/create'>{tError('create a new _type', { type: tType('Task') })}</Link>
                                 <Text type='secondary'>
                                     {' '}
                                     {tError('or try to')}
                                     {' '}
                                 </Text>
-                                <Link to='/projects/create'>{tError('create a new', { type: tType('Projects') })}</Link>
+                                <Link to='/projects/create'>{tError('create a new _type', { type: tType('Project') })}</Link>
                             </Col>
                         </Row>
                     </>

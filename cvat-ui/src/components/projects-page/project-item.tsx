@@ -14,6 +14,7 @@ import Dropdown from 'antd/lib/dropdown';
 import Button from 'antd/lib/button';
 import Badge from 'antd/lib/badge';
 import { MoreOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { CombinedState, Project } from 'reducers';
 import { useCardHeightHOC, usePlugins } from 'utils/hooks';
@@ -36,6 +37,7 @@ export default function ProjectItemComponent(props: Props): JSX.Element {
     const {
         projectInstance: instance,
     } = props;
+    const { t } = useTranslation();
 
     const history = useHistory();
     const ribbonPlugins = usePlugins((state: CombinedState) => state.plugins.components.projectItem.ribbon, props);
@@ -100,11 +102,17 @@ export default function ProjectItemComponent(props: Props): JSX.Element {
                             <div>
                                 {ownerName && (
                                     <>
-                                        <Text type='secondary'>{`Created ${ownerName ? `by ${ownerName}` : ''}`}</Text>
+                                        <Text type='secondary'>
+                                            {
+                                                ownerName ?
+                                                    t('created by _ownerName', { ownerName }) :
+                                                    t('created')
+                                            }
+                                        </Text>
                                         <br />
                                     </>
                                 )}
-                                <Text type='secondary'>{`Last updated ${updated}`}</Text>
+                                <Text type='secondary'>{t('Last updated', { updated })}</Text>
                             </div>
                             <div>
                                 <Dropdown

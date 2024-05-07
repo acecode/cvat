@@ -2,6 +2,20 @@ export default {
     'Open Data Annotation Platform': '开放数据<br/>标记平台',
     'sign-in': '登录',
     '_type has been created': '创建{{type}}成功',
+    'Select _type': '选择{{type}}',
+    Submit: '提交',
+    'Submit & Open': '提交并打开',
+    'Submit & Continue': '提交并继续',
+    Search: '搜索',
+    Edit: '编辑',
+    created: '已创建',
+
+    'created by': '已创建',
+    'created by _ownerName': '由 {{ownerName}} 创建',
+
+    'Sort by': '排序',
+    'Last updated': '最近更新 {{updated}}',
+
     app: {
         'modal-cannot-connect-server': {
             title: '无法连接到服务器',
@@ -28,6 +42,7 @@ export default {
     },
 
     type: {
+        Name: '名称',
         Password: '密码',
         Email: '邮箱',
         'First name': '名',
@@ -36,11 +51,20 @@ export default {
 
         // header
         Projects: '项目',
+        Project: '项目',
+        Task: '任务',
         Tasks: '任务',
+        Job: '作业',
         Jobs: '作业',
+        Model: '模型',
         Models: '模型',
+        'Cloud Storage': '云存储',
         'Cloud Storages': '云存储',
+        Analytic: '分析',
         Analytics: '分析',
+        Subset: '子集',
+        Labels: '标签',
+        files: '文件',
     },
 
     // cvat-ui/src/utils/validation-patterns.ts
@@ -82,4 +106,54 @@ export default {
         'Update attributes': '更新属性',
         'Delete label': '删除标签',
     },
+    QbUtils: {
+        settings: {
+            valueLabel: '值',
+            valuePlaceholder: '值',
+            fieldLabel: '字段',
+            operatorLabel: '运算',
+            funcLabel: '函数',
+            fieldPlaceholder: '选字段',
+            funcPlaceholder: '选函数',
+            operatorPlaceholder: '选运算',
+            lockLabel: '未锁定',
+            lockedLabel: '锁定',
+            deleteLabel: '删除',
+            addGroupLabel: '添加组',
+            addCaseLabel: '加条件',
+            addDefaultCaseLabel: '加默认条件',
+            defaultCaseLabel: '默认:',
+            addRuleLabel: '加条规则',
+            addSubRuleLabel: '加子规则',
+            delGroupLabel: '删除组',
+            notLabel: '非',
+            fieldSourcesPopupTitle: '选来源',
+            valueSourcesPopupTitle: '选值来源',
+        },
+        conjunctions: {
+            AND: '且',
+            OR: '或',
+        },
+        operators: {
+            like: '包含',
+            not_like: '不包含',
+            starts_with: '开头为',
+            ends_with: '结尾为',
+            between: '范围',
+        },
+    },
+    deleteModal: {
+        title: '{{item}} 将被删除',
+        content: '所有相关数据（图片和标注）都会丢失，继续？',
+    },
+    'Open the issue': '打开问题详情',
+    '_type description': '{{type}}描述',
+    'Assigned to': '分配给',
+    'Select a user': '选择一个用户',
+
+    'Basic configuration': '基本配置',
+    'Advanced configuration': '高级配置',
+
+    'Issue Tracker': '问题追踪',
+    'Issue Tracker describe': '添加描述项目问题的追踪服务',
 };

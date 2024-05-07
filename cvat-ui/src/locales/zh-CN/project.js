@@ -18,7 +18,19 @@ export default {
             label: '目标存储',
             describe: '定义目标存储来导出资源，如标注和备份',
         },
-        'Submit & Open': '提交并打开',
-        'Submit & Continue': '提交并继续',
+    },
+    'top-bar': {
+        'Create a new project': '新建项目',
+        'Create from backup': '从备份新建',
+    },
+    item: {
+        'actions-menu': {
+            'Export dataset': '导出数据集',
+            'Import dataset': '导入数据集',
+            'Backup Project': '备份项目',
+            'View analytics': '查看分析',
+            'Setup webhooks': '配置 Webhooks',
+            Delete: '删除',
+        },
     },
 };

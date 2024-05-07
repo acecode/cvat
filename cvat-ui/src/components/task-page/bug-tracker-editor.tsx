@@ -8,6 +8,7 @@ import Button from 'antd/lib/button';
 import Modal from 'antd/lib/modal';
 import Text from 'antd/lib/typography/Text';
 import { Row, Col } from 'antd/lib/grid';
+import { useTranslation } from 'react-i18next';
 
 import patterns from 'utils/validation-patterns';
 
@@ -18,6 +19,8 @@ interface Props {
 
 export default function BugTrackerEditorComponent(props: Props): JSX.Element {
     const { instance, onChange } = props;
+    const { t } = useTranslation();
+    const { t: tError } = useTranslation('error');
 
     const [bugTracker, setBugTracker] = useState(instance.bugTracker);
     const [bugTrackerEditing, setBugTrackerEditing] = useState(false);
@@ -30,8 +33,8 @@ export default function BugTrackerEditorComponent(props: Props): JSX.Element {
         if (value && !patterns.validateURL.pattern.test(value)) {
             if (!shown) {
                 Modal.error({
-                    title: `Could not update the ${instanceType} ${instance.id}`,
-                    content: 'Issue tracker is expected to be URL',
+                    title: tError('Could not update the _item', { item: `${instanceType} ${instance.id}` }),
+                    content: tError('Issue tracker is expected to be URL'),
                     onOk: () => {
                         shown = false;
                     },
@@ -51,7 +54,7 @@ export default function BugTrackerEditorComponent(props: Props): JSX.Element {
             <Row className='cvat-issue-tracker'>
                 <Col>
                     <Text strong className='cvat-text-color'>
-                        Issue Tracker
+                        {t('Issue Tracker')}
                     </Text>
                     <Text editable={{ onChange: onChangeValue }} className='cvat-issue-tracker-value'>
                         {bugTracker}
@@ -64,7 +67,7 @@ export default function BugTrackerEditorComponent(props: Props): JSX.Element {
                         }}
                         className='cvat-open-bug-tracker-button'
                     >
-                        Open the issue
+                        {t('Open the issue')}
                     </Button>
                 </Col>
             </Row>
@@ -75,7 +78,7 @@ export default function BugTrackerEditorComponent(props: Props): JSX.Element {
         <Row className='cvat-issue-tracker'>
             <Col>
                 <Text strong className='cvat-text-color'>
-                    Issue Tracker
+                    {t('Issue Tracker')}
                 </Text>
                 <Text
                     className='cvat-issue-tracker-value'

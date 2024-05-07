@@ -1,4 +1,10 @@
 export default {
+    'Clear filters': 'Clear filters',
+    Filter: 'Filter',
+    Apply: 'Apply',
+    Reset: 'Reset',
+    Recent: 'Recent',
+    'Quick filters': 'Quick filters',
     project: {
         labels: {
             id: 'ID',

@@ -2,6 +2,16 @@ export default {
     'Open Data Annotation Platform': 'Open Data Annotation Platform',
     'sign-in': 'Sign in',
     '_type has been created': 'The {{type}} has been created',
+    'Select _type': 'Select {{type}}',
+    Submit: 'Submit',
+    'Submit & Open': '提交并打开',
+    'Submit & Continue': '提交并继续',
+    Edit: 'Edit',
+    Search: 'Search',
+    created: 'Created',
+
+    'created by _ownerName': 'Created By {{ownerName}}',
+    'Last updated': 'Last updated {{updated}}',
     'modal-cannot-connect-server': {
         title: 'Cannot connect to the server',
         content: `Make sure the CVAT backend and all necessary services<br />
@@ -11,6 +21,7 @@ export default {
     },
 
     type: {
+        Name: 'Name',
         Password: 'Password',
         Email: 'Email',
 
@@ -19,11 +30,19 @@ export default {
         Username: 'Username',
 
         // header
+        Project: 'Project',
         Projects: 'Projects',
+        Task: 'Task',
         Tasks: 'Tasks',
+        Job: 'Job',
         Jobs: 'Jobs',
         'Cloud Storages': 'Cloud Storages',
+        'Cloud Storage': 'Cloud Storage',
+        Analytic: 'Analytic',
         Analytics: 'Analytics',
+        Subset: 'Subset',
+        Labels: 'Labels',
+        files: 'files',
     },
 
     // cvat-ui/src/utils/validation-patterns.ts
@@ -64,4 +83,54 @@ export default {
         'Update attributes': 'Update attributes',
         'Delete label': 'Delete label',
     },
+    QbUtils: {
+        settings: {
+            valueLabel: 'Value',
+            valuePlaceholder: 'Value',
+            fieldLabel: 'Field',
+            operatorLabel: 'Operator',
+            funcLabel: 'Function',
+            fieldPlaceholder: 'Select field',
+            funcPlaceholder: 'Select function',
+            operatorPlaceholder: 'Select operator',
+            lockLabel: 'Lock',
+            lockedLabel: 'Locked',
+            deleteLabel: 'Delete',
+            addGroupLabel: 'Add group',
+            addCaseLabel: 'Add condition',
+            addDefaultCaseLabel: 'Add default condition',
+            defaultCaseLabel: 'Default:',
+            addRuleLabel: 'Add rule',
+            addSubRuleLabel: 'Add sub rule',
+            delGroupLabel: 'Delete',
+            notLabel: 'Not',
+            fieldSourcesPopupTitle: 'Select source',
+            valueSourcesPopupTitle: 'Select value source',
+        },
+        conjunctions: {
+            AND: 'And',
+            OR: 'Or',
+        },
+        operators: {
+            like: 'Contains',
+            not_like: 'Not contains',
+            starts_with: 'Start with',
+            ends_with: 'End with',
+            between: 'Between',
+        },
+    },
+    deleteModal: {
+        title: 'The {{item}} will be deleted',
+        content: 'All related data (images, annotations) will be lost. Continue?',
+    },
+    'Open the issue': 'Open the issue',
+    '_type description': '{{type}} description',
+    'Assigned to': 'Assigned to',
+    'Select a user': 'Select a user',
+
+    'Basic configuration': 'Basic configuration',
+    'Advanced configuration': 'Advanced configuration',
+
+    'Issue Tracker': 'Issue Tracker',
+    'Issue Tracker describe': 'Attach issue tracker where the project is described',
 };

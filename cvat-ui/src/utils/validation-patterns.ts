@@ -2,7 +2,7 @@
 // Copyright (C) 2023 CVAT.ai Corporation
 //
 // SPDX-License-Identifier: MIT
-import i18n from 'i18next';
+import { initialedPromise } from '../i18n';
 
 const validationPatterns = {
     validatePasswordLength: {
@@ -87,21 +87,23 @@ const I18N_KEY = 'validation-patterns';
 
 // update messages from i18n translation:validationPatterns
 // when i18n language changed
-i18n.on('languageChanged', () => {
-    if (i18n.exists(I18N_KEY)) {
-        console.log('update', I18N_KEY);
-        const validationRes: Record<keyof typeof validationPatterns, string> = i18n.getResource(
-            i18n.language,
-            'translation',
-            I18N_KEY,
-        );
-        console.log('validationRes', validationRes);
-        Object.keys(validationRes).forEach((key: string) => {
-            const k = key as unknown as keyof typeof validationPatterns;
-            if (validationPatterns[k]) {
-                validationPatterns[k].message = validationRes[key as unknown as keyof typeof validationRes];
-            }
-        });
-    }
+initialedPromise.then((i18n) => {
+    i18n.on('languageChanged', () => {
+        if (i18n.exists(I18N_KEY)) {
+            console.log('update', I18N_KEY);
+            const validationRes: Record<keyof typeof validationPatterns, string> = i18n.getResource(
+                i18n.language,
+                'translation',
+                I18N_KEY,
+            );
+            console.log('validationRes', validationRes);
+            Object.keys(validationRes).forEach((key: string) => {
+                const k = key as unknown as keyof typeof validationPatterns;
+                if (validationPatterns[k]) {
+                    validationPatterns[k].message = validationRes[key as unknown as keyof typeof validationRes];
+                }
+            });
+        }
+    });
 });
 export default validationPatterns;

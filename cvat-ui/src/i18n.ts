@@ -5,10 +5,16 @@ import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
-import type { Config, BaseSimpleField, SelectFieldSettings } from '@react-awesome-query-builder/antd';
+import { Config, BaseSimpleField, SelectFieldSettings } from '@react-awesome-query-builder/antd';
+import moment from 'moment';
 import { isDev } from './utils/environment';
 
 let firstRun = true;
+let resolve: (result: any) => void;
+
+export const initialedPromise = new Promise<typeof i18next>((res) => {
+    resolve = res;
+});
 
 if (firstRun) {
     firstRun = false;
@@ -27,7 +33,11 @@ if (firstRun) {
                 `./locales/${language}/${namespace}.js`
             );
         }));
-
+    i18next.on('languageChanged', (lng) => {
+        console.log('moment', lng.toLowerCase());
+        moment.locale(lng.toLowerCase());
+        console.log('moment locale', moment.localeData(lng));
+    });
     if (isDev()) {
         i18next.on('failedLoading', (lng, ns, msg) => console.error('failedLoading', { lng, ns, msg }));
         i18next.on('missingKey', (lng, ns, msg) => console.error('missingKey', { lng, ns, msg }));
@@ -72,6 +82,12 @@ if (firstRun) {
                 useSuspense: false,
                 transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p', 'wbr'],
             },
+        }, (err, i18n) => {
+            if (err) {
+                console.error(err);
+            } else {
+                resolve(i18n);
+            }
         });
     }
 }

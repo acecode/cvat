@@ -55,6 +55,7 @@ function NameConfigurationForm(
     { formRef, inputRef }:
     { formRef: RefObject<FormInstance>, inputRef: RefObject<Input> },
 ):JSX.Element {
+    const { t: tError } = useTranslation('error');
     const { t: tProjectCreate } = useTranslation('project', { keyPrefix: 'create' });
     return (
         <Form layout='vertical' ref={formRef}>
@@ -65,7 +66,7 @@ function NameConfigurationForm(
                 rules={[
                     {
                         required: true,
-                        message: 'Please, specify a name',
+                        message: tError('Please specify a', { type: 'name' }),
                     },
                 ]}
             >
@@ -83,14 +84,15 @@ function AdvancedConfigurationForm(props: AdvancedConfigurationProps): JSX.Eleme
         onChangeSourceStorageLocation,
         onChangeTargetStorageLocation,
     } = props;
+    const { t } = useTranslation();
     const { t: tProjectCreate } = useTranslation('project', { keyPrefix: 'create' });
 
     return (
         <Form layout='vertical' ref={formRef} initialValues={initialValues}>
             <Form.Item
                 name='bug_tracker'
-                label={tProjectCreate('issueTracker.label')}
-                extra={tProjectCreate('issueTracker.describe')}
+                label={t('Issue Tracker')}
+                extra={t('Issue Tracker describe')}
                 hasFeedback
                 rules={[
                     {
@@ -227,7 +229,7 @@ export default function CreateProjectContent(): JSX.Element {
                         key='1'
                         header={(
                             <Text className='cvat-title'>
-                                {tProjectCreate('Advanced configuration')}
+                                {t('Advanced configuration')}
                             </Text>
                         )}
                     >
@@ -245,12 +247,12 @@ export default function CreateProjectContent(): JSX.Element {
                 <Row justify='end' gutter={5}>
                     <Col>
                         <Button className='cvat-submit-open-project-button' type='primary' onClick={onSubmitAndOpen}>
-                            {tProjectCreate('Submit & Open')}
+                            {t('Submit & Open')}
                         </Button>
                     </Col>
                     <Col>
                         <Button className='cvat-submit-continue-project-button' type='primary' onClick={onSubmitAndContinue}>
-                            {tProjectCreate('Submit & Continue')}
+                            {t('Submit & Continue')}
                         </Button>
                     </Col>
                 </Row>

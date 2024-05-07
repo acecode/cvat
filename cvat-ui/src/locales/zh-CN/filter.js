@@ -1,4 +1,10 @@
 export default {
+    'Clear filters': '清除过滤',
+    Filter: '过滤',
+    Apply: '应用',
+    Reset: '重置',
+    Recent: '最近',
+    'Quick filters': '快速过滤',
     project: {
         labels: {
             id: 'ID',

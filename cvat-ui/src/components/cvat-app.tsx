@@ -683,4 +683,4 @@ does not support API, which is used by CVAT.
     }
 }
 
-export default compose(withRouter, withTranslation(['base', 'translate']))(CVATApplication);
+export default compose(withRouter, withTranslation())(CVATApplication);

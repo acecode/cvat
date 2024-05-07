@@ -12,6 +12,8 @@ import Collapse from 'antd/lib/collapse';
 import notification from 'antd/lib/notification';
 import Text from 'antd/lib/typography/Text';
 import Alert from 'antd/lib/alert';
+import { Translation } from 'react-i18next';
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import { StorageLocation } from 'reducers';
@@ -730,7 +732,9 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
         return (
             <>
                 <Col span={24}>
-                    <Text className='cvat-text-color'>Project</Text>
+                    <Text className='cvat-text-color'>
+                        <Translation>{(t) => t('type.Project')}</Translation>
+                    </Text>
                 </Col>
                 <Col span={24}>
                     <ProjectSearchField onSelect={this.handleProjectIdChange} value={projectId} />
@@ -746,7 +750,7 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
             return (
                 <>
                     <Col span={24}>
-                        <Text className='cvat-text-color'>Subset</Text>
+                        <Text className='cvat-text-color'><Translation>{(t) => t('type.Subset')}</Translation></Text>
                     </Col>
                     <Col span={24}>
                         <ProjectSubsetField
@@ -769,10 +773,18 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
             return (
                 <>
                     <Col span={24}>
-                        <Text className='cvat-text-color'>Labels</Text>
+                        <Text className='cvat-text-color'>
+                            <Translation>
+                                {(t) => t('type.Labels')}
+                            </Translation>
+                        </Text>
                     </Col>
                     <Col span={24}>
-                        <Text type='secondary'>Project labels will be used</Text>
+                        <Text type='secondary'>
+                            <Translation ns='task'>
+                                {(tTask) => tTask('Project labels will be used')}
+                            </Translation>
+                        </Text>
                     </Col>
                 </>
             );
@@ -781,7 +793,11 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
         return (
             <Col span={24}>
                 <Text type='danger'>* </Text>
-                <Text className='cvat-text-color'>Labels</Text>
+                <Text className='cvat-text-color'>
+                    <Translation>
+                        {(t) => t('type.Labels')}
+                    </Translation>
+                </Text>
                 <LabelsEditor
                     labels={labels}
                     onSubmit={(newLabels): void => {
@@ -802,7 +818,11 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
             <>
                 <Col span={24}>
                     <Text type='danger'>* </Text>
-                    <Text className='cvat-text-color'>Select files</Text>
+                    <Text className='cvat-text-color'>
+                        <Translation>
+                            {(t) => t('Select _type', { type: t('type.files') })}
+                        </Translation>
+                    </Text>
                     <FileManagerComponent
                         many={many}
                         onChangeActiveKey={this.changeFileManagerTab}
@@ -847,7 +867,16 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
         return (
             <Col span={24}>
                 <Collapse className='cvat-advanced-configuration-wrapper'>
-                    <Collapse.Panel key='1' header={<Text className='cvat-title'>Advanced configuration</Text>}>
+                    <Collapse.Panel
+                        key='1'
+                        header={(
+                            <Text className='cvat-title'>
+                                <Translation>
+                                    {(t) => t('Advanced configuration')}
+                                </Translation>
+                            </Text>
+                        )}
+                    >
                         <AdvancedConfigurationForm
                             activeFileManagerTab={activeFileManagerTab}
                             ref={this.advancedConfigurationComponent}
@@ -887,7 +916,7 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
                         onClick={this.handleSubmitAndOpen}
                         disabled={!!uploadFileErrorMessage}
                     >
-                        Submit & Open
+                        <Translation>{ (t) => t('Submit & Open')}</Translation>
                     </Button>
                 </Col>
                 <Col>
@@ -897,7 +926,7 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
                         onClick={this.handleSubmitAndContinue}
                         disabled={!!uploadFileErrorMessage}
                     >
-                        Submit & Continue
+                        <Translation>{ (t) => t('Submit & Continue')}</Translation>
                     </Button>
                 </Col>
             </Row>
@@ -938,9 +967,15 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
                         onClick={this.handleSubmitMultiTasks}
                         disabled={!!uploadFileErrorMessage}
                     >
-                        Submit&nbsp;
-                        {currentFiles.length}
-                        &nbsp;tasks
+                        <Translation>
+                            { (t) => t(
+                                '$t(Submit) {{n}} {{type}}',
+                                {
+                                    n: currentFiles.length,
+                                    type: t('type.Task'),
+                                },
+                            )}
+                        </Translation>
                     </Button>
                 </Col>
             </Row>
@@ -953,7 +988,9 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
         return (
             <Row justify='start' align='middle' className='cvat-create-task-content'>
                 <Col span={24}>
-                    <Text className='cvat-title'>Basic configuration</Text>
+                    <Text className='cvat-title'>
+                        <Translation>{(t) => t('Basic configuration')}</Translation>
+                    </Text>
                 </Col>
 
                 {this.renderBasicBlock()}

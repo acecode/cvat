@@ -9,6 +9,7 @@ import Text from 'antd/lib/typography/Text';
 import Tooltip from 'antd/lib/tooltip';
 import Form, { FormInstance } from 'antd/lib/form';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Translation } from 'react-i18next';
 
 export interface BaseConfiguration {
     name: string;
@@ -76,7 +77,7 @@ export default class BasicConfigurationForm extends React.PureComponent<Props> {
                 <Form.Item
                     hasFeedback
                     name='name'
-                    label={<span>Name</span>}
+                    label={<span><Translation>{(t) => t('type.Name')}</Translation></span>}
                     rules={[
                         {
                             required: true,
@@ -93,33 +94,33 @@ export default class BasicConfigurationForm extends React.PureComponent<Props> {
                 {many ? (
                     <Text type='secondary'>
                         <Tooltip title={() => (
-                            <>
-                                You can substitute in the template:
-                                <ul>
-                                    <li>
-                                        some_text - any text
-                                    </li>
-                                    <li>
-                                        {'{{'}
-                                        index
-                                        {'}}'}
-                                        &nbsp;- index file in set
-                                    </li>
-                                    <li>
-                                        {'{{'}
-                                        file_name
-                                        {'}}'}
-                                        &nbsp;- name of file
-                                    </li>
-                                </ul>
-                                Example:&nbsp;
-                                <i>
-                                    {exampleMultiTaskName || 'Task name 1 - video_1.mp4'}
-                                </i>
-                            </>
+                            <Translation ns='task'>
+                                {(tTask) => (
+                                    <>
+                                        {tTask('You can substitute in the template:')}
+                                        <ul>
+                                            <li>
+                                                {tTask('some_text - any text')}
+                                            </li>
+                                            <li>
+                                                {tTask('{{index}} - $t(index file in set)')}
+                                            </li>
+                                            <li>
+                                                {tTask('{{file_name}} - $t(name of file)')}
+                                            </li>
+                                        </ul>
+                                        {tTask('$t(Example): ')}
+                                        <i>
+                                            {exampleMultiTaskName || 'Task name 1 - video_1.mp4'}
+                                        </i>
+                                    </>
+                                )}
+                            </Translation>
                         )}
                         >
-                            When forming the name, a template is used.
+                            <Translation ns='task'>
+                                {(tTask) => tTask('When forming the name, a template is used.')}
+                            </Translation>
                             {' '}
                             <QuestionCircleOutlined />
                         </Tooltip>
