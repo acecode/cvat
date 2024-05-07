@@ -5,6 +5,7 @@
 
 import React from 'react';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { CursorIcon } from 'icons';
 import { ActiveControl } from 'reducers';
@@ -29,6 +30,7 @@ function CursorControl(props: Props): JSX.Element {
     const {
         canvasInstance, activeControl, cursorShortkey, shortcuts,
     } = props;
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
 
     const handler = (): void => {
         if (activeControl !== ActiveControl.CURSOR) {
@@ -47,7 +49,7 @@ function CursorControl(props: Props): JSX.Element {
                     },
                 }}
             />
-            <CVATTooltip title={`Cursor ${cursorShortkey}`} placement='right'>
+            <CVATTooltip title={`${tAnnotationControl('Cursor')} ${cursorShortkey}`} placement='right'>
                 <Icon
                     component={CursorIcon}
                     className={

@@ -10,11 +10,13 @@ import { SaveIcon } from 'icons';
 import GlobalHotKeys from 'utils/mousetrap-react';
 import CVATTooltip from 'components/common/cvat-tooltip';
 import { CombinedState } from 'reducers';
+import { useTranslation } from 'react-i18next';
 
 const storage = {
     SAVE_ANNOTATION_BUTTON: (props: any & {
         isSaving: boolean;
     }) => {
+        const { t } = useTranslation();
         const keyMap = useSelector((state: CombinedState) => state.shortcuts.keyMap);
         const normKeyMap = useSelector((state: CombinedState) => state.shortcuts.normalizedKeyMap);
         const { isSaving, shortcut, ...rest } = props;
@@ -39,7 +41,7 @@ const storage = {
                         {...rest}
                     >
                         <Icon component={SaveIcon} />
-                        {isSaving ? 'Saving...' : 'Save'}
+                        {isSaving ? t('$t(Saving)...') : t('Save')}
                     </Button>
                 </CVATTooltip>
             </>

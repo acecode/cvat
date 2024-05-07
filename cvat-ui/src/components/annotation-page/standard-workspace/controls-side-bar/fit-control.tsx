@@ -4,6 +4,7 @@
 
 import React from 'react';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { FitIcon } from 'icons';
 import { Canvas } from 'cvat-canvas-wrapper';
@@ -15,9 +16,10 @@ export interface Props {
 
 function FitControl(props: Props): JSX.Element {
     const { canvasInstance } = props;
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
 
     return (
-        <CVATTooltip title='Fit the image [Double Click]' placement='right'>
+        <CVATTooltip title={tAnnotationControl('Fit the image [Double Click]')} placement='right'>
             <Icon className='cvat-fit-control' component={FitIcon} onClick={(): void => canvasInstance.fit()} />
         </CVATTooltip>
     );

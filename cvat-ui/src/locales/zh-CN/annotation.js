@@ -1,0 +1,100 @@
+export default {
+    player_buttons: {
+        'Go back': '后退',
+        'Go back with a filter': '后退使用过滤',
+        'Go back to an empty frame': '后退到空帧',
+
+        'Go next': '前进',
+        'Go next with a filter': '前进使用过滤',
+        'Go next to an empty frame': '前进到空帧',
+
+        'Go to the first frame': '到首帧',
+        'Go back with a step': '后退一段',
+        Play: '播放',
+        Pause: '暂停',
+        'Go next with a step': '前进一段',
+        'Go to the last frame': '到尾帧',
+    },
+    player_navigation: {
+
+        delete: {
+            title: '确认删除帧 #{{num}}？',
+            content: '当前帧不会被导航到和导出数据集，但依旧可以从标注修复',
+        },
+        'Delete the frame': '删除帧',
+        'Restore the frame': '恢复帧',
+        'Create frame URL': '创建帧 URL 链接',
+        'Press _shortcut to focus here': '按 {{shortcut}} 聚焦到这',
+    },
+    'left-group': {
+        'Saving changes on the server': '服务器正在保存修改',
+        'CVAT is saving your annotations, please wait': 'CVAT 正在保存标注，请稍候',
+        Menu: '菜单',
+        Undo: '撤销',
+        Redo: '重做',
+        Done: '完成',
+        Block: '拦截',
+        'Press _shortcut to postpone running the algorithm ': '按 "{{shortcut}}" 来打断运行的算法',
+    },
+    'right-group': {
+        'Could not receive annotation guide': '无法获取标注指南',
+        Fullscreen: '全屏',
+        Guide: '指南',
+        Info: '信息',
+        Filters: '过滤器',
+
+        Standard: '标准',
+        'Single shape': '单图形',
+        'Attribute annotation': '属性标注',
+        'Tag annotation': '标签标注',
+        Review: '检察',
+    },
+    control: {
+        Cursor: '指针',
+        'Move the image': '移动图片',
+        'Rotate the image anticlockwise': '逆时针旋转',
+        'Rotate the image clockwise': '顺时针旋转',
+        'Fit the image [Double Click]': '适合图片 [双击]',
+        'Select a region of interest': '选择感兴趣的一个区域',
+        'Merge shapes/tracks': '合并图形/tracks',
+
+        'Group shapes/tracks': '组合图形/tracks',
+        'Select and press _shortcut to reset a group.': '选中并按下 {{shortcut}} 来重置组。',
+        'Join masks': '合并蒙版',
+        'Split a track': '分离 track',
+        'Slice a mask/polygon shape': '分割 蒙版/多边形图形',
+    },
+    Tools: {
+        'Interaction error occurred': '发生 Interaction 错误',
+        'Detection error occurred': '发生 Detection 错误',
+        // title
+        'AI Tools': 'AI 工具',
+        // Tabs
+        Interactors: 'Interactors',
+        Detectors: '识别器',
+        Trackers: 'Trackers',
+
+        'Making a server request': '请求服务器',
+        'Waiting for a server response..': '等待服务器返回..',
+
+        'Convert masks to polygons': '蒙版转换为多边形',
+        Label: '标记',
+        'No available trackers found': '未找到可用的 trackers',
+    },
+    'image-setups': {
+        'Image grid': '图片网格',
+        Size: '大小',
+        Color: '颜色',
+        Opacity: '透明度',
+        White: '白',
+        Black: '黑',
+        Red: '红',
+        Green: '绿',
+        Blue: '蓝',
+        'Color settings': '颜色设置',
+        Brightness: '亮度',
+        Contrast: '对比度',
+        Saturation: '饱和度',
+        'Reset color settings': '重置颜色设定',
+    },
+};

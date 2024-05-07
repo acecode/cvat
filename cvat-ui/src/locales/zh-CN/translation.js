@@ -3,6 +3,8 @@ export default {
     'sign-in': '登录',
     '_type has been created': '创建{{type}}成功',
     'Select _type': '选择{{type}}',
+    Saving: '保存',
+    Save: '保存',
     Submit: '提交',
     'Submit & Open': '提交并打开',
     'Submit & Continue': '提交并继续',
@@ -156,4 +158,12 @@ export default {
 
     'Issue Tracker': '问题追踪',
     'Issue Tracker describe': '添加描述项目问题的追踪服务',
+
+    'file-manager': {
+        'My computer': '我的电脑',
+        'Connected file share': '连接文件存储',
+        'Remote sources': '远程来源',
+        'Enter one URL per line': '每行输入一个URL',
+        'Cloud Storage': '云存储',
+    },
 };

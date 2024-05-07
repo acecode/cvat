@@ -3,6 +3,8 @@ export default {
     'sign-in': 'Sign in',
     '_type has been created': 'The {{type}} has been created',
     'Select _type': 'Select {{type}}',
+    Saving: 'Saving',
+    Save: 'Save',
     Submit: 'Submit',
     'Submit & Open': '提交并打开',
     'Submit & Continue': '提交并继续',
@@ -133,4 +135,12 @@ export default {
 
     'Issue Tracker': 'Issue Tracker',
     'Issue Tracker describe': 'Attach issue tracker where the project is described',
+
+    'file-manager': {
+        'My computer': 'My computer',
+        'Connected file share': 'Connected file share',
+        'Remote sources': 'Remote sources',
+        'Enter one URL per line': 'Enter one URL per line',
+        'Cloud Storage': 'Cloud Storage',
+    },
 };

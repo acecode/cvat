@@ -4,6 +4,7 @@
 
 import React from 'react';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { MoveIcon } from 'icons';
 import { ActiveControl } from 'reducers';
@@ -18,9 +19,10 @@ export interface Props {
 
 function MoveControl(props: Props): JSX.Element {
     const { canvasInstance, activeControl } = props;
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
 
     return (
-        <CVATTooltip title='Move the image' placement='right'>
+        <CVATTooltip title={tAnnotationControl('Move the image')} placement='right'>
             <Icon
                 component={MoveIcon}
                 className={

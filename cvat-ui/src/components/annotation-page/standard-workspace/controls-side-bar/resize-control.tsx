@@ -4,6 +4,7 @@
 
 import React from 'react';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { ZoomIcon } from 'icons';
 import { ActiveControl } from 'reducers';
@@ -17,9 +18,10 @@ export interface Props {
 
 function ResizeControl(props: Props): JSX.Element {
     const { activeControl, canvasInstance } = props;
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
 
     return (
-        <CVATTooltip title='Select a region of interest' placement='right'>
+        <CVATTooltip title={tAnnotationControl('Select a region of interest')} placement='right'>
             <Icon
                 component={ZoomIcon}
                 className={

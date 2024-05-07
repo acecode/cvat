@@ -10,6 +10,7 @@ import Modal from 'antd/lib/modal';
 import Button from 'antd/lib/button';
 import Text from 'antd/lib/typography/Text';
 import Dropdown from 'antd/lib/dropdown';
+import { useTranslation } from 'react-i18next';
 
 import AnnotationMenuContainer from 'containers/annotation-page/top-bar/annotation-menu';
 import { MainMenuIcon, UndoIcon, RedoIcon } from 'icons';
@@ -54,6 +55,7 @@ function LeftGroup(props: Props): JSX.Element {
         onFinishDraw,
         onSwitchToolsBlockerState,
     } = props;
+    const { t: tLeftGroup } = useTranslation('annotation', { keyPrefix: 'left-group' });
 
     const includesDoneButton = [
         ActiveControl.DRAW_POLYGON,
@@ -92,8 +94,14 @@ function LeftGroup(props: Props): JSX.Element {
     return (
         <>
             <GlobalHotKeys keyMap={subKeyMap} handlers={handlers} />
-            <Modal className='cvat-saving-job-modal' title='Saving changes on the server' visible={saving} footer={[]} closable={false}>
-                <Text>CVAT is saving your annotations, please wait </Text>
+            <Modal
+                className='cvat-saving-job-modal'
+                title={tLeftGroup('Saving changes on the server')}
+                visible={saving}
+                footer={[]}
+                closable={false}
+            >
+                <Text>{tLeftGroup('CVAT is saving your annotations, please wait')}</Text>
                 <LoadingOutlined />
             </Modal>
             <Col className='cvat-annotation-header-left-group'>
@@ -104,7 +112,7 @@ function LeftGroup(props: Props): JSX.Element {
                 >
                     <Button type='link' className='cvat-annotation-header-menu-button cvat-annotation-header-button'>
                         <Icon component={MainMenuIcon} />
-                        Menu
+                        {tLeftGroup('Menu')}
                     </Button>
                 </Dropdown>
                 <SaveButtonComponent
@@ -122,7 +130,7 @@ function LeftGroup(props: Props): JSX.Element {
                         onClick={onUndoClick}
                     >
                         <Icon component={UndoIcon} />
-                        <span>Undo</span>
+                        <span>{tLeftGroup('Undo')}</span>
                     </Button>
                 </CVATTooltip>
                 <CVATTooltip overlay={`Redo: ${redoAction} ${redoShortcut}`}>
@@ -133,14 +141,14 @@ function LeftGroup(props: Props): JSX.Element {
                         onClick={onRedoClick}
                     >
                         <Icon component={RedoIcon} />
-                        Redo
+                        <span>{tLeftGroup('Redo')}</span>
                     </Button>
                 </CVATTooltip>
                 {includesDoneButton ? (
                     <CVATTooltip overlay={`Press "${drawShortcut}" to finish`}>
                         <Button type='link' className='cvat-annotation-header-done-button cvat-annotation-header-button' onClick={onFinishDraw}>
                             <CheckCircleOutlined />
-                            Done
+                            {tLeftGroup('Done')}
                         </Button>
                     </CVATTooltip>
                 ) : null}
@@ -154,7 +162,7 @@ function LeftGroup(props: Props): JSX.Element {
                             onClick={shouldEnableToolsBlockerOnClick ? onSwitchToolsBlockerState : undefined}
                         >
                             <StopOutlined />
-                            Block
+                            {tLeftGroup('Block')}
                         </Button>
                     </CVATTooltip>
                 ) : null}

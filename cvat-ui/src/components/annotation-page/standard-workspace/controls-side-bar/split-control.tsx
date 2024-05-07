@@ -5,6 +5,7 @@
 
 import React from 'react';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { SplitIcon } from 'icons';
 import { Canvas } from 'cvat-canvas-wrapper';
@@ -30,6 +31,7 @@ function SplitControl(props: Props): JSX.Element {
     const {
         shortcuts, activeControl, canvasInstance, updateActiveControl, disabled,
     } = props;
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
 
     const dynamicIconProps = activeControl === ActiveControl.SPLIT ?
         {
@@ -60,7 +62,7 @@ function SplitControl(props: Props): JSX.Element {
                     },
                 }}
             />
-            <CVATTooltip title={`Split a track ${shortcuts.SWITCH_SPLIT_MODE.displayValue}`} placement='right'>
+            <CVATTooltip title={`${tAnnotationControl('Split a track')} ${shortcuts.SWITCH_SPLIT_MODE.displayValue}`} placement='right'>
                 <Icon {...dynamicIconProps} component={SplitIcon} />
             </CVATTooltip>
         </>

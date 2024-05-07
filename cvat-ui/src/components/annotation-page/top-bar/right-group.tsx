@@ -10,6 +10,7 @@ import Select from 'antd/lib/select';
 import Button from 'antd/lib/button';
 import Modal from 'antd/lib/modal';
 import notification from 'antd/lib/notification';
+import { useTranslation } from 'react-i18next';
 
 import {
     FilterIcon, FullscreenIcon, GuideIcon, InfoIcon,
@@ -42,7 +43,18 @@ function RightGroup(props: Props): JSX.Element {
         annotationFilters,
         initialOpenGuide,
     } = props;
+    const { t: tRightGroup, i18n } = useTranslation('annotation', { keyPrefix: 'right-group' });
 
+    /**
+     * try use translation or just use { key };
+     * @param key
+     */
+    function tRightGroupSafe(key: string): string {
+        if (i18n.exists(`annotation:right-group.${key}`)) {
+            return tRightGroup(key);
+        }
+        return key;
+    }
     const filters = annotationFilters.length;
 
     const openGuide = useCallback(() => {
@@ -67,7 +79,7 @@ function RightGroup(props: Props): JSX.Element {
             }
         }).catch((error: unknown) => {
             notification.error({
-                message: 'Could not receive annotation guide',
+                message: tRightGroup('Could not receive annotation guide'),
                 description: error instanceof Error ? error.message : console.error('error'),
             });
         });
@@ -121,7 +133,7 @@ function RightGroup(props: Props): JSX.Element {
                 }}
             >
                 <Icon component={FullscreenIcon} />
-                Fullscreen
+                {tRightGroup('Fullscreen')}
             </Button>
             { jobInstance.guideId !== null && (
                 <Button
@@ -130,7 +142,7 @@ function RightGroup(props: Props): JSX.Element {
                     onClick={openGuide}
                 >
                     <Icon component={GuideIcon} />
-                    Guide
+                    {tRightGroup('Guide')}
                 </Button>
             )}
             <Button
@@ -139,7 +151,7 @@ function RightGroup(props: Props): JSX.Element {
                 onClick={showStatistics}
             >
                 <Icon component={InfoIcon} />
-                Info
+                {tRightGroup('Info')}
             </Button>
             <Button
                 type='link'
@@ -149,7 +161,7 @@ function RightGroup(props: Props): JSX.Element {
                 onClick={showFilters}
             >
                 <Icon component={FilterIcon} />
-                Filters
+                {tRightGroup('Filters')}
             </Button>
             <div>
                 <Select
@@ -165,14 +177,14 @@ function RightGroup(props: Props): JSX.Element {
                             }
                             return (
                                 <Select.Option disabled={ws !== Workspace.STANDARD3D} key={ws} value={ws}>
-                                    {ws}
+                                    {tRightGroupSafe(ws)}
                                 </Select.Option>
                             );
                         }
                         if (ws !== Workspace.STANDARD3D) {
                             return (
                                 <Select.Option key={ws} value={ws}>
-                                    {ws}
+                                    {tRightGroupSafe(ws)}
                                 </Select.Option>
                             );
                         }

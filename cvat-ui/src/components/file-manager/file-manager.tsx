@@ -5,6 +5,8 @@
 
 import './styles.scss';
 import React, { RefObject } from 'react';
+import { type TFunction } from 'i18next';
+import { Translation } from 'react-i18next';
 
 import Tabs from 'antd/lib/tabs';
 import Input from 'antd/lib/input';
@@ -120,12 +122,11 @@ export class FileManager extends React.PureComponent<Props, State> {
         });
     }
 
-    private renderLocalSelector(): JSX.Element {
+    private renderLocalSelector(tFileManager: TFunction): JSX.Element {
         const { many, onUploadLocalFiles } = this.props;
         const { files } = this.state;
-
         return (
-            <Tabs.TabPane className='cvat-file-manager-local-tab' key='local' tab='My computer'>
+            <Tabs.TabPane className='cvat-file-manager-local-tab' key='local' tab={tFileManager('My computer')}>
                 <LocalFiles
                     files={files.local}
                     many={many}
@@ -144,9 +145,9 @@ export class FileManager extends React.PureComponent<Props, State> {
         );
     }
 
-    private renderShareSelector(): JSX.Element {
+    private renderShareSelector(tFileManager: TFunction): JSX.Element {
         return (
-            <Tabs.TabPane key='share' tab='Connected file share'>
+            <Tabs.TabPane key='share' tab={tFileManager('Connected file share')}>
                 <RemoteBrowser
                     resource='share'
                     onSelectFiles={this.handleUploadSharedStorageFiles}
@@ -155,12 +156,12 @@ export class FileManager extends React.PureComponent<Props, State> {
         );
     }
 
-    private renderRemoteSelector(): JSX.Element {
+    private renderRemoteSelector(tFileManager: TFunction): JSX.Element {
         const { onUploadRemoteFiles } = this.props;
         const { files } = this.state;
 
         return (
-            <Tabs.TabPane key='remote' tab='Remote sources'>
+            <Tabs.TabPane key='remote' tab={tFileManager('Remote sources')}>
                 <Input.TextArea
                     className='cvat-file-selector-remote'
                     placeholder='Enter one URL per line'
@@ -181,13 +182,13 @@ export class FileManager extends React.PureComponent<Props, State> {
         );
     }
 
-    private renderCloudStorageSelector(): JSX.Element {
+    private renderCloudStorageSelector(tFileManager: TFunction): JSX.Element {
         const { cloudStorage, potentialCloudStorage } = this.state;
         return (
             <Tabs.TabPane
                 key='cloudStorage'
                 className='cvat-create-task-page-cloud-storage-tab'
-                tab={<span> Cloud Storage </span>}
+                tab={tFileManager('Cloud Storage')}
             >
                 <CloudStorageTab
                     formRef={this.cloudStorageTabFormRef}
@@ -210,22 +211,26 @@ export class FileManager extends React.PureComponent<Props, State> {
         const { active } = this.state;
 
         return (
-            <Tabs
-                type='card'
-                activeKey={active}
-                tabBarGutter={5}
-                onChange={(activeKey: string): void => {
-                    onChangeActiveKey(activeKey);
-                    this.setState({
-                        active: activeKey as any,
-                    });
-                }}
-            >
-                {this.renderLocalSelector()}
-                {this.renderShareSelector()}
-                {this.renderRemoteSelector()}
-                {this.renderCloudStorageSelector()}
-            </Tabs>
+            <Translation keyPrefix='file-manager'>
+                {(tFileManager) => (
+                    <Tabs
+                        type='card'
+                        activeKey={active}
+                        tabBarGutter={5}
+                        onChange={(activeKey: string): void => {
+                            onChangeActiveKey(activeKey);
+                            this.setState({
+                                active: activeKey as any,
+                            });
+                        }}
+                    >
+                        {this.renderLocalSelector(tFileManager)}
+                        {this.renderShareSelector(tFileManager)}
+                        {this.renderRemoteSelector(tFileManager)}
+                        {this.renderCloudStorageSelector(tFileManager)}
+                    </Tabs>
+                )}
+            </Translation>
         );
     }
 }

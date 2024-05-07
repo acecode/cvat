@@ -4,6 +4,7 @@
 
 import React from 'react';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { getCVATStore } from 'cvat-store';
 import { Canvas } from 'cvat-canvas-wrapper';
@@ -30,6 +31,7 @@ function SliceControl(props: Props): JSX.Element {
     const {
         updateActiveControl, canvasInstance, activeControl, disabled, shortcuts,
     } = props;
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
 
     const dynamicIconProps =
         activeControl === ActiveControl.SLICE ?
@@ -68,7 +70,7 @@ function SliceControl(props: Props): JSX.Element {
                     },
                 }}
             />
-            <CVATTooltip title={`Slice a mask/polygon shape ${shortcuts.SWITCH_SLICE_MODE.displayValue}`} placement='right'>
+            <CVATTooltip title={`${tAnnotationControl('Slice a mask/polygon shape')} ${shortcuts.SWITCH_SLICE_MODE.displayValue}`} placement='right'>
                 <Icon {...dynamicIconProps} component={SliceIcon} />
             </CVATTooltip>
         </>

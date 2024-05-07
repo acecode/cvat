@@ -5,6 +5,7 @@
 
 import React from 'react';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { MergeIcon } from 'icons';
 import { Canvas } from 'cvat-canvas-wrapper';
@@ -30,7 +31,7 @@ function MergeControl(props: Props): JSX.Element {
     const {
         shortcuts, activeControl, canvasInstance, updateActiveControl, disabled,
     } = props;
-
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
     const dynamicIconProps =
         activeControl === ActiveControl.MERGE ?
             {
@@ -62,7 +63,7 @@ function MergeControl(props: Props): JSX.Element {
                     },
                 }}
             />
-            <CVATTooltip title={`Merge shapes/tracks ${shortcuts.SWITCH_MERGE_MODE.displayValue}`} placement='right'>
+            <CVATTooltip title={`${tAnnotationControl('Merge shapes/tracks')} ${shortcuts.SWITCH_MERGE_MODE.displayValue}`} placement='right'>
                 <Icon {...dynamicIconProps} component={MergeIcon} />
             </CVATTooltip>
         </>

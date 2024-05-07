@@ -6,6 +6,7 @@
 import React from 'react';
 import Icon from '@ant-design/icons';
 import Popover from 'antd/lib/popover';
+import { useTranslation } from 'react-i18next';
 
 import { RotateIcon } from 'icons';
 import { Rotation } from 'reducers';
@@ -21,20 +22,21 @@ export interface Props {
 const CustomPopover = withVisibilityHandling(Popover, 'rotate-canvas');
 function RotateControl(props: Props): JSX.Element {
     const { anticlockwiseShortcut, clockwiseShortcut, rotateFrame } = props;
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
 
     return (
         <CustomPopover
             placement='right'
             content={(
                 <>
-                    <CVATTooltip title={`Rotate the image anticlockwise ${anticlockwiseShortcut}`} placement='topRight'>
+                    <CVATTooltip title={`${tAnnotationControl('Rotate the image anticlockwise')} ${anticlockwiseShortcut}`} placement='topRight'>
                         <Icon
                             className='cvat-rotate-canvas-controls-left'
                             onClick={(): void => rotateFrame(Rotation.ANTICLOCKWISE90)}
                             component={RotateIcon}
                         />
                     </CVATTooltip>
-                    <CVATTooltip title={`Rotate the image clockwise ${clockwiseShortcut}`} placement='topRight'>
+                    <CVATTooltip title={`${tAnnotationControl('Rotate the image clockwise')} ${clockwiseShortcut}`} placement='topRight'>
                         <Icon
                             className='cvat-rotate-canvas-controls-right'
                             onClick={(): void => rotateFrame(Rotation.CLOCKWISE90)}

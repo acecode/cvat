@@ -5,6 +5,7 @@
 
 import React from 'react';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { GroupIcon } from 'icons';
 import { Canvas } from 'cvat-canvas-wrapper';
@@ -40,6 +41,7 @@ function GroupControl(props: Props): JSX.Element {
         disabled,
         shortcuts,
     } = props;
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
 
     const dynamicIconProps =
         activeControl === ActiveControl.GROUP ?
@@ -60,8 +62,8 @@ function GroupControl(props: Props): JSX.Element {
             };
 
     const title = [
-        `Group shapes/tracks ${shortcuts.SWITCH_GROUP_MODE.displayValue}`,
-        `Select and press ${shortcuts.RESET_GROUP.displayValue} to reset a group.`,
+        `${tAnnotationControl('Group shapes/tracks')} ${shortcuts.SWITCH_GROUP_MODE.displayValue}`,
+        `${tAnnotationControl('Select and press _shortcut to reset a group.', { shortcut: shortcuts.RESET_GROUP.displayValue })}`,
     ].join(' ');
 
     return disabled ? (

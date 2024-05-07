@@ -4,6 +4,7 @@
 
 import React from 'react';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 import { Canvas } from 'cvat-canvas-wrapper';
 import { ActiveControl } from 'reducers';
@@ -32,7 +33,7 @@ function JoinControl(props: Props): JSX.Element {
         disabled,
         shortcuts,
     } = props;
-
+    const { t: tAnnotationControl } = useTranslation('annotation', { keyPrefix: 'control' });
     const dynamicIconProps =
         activeControl === ActiveControl.JOIN ?
             {
@@ -63,7 +64,7 @@ function JoinControl(props: Props): JSX.Element {
                     },
                 }}
             />
-            <CVATTooltip title={`Join masks ${shortcuts.SWITCH_JOIN_MODE.displayValue}`} placement='right'>
+            <CVATTooltip title={`${tAnnotationControl('Join masks')} ${shortcuts.SWITCH_JOIN_MODE.displayValue}`} placement='right'>
                 <Icon {...dynamicIconProps} component={JoinIcon} />
             </CVATTooltip>
         </>
