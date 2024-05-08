@@ -15,4 +15,20 @@ export default {
     'Select project': '选择$t(translation:type.Project)',
     'Input subset': '输入$t(translation:type.Subset)',
     'Project labels will be used': '项目标签也会被(继承)使用',
+    Open: '打开',
+    progress: {
+        done: '完成',
+        'on review': '审核中',
+        annotating: '标注',
+        total: '全部',
+    },
+    actions: {
+        'Upload annotations': '上传标注',
+        'Export task dataset': '导出任务数据集',
+        'Open bug tracker': '打开错误追踪',
+        'Automatic annotation': '自动标注',
+        'Backup Task': '备份任务',
+        'View analytics': '查看分析',
+        'Move to project': '移入项目',
+    },
 };

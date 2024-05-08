@@ -14,4 +14,20 @@ export default {
     'some_text - any text': 'some_text - any text',
     'Select project': 'Select $t(translation:type.Project)',
     'Project labels will be used': 'Project labels will be used',
+    Open: 'Open',
+    progress: {
+        done: 'done',
+        'on review': 'on review',
+        annotating: 'annotating',
+        total: 'total',
+    },
+    actions: {
+        'Upload annotations': 'Upload annotations',
+        'Export task dataset': 'Export task dataset',
+        'Open bug tracker': 'Open bug tracker',
+        'Automatic annotation': 'Automatic annotation',
+        'Backup Task': 'Backup Task',
+        'View analytics': 'View analytics',
+        'Move to project': 'Move to project',
+    },
 };

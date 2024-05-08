@@ -9,6 +9,7 @@ import Card from 'antd/lib/card';
 import Descriptions from 'antd/lib/descriptions';
 import { MoreOutlined } from '@ant-design/icons';
 import Dropdown from 'antd/lib/dropdown';
+import { useTranslation } from 'react-i18next';
 
 import { Job } from 'cvat-core-wrapper';
 import { useCardHeightHOC } from 'utils/hooks';
@@ -33,6 +34,7 @@ function JobCardComponent(props: Props): JSX.Element {
     const [expanded, setExpanded] = useState<boolean>(false);
     const history = useHistory();
     const height = useCardHeight();
+    const { t } = useTranslation();
     const onClick = (event: React.MouseEvent): void => {
         const url = `/tasks/${job.taskId}/jobs/${job.id}`;
         if (event.ctrlKey) {
@@ -67,8 +69,8 @@ function JobCardComponent(props: Props): JSX.Element {
             )}
         >
             <Descriptions column={1} size='small'>
-                <Descriptions.Item label='Stage'>{job.stage}</Descriptions.Item>
-                <Descriptions.Item label='State'>{job.state}</Descriptions.Item>
+                <Descriptions.Item label={t('Stage')}>{job.stage}</Descriptions.Item>
+                <Descriptions.Item label={t('State')}>{job.state}</Descriptions.Item>
                 { expanded ? (
                     <Descriptions.Item label='Size'>{job.stopFrame - job.startFrame + 1}</Descriptions.Item>
                 ) : null}

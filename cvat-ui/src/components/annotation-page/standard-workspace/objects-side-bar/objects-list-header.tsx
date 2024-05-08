@@ -14,6 +14,7 @@ import Icon, {
 } from '@ant-design/icons';
 import { Col, Row } from 'antd/lib/grid';
 import Text from 'antd/lib/typography/Text';
+import { useTranslation } from 'react-i18next';
 
 import StatesOrderingSelector from 'components/annotation-page/standard-workspace/objects-side-bar/states-ordering-selector';
 import CVATTooltip from 'components/common/cvat-tooltip';
@@ -109,12 +110,12 @@ function ObjectListHeader(props: Props): JSX.Element {
     const {
         workspace, readonly, statesOrdering, count, changeStatesOrdering,
     } = props;
-
+    const { t } = useTranslation();
     return (
         <div className='cvat-objects-sidebar-states-header'>
             <Row justify='space-between' align='middle'>
                 <Col span={24}>
-                    <Text>{`Items: ${count}`}</Text>
+                    <Text>{`${t('Items')}: ${count}`}</Text>
                     <StatesOrderingSelector
                         statesOrdering={statesOrdering}
                         changeStatesOrdering={changeStatesOrdering}

@@ -6,6 +6,7 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import message from 'antd/lib/message';
+import { useTranslation } from 'react-i18next';
 
 import { LabelType } from 'cvat-core-wrapper';
 import { CombinedState, ObjectType } from 'reducers';
@@ -23,6 +24,7 @@ function LabelsListComponent(): JSX.Element {
     const states = useSelector((state: CombinedState) => state.annotation.annotations.states);
     const keyMap = useSelector((state: CombinedState) => state.shortcuts.keyMap);
     const labelIDs = labels.map((label: any): number => label.id);
+    const { t } = useTranslation();
 
     const [keyToLabelMapping, setKeyToLabelMapping] = useState<Record<string, number>>(
         Object.fromEntries(labelIDs.slice(0, 10).map((labelID: number, idx: number) => [(idx + 1) % 10, labelID])),
@@ -101,7 +103,7 @@ function LabelsListComponent(): JSX.Element {
         <div className='cvat-objects-sidebar-labels-list'>
             <GlobalHotKeys keyMap={subKeyMap} handlers={handlers} />
             <div className='cvat-objects-sidebar-labels-list-header'>
-                <Text>{`Items: ${labels.length}`}</Text>
+                <Text>{`${t('Items')}: ${labels.length}`}</Text>
             </div>
             {labelIDs.map(
                 (labelID: number): JSX.Element => (

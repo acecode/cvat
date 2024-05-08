@@ -89,4 +89,22 @@ export default {
         Saturation: 'Saturation',
         'Reset color settings': 'Reset color settings',
     },
+    Appearance: {
+        Appearance: 'Appearance',
+        'Color by': 'Color by',
+        Opacity: 'Opacity',
+        'Selected opacity': 'Selected opacity',
+        'Outlined borders': 'Outlined borders',
+        'Show bitmap': 'Show bitmap',
+        'Show projections': 'Show projections',
+    },
+    menu: {
+        'Upload annotations': 'Upload annotations',
+        'Export job dataset': 'Export job dataset',
+        'Remove annotations': 'Remove annotations',
+        'Run actions': 'Run actions',
+        'Open the task': 'Open the task',
+        'Finish the job': 'Finish the job',
+        'Renew the job': 'Renew the job',
+    },
 };

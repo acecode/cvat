@@ -36,7 +36,7 @@ function ProjectActionsMenuComponent(props: Props): JSX.Element {
     const onDeleteProject = useCallback((): void => {
         Modal.confirm({
             title: t('deleteModal.title', { item: `${t('type.Projects')} #${projectInstance.id}` }),
-            content: t('deleteModal.content'),
+            content: t('deleteModal.content', { data: `${t('type.Images')},${t('type.Annotations')}` }),
             className: 'cvat-modal-confirm-remove-project',
             onOk: () => {
                 dispatch(deleteProjectAsync(projectInstance));

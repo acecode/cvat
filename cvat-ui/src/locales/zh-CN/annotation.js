@@ -97,4 +97,22 @@ export default {
         Saturation: '饱和度',
         'Reset color settings': '重置颜色设定',
     },
+    Appearance: {
+        Appearance: '展现',
+        'Color by': '颜色用于',
+        Opacity: '透明度',
+        'Selected opacity': '选中透明度',
+        'Outlined borders': '描边边缘',
+        'Show bitmap': '显示位图',
+        'Show projections': '显示投影',
+    },
+    menu: {
+        'Upload annotations': '更新标注',
+        'Export job dataset': '导出作业数据集',
+        'Remove annotations': '移除标注',
+        'Run actions': '执行操作',
+        'Open the task': '打开任务',
+        'Finish the job': '完成作业',
+        'Renew the job': '重开作业',
+    },
 };

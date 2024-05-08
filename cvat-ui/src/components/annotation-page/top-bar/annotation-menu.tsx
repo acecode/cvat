@@ -6,6 +6,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { withRouter, RouteComponentProps } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 import Modal from 'antd/lib/modal';
 import Text from 'antd/lib/typography/Text';
@@ -51,7 +52,7 @@ function AnnotationMenuComponent(props: Props & RouteComponentProps): JSX.Elemen
         setForceExitAnnotationFlag,
         saveAnnotations,
     } = props;
-
+    const { t: tAnnoMenu } = useTranslation('annotation', { keyPrefix: 'menu' });
     const jobStage = jobInstance.stage;
     const jobState = jobInstance.state;
     const taskID = jobInstance.taskId;
@@ -92,7 +93,7 @@ function AnnotationMenuComponent(props: Props & RouteComponentProps): JSX.Elemen
             let removeOnlyKeyframes = false;
             const { Panel } = Collapse;
             Modal.confirm({
-                title: 'Remove Annotations',
+                title: tAnnoMenu('Remove Annotations'),
                 content: (
                     <div>
                         <Text>You are going to remove the annotations from the client. </Text>
@@ -194,9 +195,9 @@ function AnnotationMenuComponent(props: Props & RouteComponentProps): JSX.Elemen
             className='cvat-annotation-menu'
             selectable={false}
         >
-            <Menu.Item key={Actions.LOAD_JOB_ANNO}>Upload annotations</Menu.Item>
-            <Menu.Item key={Actions.EXPORT_JOB_DATASET}>Export job dataset</Menu.Item>
-            <Menu.Item key={Actions.REMOVE_ANNOTATIONS}>Remove annotations</Menu.Item>
+            <Menu.Item key={Actions.LOAD_JOB_ANNO}>{tAnnoMenu('Upload annotations')}</Menu.Item>
+            <Menu.Item key={Actions.EXPORT_JOB_DATASET}>{tAnnoMenu('Export job dataset')}</Menu.Item>
+            <Menu.Item key={Actions.REMOVE_ANNOTATIONS}>{tAnnoMenu('Remove annotations')}</Menu.Item>
             <Menu.Item
                 key={Actions.RUN_ACTIONS}
                 onClick={() => {
@@ -207,7 +208,7 @@ function AnnotationMenuComponent(props: Props & RouteComponentProps): JSX.Elemen
                     );
                 }}
             >
-                Run actions
+                {tAnnoMenu('Run actions')}
             </Menu.Item>
             <Menu.Item key={Actions.OPEN_TASK}>
                 <a
@@ -218,7 +219,7 @@ function AnnotationMenuComponent(props: Props & RouteComponentProps): JSX.Elemen
                         return false;
                     }}
                 >
-                    Open the task
+                    {tAnnoMenu('Open the task')}
                 </a>
             </Menu.Item>
             <Menu.SubMenu popupClassName='cvat-annotation-menu-job-state-submenu' key='job-state-submenu' title='Change job state'>
@@ -236,9 +237,9 @@ function AnnotationMenuComponent(props: Props & RouteComponentProps): JSX.Elemen
                 </Menu.Item>
             </Menu.SubMenu>
             {[JobStage.ANNOTATION, JobStage.VALIDATION].includes(jobStage) ?
-                <Menu.Item key={Actions.FINISH_JOB}>Finish the job</Menu.Item> : null}
+                <Menu.Item key={Actions.FINISH_JOB}>{tAnnoMenu('Finish the job')}</Menu.Item> : null}
             {jobStage === JobStage.ACCEPTANCE ?
-                <Menu.Item key={Actions.RENEW_JOB}>Renew the job</Menu.Item> : null}
+                <Menu.Item key={Actions.RENEW_JOB}>{tAnnoMenu('Renew the job')}</Menu.Item> : null}
         </Menu>
     );
 }

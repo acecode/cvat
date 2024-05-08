@@ -11,6 +11,7 @@ import Icon, {
 } from '@ant-design/icons';
 import { Row, Col } from 'antd/lib/grid';
 import Text from 'antd/lib/typography/Text';
+import { useTranslation } from 'react-i18next';
 
 import {
     activateObject, fetchAnnotationsAsync, changeFrameAsync, highlightConflict,
@@ -38,6 +39,7 @@ export default function LabelsListComponent(): JSX.Element {
     const workspace = useSelector((state: CombinedState) => state.annotation.workspace);
     const ready = useSelector((state: CombinedState) => state.annotation.canvas.ready);
     const activeControl = useSelector((state: CombinedState) => state.annotation.canvas.activeControl);
+    const { t } = useTranslation();
 
     let frames = issues
         .filter((issue: Issue) => !issuesResolvedHidden || !issue.resolved)
@@ -78,7 +80,7 @@ export default function LabelsListComponent(): JSX.Element {
             <div className='cvat-objects-sidebar-issues-list-header'>
                 <Row justify='start' align='middle'>
                     <Col>
-                        <Text>{`Items: ${frameIssues.length}`}</Text>
+                        <Text>{`${t('Items')}: ${frameIssues.length}`}</Text>
                     </Col>
                     <Col offset={1}>
                         <CVATTooltip title='Find the previous frame with issues'>
@@ -174,12 +176,12 @@ export default function LabelsListComponent(): JSX.Element {
                                 <Row justify='space-between'>
                                     <Col>
                                         <Text strong>
-                                            {`#${frameIssue.id} • Issue`}
+                                            {`#${frameIssue.id} • ${t('Issue')}`}
                                         </Text>
                                     </Col>
                                     <Col offset={1}>
                                         <Text type='secondary'>
-                                            {`created ${moment(frameIssue.createdDate).fromNow()}`}
+                                            {`${t('created')} ${moment(frameIssue.createdDate).fromNow()}`}
                                         </Text>
                                     </Col>
                                 </Row>
@@ -236,7 +238,7 @@ export default function LabelsListComponent(): JSX.Element {
                             <Row>
                                 <Text strong>
                                     {`#${frameConflict.id} • ${frameConflict.severity === ConflictSeverity.WARNING ?
-                                        'Warning' : 'Conflict'}`}
+                                        t('Warning') : t('Conflict')}`}
                                 </Text>
                             </Row>
                             <Row>

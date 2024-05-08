@@ -11,6 +11,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import Text from 'antd/lib/typography/Text';
 import Tabs from 'antd/lib/tabs';
 import Layout from 'antd/lib/layout';
+import { useTranslation } from 'react-i18next';
 
 import { CombinedState } from 'reducers';
 import { DimensionType } from 'cvat-core-wrapper';
@@ -58,6 +59,7 @@ function ObjectsSideBar(props: StateToProps & DispatchToProps & OwnProps): JSX.E
     const {
         sidebarCollapsed, collapseSidebar, objectsList, jobInstance,
     } = props;
+    const { t } = useTranslation();
 
     const collapse = (): void => {
         const [collapser] = window.document.getElementsByClassName('cvat-objects-sidebar');
@@ -98,15 +100,15 @@ function ObjectsSideBar(props: StateToProps & DispatchToProps & OwnProps): JSX.E
             </span>
 
             <Tabs type='card' defaultActiveKey='objects' className='cvat-objects-sidebar-tabs'>
-                <Tabs.TabPane tab={<Text strong>Objects</Text>} key='objects'>
+                <Tabs.TabPane tab={<Text strong>{t('Objects')}</Text>} key='objects'>
                     {objectsList}
                 </Tabs.TabPane>
-                <Tabs.TabPane forceRender tab={<Text strong>Labels</Text>} key='labels'>
+                <Tabs.TabPane forceRender tab={<Text strong>{t('Labels')}</Text>} key='labels'>
                     <LabelsList />
                 </Tabs.TabPane>
 
                 {is2D ? (
-                    <Tabs.TabPane tab={<Text strong>Issues</Text>} key='issues'>
+                    <Tabs.TabPane tab={<Text strong>{t('Issues')}</Text>} key='issues'>
                         <IssuesListComponent />
                     </Tabs.TabPane>
                 ) : null}
