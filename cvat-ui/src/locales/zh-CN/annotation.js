@@ -114,5 +114,6 @@ export default {
         'Open the task': '打开任务',
         'Finish the job': '完成作业',
         'Renew the job': '重开作业',
+        'Change job state': '更改作业状态',
     },
 };

@@ -106,5 +106,6 @@ export default {
         'Open the task': 'Open the task',
         'Finish the job': 'Finish the job',
         'Renew the job': 'Renew the job',
+        'Change job state': 'Change job state',
     },
 };
