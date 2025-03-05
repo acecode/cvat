@@ -2,6 +2,7 @@
 // Copyright (C) CVAT.ai Corporation
 //
 // SPDX-License-Identifier: MIT
+import { onLanguageChanged } from 'i18n';
 
 const validationPatterns = {
     validatePasswordLength: {
@@ -81,5 +82,13 @@ const validationPatterns = {
         message: 'Input phone number is not correct',
     },
 };
+
+onLanguageChanged((lng, i18n) => {
+    const info: Record<string, string> = i18n.getResource(lng, 'base', 'validation-patterns');
+    Object.entries(info).forEach(([key, value]) => {
+        const item = validationPatterns[key as keyof typeof validationPatterns];
+        item.message = value;
+    });
+});
 
 export default validationPatterns;

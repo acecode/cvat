@@ -15,6 +15,7 @@ import { SortingComponent, ResourceFilterHOC, defaultVisibility } from 'componen
 
 import dimensions from 'utils/dimensions';
 
+import { useTranslation } from 'react-i18next';
 import {
     localStorageRecentKeyword, localStorageRecentCapacity,
     predefinedFilterValues, config,
@@ -37,6 +38,7 @@ export default function StoragesTopBar(props: Props): JSX.Element {
     } = props;
     const history = useHistory();
     const [visibility, setVisibility] = useState(defaultVisibility);
+    const { t, i18n } = useTranslation();
 
     return (
         <Row justify='center' align='middle' className='cvat-cloud-storages-list-top-bar'>
@@ -49,7 +51,7 @@ export default function StoragesTopBar(props: Props): JSX.Element {
                         }}
                         defaultValue={query.search || ''}
                         className='cvat-cloudstorages-page-tasks-search-bar'
-                        placeholder='Search ...'
+                        placeholder={t('search.placeholder', 'Search...')}
                     />
                     <div>
                         <SortingComponent
@@ -59,6 +61,7 @@ export default function StoragesTopBar(props: Props): JSX.Element {
                             )}
                             defaultFields={query.sort?.split(',') || ['-ID']}
                             sortingFields={['ID', 'Provider type', 'Updated date', 'Display name', 'Resource', 'Credentials type', 'Owner', 'Description']}
+                            sortingLabelMap={i18n.getResource(i18n.language, 'base', 'cloudStorage.fields')}
                             onApplySorting={(sorting: string | null) => {
                                 onApplySorting(sorting);
                             }}

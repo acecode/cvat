@@ -5,6 +5,7 @@
 
 import { Config } from '@react-awesome-query-builder/antd';
 import asyncFetchUsers from 'components/resource-sorting-filtering/request-users';
+import { onLanguageChangedReplaceKeys } from '../../i18n';
 
 export const config: Partial<Config> = {
     fields: {
@@ -88,3 +89,5 @@ export const predefinedFilterValues = {
     'Azure storages': '{"and":[{"==":[{"var":"provider_type"},"AZURE_CONTAINER"]}]}',
     'Google cloud storages': '{"and":[{"==":[{"var":"provider_type"},"GOOGLE_CLOUD_STORAGE"]}]}',
 };
+
+onLanguageChangedReplaceKeys(predefinedFilterValues, 'filter.quick-keys');

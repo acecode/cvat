@@ -9,6 +9,7 @@ import Input from 'antd/lib/input';
 import { JobsQuery } from 'reducers';
 import dimensions from 'utils/dimensions';
 import { SortingComponent, ResourceFilterHOC, defaultVisibility } from 'components/resource-sorting-filtering';
+import { useTranslation } from 'react-i18next';
 import {
     localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues, config,
 } from './jobs-filter-configuration';
@@ -29,6 +30,7 @@ function TopBarComponent(props: Props): JSX.Element {
         query, onApplyFilter, onApplySorting, onApplySearch,
     } = props;
     const [visibility, setVisibility] = useState(defaultVisibility);
+    const { t, i18n } = useTranslation();
 
     return (
         <Row className='cvat-jobs-page-top-bar' justify='center' align='middle'>
@@ -41,7 +43,7 @@ function TopBarComponent(props: Props): JSX.Element {
                         }}
                         defaultValue={query.search || ''}
                         className='cvat-jobs-page-search-bar'
-                        placeholder='Search ...'
+                        placeholder={t('search.placeholder', 'Search...')}
                     />
                     <div>
                         <SortingComponent
@@ -51,6 +53,7 @@ function TopBarComponent(props: Props): JSX.Element {
                             )}
                             defaultFields={query.sort?.split(',') || ['-ID']}
                             sortingFields={['ID', 'Assignee', 'Updated date', 'Stage', 'State', 'Task ID', 'Project ID', 'Task name', 'Project name']}
+                            sortingLabelMap={i18n.getResource(i18n.language, 'base', 'job.fields')}
                             onApplySorting={onApplySorting}
                         />
                         <FilteringComponent
