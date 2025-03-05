@@ -18,6 +18,7 @@ import WorkspaceSettingsContainer from 'containers/header/settings-modal/workspa
 import PlayerSettingsContainer from 'containers/header/settings-modal/player-settings';
 import ShortcutsSettingsContainer from 'containers/header/settings-modal/shortcuts-settings';
 import { CombinedState } from 'reducers';
+import { useTranslation } from 'react-i18next';
 
 interface SettingsModalProps {
     visible: boolean;
@@ -31,6 +32,8 @@ function SettingsModal(props: SettingsModalProps): JSX.Element {
     const shortcuts = useSelector((state: CombinedState) => state.shortcuts);
     const [settingsInitialized, setSettingsInitialized] = useState(false);
     const dispatch = useDispatch();
+    const { t: tSettings } = useTranslation('header', { keyPrefix: 'settings' });
+    const { t: tBase } = useTranslation('base');
 
     useEffect(() => {
         if (!settingsInitialized) return;
@@ -54,19 +57,19 @@ function SettingsModal(props: SettingsModalProps): JSX.Element {
     const tabItems = [
         {
             key: 'player',
-            label: <Text>Player</Text>,
+            label: <Text>{tSettings('Player.label', 'Player')}</Text>,
             icon: <PlayCircleOutlined />,
             children: <PlayerSettingsContainer />,
         },
         {
             key: 'workspace',
-            label: <Text>Workspace</Text>,
+            label: <Text>{tSettings('Workspace.label', 'Workspace')}</Text>,
             icon: <LaptopOutlined />,
             children: <WorkspaceSettingsContainer />,
         },
         {
             key: 'shortcuts',
-            label: <Text>Shortcuts</Text>,
+            label: <Text>{tSettings('Shortcuts.label', 'Shortcuts')}</Text>,
             icon: <BuildOutlined />,
             children: <ShortcutsSettingsContainer />,
         },
@@ -74,14 +77,14 @@ function SettingsModal(props: SettingsModalProps): JSX.Element {
 
     return (
         <Modal
-            title='Settings'
+            title={tSettings('title')}
             open={visible}
             onCancel={onClose}
             width={800}
             className='cvat-settings-modal'
             footer={(
                 <Button className='cvat-close-settings-button' type='default' onClick={onClose}>
-                    Close
+                    {tBase('button.Close')}
                 </Button>
             )}
         >

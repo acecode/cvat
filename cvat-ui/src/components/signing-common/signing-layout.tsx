@@ -9,8 +9,10 @@ import { CombinedState } from 'reducers';
 import Layout from 'antd/lib/layout';
 import { Col, Row } from 'antd/lib/grid';
 import Title from 'antd/lib/typography/Title';
+import { useTranslation } from 'react-i18next';
 import CVATLogo from 'components/common/cvat-logo';
 import SVGSigningBackground from '../../assets/signing-background.svg';
+import SwitchI18nLocale from '../switch-i18n-locale';
 
 interface SignInLayoutComponentProps {
     children: JSX.Element | JSX.Element[];
@@ -53,6 +55,7 @@ function SignInLayout(props: SignInLayoutComponentProps): JSX.Element {
     const { children } = props;
     const { Content, Header } = Layout;
     const subtitle = useSelector((state: CombinedState) => state.about.server.subtitle);
+    const { t } = useTranslation();
 
     const titleSizes = {
         xs: { span: 0 },
@@ -78,13 +81,16 @@ function SignInLayout(props: SignInLayoutComponentProps): JSX.Element {
                     <Col {...logoSizes}>
                         <CVATLogo />
                     </Col>
+                    <Col span={2}>
+                        <SwitchI18nLocale />
+                    </Col>
                 </Row>
             </Header>
             <Layout className='cvat-signing-layout'>
                 <Content>
                     <Row justify='center' align='middle' style={{ height: '100%' }}>
                         <Col {...titleSizes} className='cvat-signing-title'>
-                            <Title>{subtitle}</Title>
+                            <Title>{t(subtitle, subtitle)}</Title>
                         </Col>
                         {children}
                     </Row>
