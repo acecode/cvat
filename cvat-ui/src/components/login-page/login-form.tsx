@@ -61,7 +61,7 @@ function LoginFormComponent(props: Props): JSX.Element {
         <Col className='cvat-credentials-link'>
             <Text strong>
                 <Link to={{ pathname: '/auth/password/reset', search: resetSearch }}>
-                    {t('Forgot password?')}
+                    {t('forgot-password', 'Forgot password?')}
                 </Link>
             </Text>
         </Col>
@@ -88,14 +88,14 @@ function LoginFormComponent(props: Props): JSX.Element {
                         <Row>
                             <Col className='cvat-credentials-link'>
                                 <Text strong>
-                                    {t('New user?')}
+                                    {t('new-user', 'New user?')}
                                     &nbsp;
                                     <Link to={{
                                         pathname: '/auth/register',
                                         search: authQuery ? new URLSearchParams(authQuery).toString() : '',
                                     }}
                                     >
-                                        {t('Create an account')}
+                                        {t('create-an-account', 'Create an account')}
                                     </Link>
                                 </Text>
                             </Col>
@@ -107,7 +107,7 @@ function LoginFormComponent(props: Props): JSX.Element {
                 }
             </Row>
             <Col>
-                <Title level={2}>{t('Sign in')}</Title>
+                <Title level={2}>{t('sign-in', 'Sign in')}</Title>
             </Col>
             <Form
                 className={`cvat-login-form ${credential ? 'cvat-login-form-extended' : ''}`}
@@ -124,7 +124,7 @@ function LoginFormComponent(props: Props): JSX.Element {
                         >
                             <Input
                                 autoComplete='credential'
-                                prefix={<Text>{t('Email or username')}</Text>}
+                                prefix={<Text>{t('credential', 'Email or username')}</Text>}
                                 className={credential ? 'cvat-input-floating-label-above' : 'cvat-input-floating-label'}
                                 suffix={credential && (
                                     <Icon
@@ -157,7 +157,7 @@ function LoginFormComponent(props: Props): JSX.Element {
                                     <CVATSigningInput
                                         type={CVATInputType.PASSWORD}
                                         id='password'
-                                        placeholder={tBase('Password')}
+                                        placeholder={tBase('Password', 'Password')}
                                         autoComplete='password'
                                     />
                                 </Form.Item>
@@ -172,7 +172,7 @@ function LoginFormComponent(props: Props): JSX.Element {
                                         disabled={!credential}
                                         htmlType='submit'
                                     >
-                                        {tBase('button.Next')}
+                                        {tBase('button.Next', 'Next')}
                                     </Button>
                                 </Form.Item>
                             )
