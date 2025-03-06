@@ -47,6 +47,7 @@ import { ShortcutScope } from 'utils/enums';
 import { subKeyMap } from 'utils/component-subkeymap';
 import SettingsModal from './settings-modal/settings-modal';
 import OrganizationsSearch from './organizations-search';
+import SwitchI18nLocale from '../switch-i18n-locale';
 
 interface StateToProps {
     user: any;
@@ -546,6 +547,7 @@ function HeaderComponent(props: Props): JSX.Element {
                         }}
                     />
                 </CVATTooltip>
+                <SwitchI18nLocale />
                 <Dropdown
                     trigger={['click']}
                     destroyPopupOnHide

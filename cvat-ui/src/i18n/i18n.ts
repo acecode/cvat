@@ -6,14 +6,15 @@ import { initReactI18next } from 'react-i18next';
 import languageDetector from 'i18next-browser-languagedetector';
 // @see https://github.com/i18next/i18next-resources-to-backend
 import resourcesToBackend from 'i18next-resources-to-backend';
+// import moment from 'moment';
 
 export const supportedLanguages: Record<string, string> = {
     en: 'English',
     'zh-CN': '简体中文',
 } as const;
 
-function init(): void {
-    i18n
+async function init(): Promise<void> {
+    await i18n
         .use(initReactI18next)
         .use(languageDetector)
         .use(
@@ -41,6 +42,7 @@ function init(): void {
             ns: [
                 'base',
                 'login-form',
+                'register-form',
             ],
             debug: process.env.NODE_ENV === 'development',
             interpolation: {
@@ -48,9 +50,16 @@ function init(): void {
             },
         });
 
+    i18n.services.formatter!.add('upcase', (value: any, lng, options) => {
+        const { num } = options;
+        const n = num || 1;
+        return value.charAt(n - 1).toUpperCase() + value.slice(n);
+    });
+
     if (process.env.NODE_ENV === 'development') {
         console.log('i18next init');
         i18n.on('failedLoading', (lng, ns, msg) => console.error(msg));
+        // just for debug;
         // @ts-ignore
         window.i18n = i18n;
     }
@@ -65,9 +74,21 @@ if (firstRun) {
 
 type I18next = typeof i18n;
 
-export function onLanguageChanged(callback: (i18n: I18next, lng: string) => void): () => void {
-    i18n.on('languageChanged', (lng) => callback(i18n, lng));
+/**
+ * update translation resource when language changed
+ * used by
+ * 1. const defined string not in function call utils/validation-patterns.ts
+ * 2. other lib
+ * @param callback
+ * @return offListen function
+ */
+export function onLanguageChanged(callback: (lng: string, i18n: I18next) => void): () => void {
+    i18n.on('languageChanged', (lng) => callback(lng, i18n));
     return () => i18n.off('languageChanged', callback);
 }
+
+// onLanguageChanged((lng) => {
+//     moment.locale(lng);
+// });
 
 export default i18n;
