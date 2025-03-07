@@ -10,6 +10,7 @@ import resourcesToBackend from 'i18next-resources-to-backend';
 
 export const supportedLanguages: Record<string, string> = {
     en: 'English',
+    zh: '中文',
     'zh-CN': '简体中文',
 } as const;
 
@@ -43,6 +44,7 @@ async function init(): Promise<void> {
                 'base',
                 'login-form',
                 'register-form',
+                'header',
             ],
             debug: process.env.NODE_ENV === 'development',
             interpolation: {
@@ -73,18 +75,44 @@ if (firstRun) {
 }
 
 type I18next = typeof i18n;
-
+type OffFunction = () => void;
 /**
  * update translation resource when language changed
+ *
  * used by
  * 1. const defined string not in function call utils/validation-patterns.ts
  * 2. other lib
  * @param callback
- * @return offListen function
+ * @return {OffFunction} stopListenFunction
  */
-export function onLanguageChanged(callback: (lng: string, i18n: I18next) => void): () => void {
+export function onLanguageChanged(callback: (lng: string, i18n: I18next) => void): OffFunction {
     i18n.on('languageChanged', (lng) => callback(lng, i18n));
     return () => i18n.off('languageChanged', callback);
+}
+
+/**
+ * when language Changed
+ * load {ns}:{key} as a map
+ * replace keys on obj
+ *
+ * @params obj targetObject
+ * @params key
+ * @params ns
+ * @return {OffFunction} stopListenFunction
+ */
+export function onLanguageChangedReplaceKeys<T extends Record<string, any>>(obj: T, key: string, ns = 'base'): OffFunction {
+    return onLanguageChanged((lng, i18N) => {
+        const resource = i18N.getResource(lng, ns, key);
+        Object.keys(obj).forEach((prop) => {
+            type K = keyof T;
+            if (resource && resource[prop]) {
+                const text = resource[prop] as K;
+                const k = prop as K;
+                obj[text] = obj[k];
+                delete obj[k];
+            }
+        });
+    });
 }
 
 // onLanguageChanged((lng) => {

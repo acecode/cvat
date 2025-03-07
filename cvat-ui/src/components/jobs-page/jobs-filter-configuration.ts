@@ -5,6 +5,7 @@
 
 import { Config } from '@react-awesome-query-builder/antd';
 import asyncFetchUsers from 'components/resource-sorting-filtering/request-users';
+import { onLanguageChangedReplaceKeys } from '../../i18n/i18n';
 
 export const config: Partial<Config> = {
     fields: {
@@ -118,3 +119,5 @@ export const predefinedFilterValues = {
     'Assigned to me': '{"and":[{"==":[{"var":"assignee"},"<username>"]}]}',
     'Not completed': '{"!":{"or":[{"==":[{"var":"state"},"completed"]},{"==":[{"var":"stage"},"acceptance"]}]}}',
 };
+
+onLanguageChangedReplaceKeys(predefinedFilterValues, 'filter.quick-keys');
